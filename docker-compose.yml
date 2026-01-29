@@ -5,6 +5,7 @@ services:
     build:
       context: ./server
     container_name: laravel-api
+    restart: unless-stopped
     ports:
       - "8000:8000"
     environment:
