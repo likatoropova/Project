@@ -106,7 +106,12 @@
    ```bash
    npm install
    ```
-4. Запустить dev-сервер:
+4. Для работы Vite:
+   ```
+   cd client
+   npm install @vitejs/plugin-react --save-dev
+   ```
+5. Запустить dev-сервер:
    ```bash
    npm run dev
    ```
