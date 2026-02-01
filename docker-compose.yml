@@ -11,6 +11,8 @@ services:
     environment:
       - APP_ENV=local
       - DB_HOST=mysql
+    volumes:
+      - ./server/database/migrations:/var/www/html/database/migrations
     depends_on:
       - mysql
     networks:
