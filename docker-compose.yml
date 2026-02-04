@@ -13,6 +13,8 @@ services:
       - DB_HOST=mysql
     volumes:
       - ./server/database/migrations:/var/www/html/database/migrations
+      - ./server/database/factories:/var/www/html/database/factories
+      - ./server/database/seeders:/var/www/html/database/seeders
       - ./server/app:/var/www/html/app
       - ./server/config:/var/www/html/config
       - ./server/routes:/var/www/html/routes
