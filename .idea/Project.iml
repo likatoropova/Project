@@ -120,6 +120,11 @@
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/tijsverkoyen/css-to-inline-styles" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/voku/portable-ascii" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/darkaonline/l5-swagger" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/swagger-api/swagger-ui" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/zircote/swagger-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

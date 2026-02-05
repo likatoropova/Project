@@ -129,6 +129,11 @@
       <path value="$PROJECT_DIR$/server/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/server/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/server/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/server/vendor/swagger-api/swagger-ui" />
+      <path value="$PROJECT_DIR$/server/vendor/darkaonline/l5-swagger" />
+      <path value="$PROJECT_DIR$/server/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/server/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/server/vendor/doctrine/annotations" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
