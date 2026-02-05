@@ -203,3 +203,164 @@ DB_USERNAME=laravel
 DB_PASSWORD=laravel_password
 ```
 >💡 Убедитесь, что DB_CONNECTION=mysql, иначе Laravel будет использовать SQLite по умолчанию.
+
+---
+
+# 🚨 Решение ошибки отсутствия папки `vendor`
+## ❌ Проблема
+При первом запуске проекта вы можете увидеть следующую ошибку:
+```bash
+PHP Warning:  require(/var/www/html/vendor/autoload.php): Failed to open stream: No such file or directory in /var/www/html/artisan on line 10
+PHP Fatal error:  Uncaught Error: Failed opening required '/var/www/html/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/html/artisan:10
+```
+**Причина:** Папка `vendor` отсутствует на локальном компьютере, и при монтировании `./server:/var/www/html` она перезаписывается содержимым хоста.
+---
+## 📋 Полный список команд (для быстрого копирования)
+
+```bash
+# 1. Остановка контейнеров
+docker-compose down
+
+# 2. Пересборка образа
+docker-compose build --no-cache server
+
+# 3. Запуск без монтирования
+docker-compose up -d
+
+# 4. Ожидание запуска (10 секунд)
+# Подождите 10 секунд...
+
+# 5. Проверка создания vendor
+docker-compose ps
+docker-compose exec server ls -la vendor
+
+# 6. Копирование vendor на хост
+docker cp laravel-api:/var/www/html/vendor ./server/vendor
+docker cp laravel-api:/var/www/html/.env ./server/.env
+
+# 7. Перезапуск с монтированием
+docker-compose restart server
+
+# 8. Финальная проверка
+docker-compose ps
+docker-compose logs server
+
+# 9. Генерация ключа и миграции
+docker exec laravel-api php artisan key:generate
+docker exec laravel-api php artisan migrate
+```
+---
+## ✅ Решение (пошаговая инструкция)
+### ⚙️ Подготовка
+Откройте терминал в корневой папке проекта (где находится `docker-compose.yml`).
+
+---
+### 📝 Шаг 1: Временное отключение монтирования
+Откройте файл `docker-compose.yml` и **закомментируйте** строки с монтированием:
+```yaml
+services:
+  server:
+    build:
+      context: ./server
+    container_name: laravel-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - DB_HOST=mysql
+    # volumes:
+    #   - ./server:/var/www/html  ← ЗАКОММЕНТИРУЙТЕ ЭТУ СТРОКУ
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+```
+---
+### 🛑 Шаг 2: Остановка контейнеров
+```bash
+docker-compose down
+```
+---
+### 🔄 Шаг 3: Пересборка образа
+```bash
+docker-compose build --no-cache server
+```
+---
+### ▶️ Шаг 4: Запуск контейнера без монтирования
+```bash
+docker-compose up -d
+```
+_Дождитесь запуска контейнеров!_
+
+---
+### ✅ Шаг 5: Проверка создания папки `vendor`
+```bash
+# Проверьте статус контейнеров
+docker-compose ps
+
+# Проверьте наличие папки vendor внутри контейнера
+docker-compose exec server ls -la vendor
+```
+**Ожидаемый результат:** Вы должны увидеть список файлов и папок внутри `vendor`.
+---
+### 💾 Шаг 6: Копирование `vendor` на локальный компьютер
+```bash
+# Скопируйте vendor из контейнера на хост
+docker cp laravel-api:/var/www/html/vendor ./server/vendor
+
+# Скопируйте .env файл (если его нет)
+docker cp laravel-api:/var/www/html/.env ./server/.env
+```
+---
+### 🔧 Шаг 7: Возврат монтирования
+Откройте `docker-compose.yml` и **раскомментируйте** монтирование:
+```yaml
+services:
+  server:
+    build:
+      context: ./server
+    container_name: laravel-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - DB_HOST=mysql
+    volumes:
+      - ./server:/var/www/html  ← РАСКОММЕНТИРУЙТЕ ЭТУ СТРОКУ
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+```
+---
+### 🔄 Шаг 8: Перезапуск контейнера
+```bash
+docker-compose restart server
+```
+---
+### 🎯 Шаг 9: Финальная проверка
+```bash
+# Проверьте статус контейнера
+docker-compose ps
+
+# Проверьте логи (должны быть чистые, без ошибок)
+docker-compose logs server
+
+# Проверьте, что приложение доступно
+# Откройте в браузере: http://localhost:8000
+```
+---
+### 🔑 Шаг 10: Настройка окружения (если нужно)
+```bash
+# Сгенерируйте ключ приложения
+docker exec laravel-api php artisan key:generate
+
+# Выполните миграции
+docker exec laravel-api php artisan migrate
+
+# Проверьте подключение к базе данных
+docker exec laravel-api php artisan migrate:status
+```
+---
