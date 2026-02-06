@@ -134,6 +134,9 @@
       <path value="$PROJECT_DIR$/server/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/server/vendor/zircote/swagger-php" />
       <path value="$PROJECT_DIR$/server/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/server/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/server/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/server/vendor/tymon/jwt-auth" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -125,6 +125,9 @@
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/swagger-api/swagger-ui" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/zircote/swagger-php" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/tymon/jwt-auth" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
