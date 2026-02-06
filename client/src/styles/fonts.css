@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "Montserrat Alternates-Regular";
+    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat Alternates-Medium";
+    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat Alternates-SemiBold";
+    src: url(fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat Alternates-Bold";
+    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf);
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url(fonts/Roboto/Roboto.ttf);
+}

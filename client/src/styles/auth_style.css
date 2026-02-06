@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    height: 77vh;
+}
+
+#email, #password {
+    width: 504px;
+    height: 28px;
+    padding: 12px 24px;
+    border: 1px solid #797979;
+    border-radius: 7px;
+    color: #999A9B;
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+#email {
+    margin-top: 44px;
+}
+
+#password {
+    margin-top: 16px;
+}
+
+.password_group {
+    position: relative;
+}
+
+.password_group > img {
+    position: absolute;
+    height: 20px;
+    top: 33px;
+    right: 20px;
+}
+
+.forgot_pass{
+    text-decoration: none;
+    color: #3B3B3B;
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+    margin-top: 12px;
+}
+
+.butn_for_login {
+    width: 100%;
+    margin-top: 36px;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFF;
+    background-color: #FA70A6;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.to_registration {
+    max-width: 391px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 18px;
+    width: 391px;
+    margin-top: 28px;
+    margin-bottom: 68px;
+}
+
+.to_registration > p {
+    font-size: 16px;
+    color: #3B3B3B;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.to_registration > a {
+    font-size: 16px;
+    color: #3B3B3B;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.back {
+    z-index: -1;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+}
