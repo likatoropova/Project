@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    height: 77vh;
+}
+
+#email, #password, #name {
+    width: 504px;
+    height: 28px;
+    padding: 12px 24px;
+    border: 1px solid #797979;
+    border-radius: 7px;
+    color: #999A9B;
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+#email {
+    margin-top: 44px;
+}
+
+#password {
+    margin-top: 18px;
+}
+
+#name {
+    margin-top: 18px;
+}
+
+.password_group {
+    position: relative;
+}
+
+.password_group > img {
+    position: absolute;
+    height: 20px;
+    top: 33px;
+    right: 20px;
+}
+
+.politic{
+    color: rgba(22, 22, 22, 1);
+    font-size: 12px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    margin-top: 20px;
+}
+
+.politic_link{
+    color: rgba(22, 22, 22, 1);
+    font-size: 12px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    text-decoration: underline;
+}
+
+.personal_data {
+    display: flex;
+    margin-top: 8px;
+    margin-left: 6px;
+    gap: 12px;
+}
+
+.personal_data > input {
+    transform:scale(1.7);
+    opacity:0.9;
+    cursor:pointer;
+}
+
+.personal_data label{
+    color: rgba(22, 22, 22, 1);
+    font-size: 12px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.personal_data label a {
+    color: rgba(22, 22, 22, 1);
+    font-size: 12px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    text-decoration: underline;
+}
+
+.butn {
+    width: 100%;
+    margin-top: 36px;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    background-color: rgba(226, 226, 226, 1);
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.to_login {
+    max-width: 391px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 18px;
+    width: 391px;
+    margin-top: 28px;
+    margin-bottom: 68px;
+}
+
+.to_login > p {
+    font-size: 16px;
+    color: #3B3B3B;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.to_login > a {
+    font-size: 16px;
+    color: #3B3B3B;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.back {
+    position: absolute;
+    right: 0;
+    bottom: 50px;
+}

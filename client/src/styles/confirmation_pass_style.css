@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    height: 77vh;
+}
+
+#password, #password_repeat {
+    width: 504px;
+    height: 28px;
+    padding: 12px 24px;
+    border: 1px solid #797979;
+    border-radius: 7px;
+    color: #999A9B;
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+#password_repeat {
+    margin-top: 18px;
+}
+
+#password {
+    margin-top: 16px;
+}
+
+.password_group {
+    position: relative;
+}
+
+.password_group > img {
+    position: absolute;
+    height: 20px;
+    top: 33px;
+    right: 20px;
+}
+
+.butn {
+    width: 100%;
+    margin-top: 36px;
+    margin-bottom: 68px;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFF;
+    background-color: #FA70A6;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.back {
+    position: absolute;
+    right: 0;
+    bottom: 50px;
+}

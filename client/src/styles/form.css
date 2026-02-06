@@ -1,0 +1,24 @@
+.form_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 680px;
+    margin-top: 137px;
+    margin-bottom: 162px;
+    box-shadow: 0 0 10px 7px rgba(250, 112, 166, 0.08);
+    border-radius: 20px;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 68px;
+}
+
+.form_group > legend {
+    font-size: 48px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    width: 552px;
+    margin: 0 auto;
+    text-align: center;
+}
