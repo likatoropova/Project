@@ -11,10 +11,12 @@ services:
     environment:
       - APP_ENV=local
       - DB_HOST=mysql
+      - REDIS_HOST=redis
     volumes:
       - ./server:/var/www/html
     depends_on:
       - mysql
+      - redis
     networks:
       - app-network
 
@@ -50,9 +52,21 @@ services:
       - mysql
     networks:
       - app-network
+  redis:
+    image: redis:7-alpine
+    container_name: laravel-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app-network
+    command: redis-server --appendonly yes
 
 volumes:
   mysql_data:
+  redis_data:
 
 networks:
   app-network:

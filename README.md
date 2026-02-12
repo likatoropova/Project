@@ -202,6 +202,11 @@ DB_DATABASE=laravel_app
 DB_USERNAME=laravel
 DB_PASSWORD=laravel_password
 ```
+## Redis - доработки, нужно поменять эти параметры  
+```
+CACHE_STORE=redis
+REDIS_HOST=redis
+```
 >💡 Убедитесь, что DB_CONNECTION=mysql, иначе Laravel будет использовать SQLite по умолчанию.
 
 ---
