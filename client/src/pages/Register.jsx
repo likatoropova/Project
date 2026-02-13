@@ -109,7 +109,11 @@ const Register = () => {
       return;
     }
 
-    const result = await executeRegister(registrationData);
+    const result = await executeRegister(
+      formData.email.trim(),
+      formData.name.trim(),
+      formData.password
+  );
 
     if (result.success) {
       localStorage.setItem('registrationEmail', formData.email);
