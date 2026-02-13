@@ -204,6 +204,7 @@ DB_PASSWORD=laravel_password
 ```
 ## Redis - доработки, нужно поменять эти параметры  
 ```
+QUEUE_CONNECTION=redis
 CACHE_STORE=redis
 REDIS_HOST=redis
 ```
