@@ -137,6 +137,7 @@
       <path value="$PROJECT_DIR$/server/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/server/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/server/vendor/tymon/jwt-auth" />
+      <path value="$PROJECT_DIR$/server/vendor/laravel/horizon" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
