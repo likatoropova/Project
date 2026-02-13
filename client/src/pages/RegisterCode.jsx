@@ -40,6 +40,7 @@ const RegisterCode = () => {
               value="Отправить"
               className="butn"
             />
+            <Timer />
           </form>
         </div>
         <img className="back" src="/img/bg-right.svg" alt="background" />

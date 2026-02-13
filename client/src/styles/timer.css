@@ -1,0 +1,51 @@
+.timer-container {
+  margin-top: 20px;
+  text-align: center;
+  font-family: 'Montserrat Alternates-Medium', sans-serif;
+}
+
+.timer-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.timer-text {
+  color: #6B7280;
+  font-weight: 400;
+}
+
+.timer-time {
+  color: #111827;
+  font-weight: 500;
+  background: #F9FAFB;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+  min-width: 50px;
+  text-align: center;
+}
+
+.timer-resend-btn {
+  background: #B48AD8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-family: 'Montserrat Alternates-Medium', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.timer-resend-btn:hover {
+  background: #D4AAF8;
+}
+
+.timer-resend-btn:disabled {
+    background: #F3F3F3;
+    cursor: not-allowed;
+}
