@@ -107,15 +107,32 @@
    npm install
    ```
 4. Для работы Vite:
-   ```
-   cd client
+   ```bash
    npm install @vitejs/plugin-react --save-dev
    ```
-5. Запустить dev-сервер:
+5. Для работы с API(axios):
+   ```bash
+   npm install axios
+   ```
+6. Для работы с роутом(чтоб добавлять маршруты страниц и чтобы они вообще работали):
+   ```bash
+   npm install react-router-dom
+   ```
+7. Запустить dev-сервер:
    ```bash
    npm run dev
    ```
    → Приложение будет доступно на: `http://localhost:3000`
+8. Для доступа в документацию API(там нужен JWT токен):
+   если запускал проект и находишься в папке client
+   ```bash
+   cd ..
+   docker exec laravel-api php artisan jwt:secret
+   ```
+   если просто открыл проект(запусти docker по интсрукции) и потом выполни команду
+   ```bash
+   docker exec laravel-api php artisan jwt:secret
+   ```
 
 ### Настройка прокси к API
 
