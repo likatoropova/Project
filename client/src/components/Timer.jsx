@@ -1,9 +1,11 @@
+// components/Timer.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import './Timer.css';
+import '../styles/timer.css';
 
 const Timer = ({ 
   initialSeconds = 300,
-  onResend
+  onResend,
+  isResendDisabled = false
 }) => {
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isActive, setIsActive] = useState(true);
@@ -15,12 +17,12 @@ const Timer = ({
   };
 
   const handleResend = useCallback(() => {
-    if (!isActive && onResend) {
+    if (!isActive && onResend && !isResendDisabled) {
       setSeconds(initialSeconds);
       setIsActive(true);
       onResend();
     }
-  }, [isActive, initialSeconds, onResend]);
+  }, [isActive, initialSeconds, onResend, isResendDisabled]);
 
   useEffect(() => {
     let interval = null;
@@ -42,7 +44,7 @@ const Timer = ({
     <div className="timer-container">
       {isActive ? (
         <div className="timer-display">
-          <span className="timer-text">Отправить повторно:</span>
+          <span className="timer-text">Отправить повторно</span>
           <span className="timer-time">{formatTime(seconds)}</span>
         </div>
       ) : (
@@ -50,8 +52,9 @@ const Timer = ({
           type="button" 
           className="timer-resend-btn"
           onClick={handleResend}
+          disabled={isResendDisabled}
         >
-          Отправить
+          Отправить повторно
         </button>
       )}
     </div>

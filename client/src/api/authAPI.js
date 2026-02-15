@@ -72,15 +72,28 @@ export const refreshToken = async (refreshTokenValue) => {
 };
 
 // 6. ПОДТВЕРЖДЕНИЕ EMAIL ЧЕРЕЗ КОД
-export const verifyEmail = async (code) => {
+export const verifyEmail = async (email,code) => {
   try {
     const response = await axiosInstance.post(API_ENDPOINTS.VERIFY_CODE, {
+      email,
       code
     });
     
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Ошибка подтверждения email' };
+  }
+};
+
+export const resendVerificationCode = async (email) => {
+  try {
+    const response = await axiosInstance.post(API_ENDPOINTS.RESEND_CODE, {
+      email
+    });
+    
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Ошибка повторной отправки кода' };
   }
 };
 

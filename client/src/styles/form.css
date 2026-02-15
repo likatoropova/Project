@@ -24,3 +24,13 @@
     margin: 0 auto;
     text-align: center;
 }
+
+.error_message {
+    color: #721c24;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    text-align: center;
+}
