@@ -128,7 +128,6 @@
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/clock" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/tymon/jwt-auth" />
-      <excludeFolder url="file://$MODULE_DIR$/server/vendor/laravel/horizon" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
