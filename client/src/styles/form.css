@@ -7,8 +7,8 @@
     padding: 68px;
     margin-top: 135px;
     margin-bottom: 125px;
-    border-block-start: 0.5px solid #54545482;
-    border-block-end: 0.5px solid #54545482;
+    border-block-start: 0.5px solid #3BA3A4;
+    border-block-end: 0.5px solid #3BA3A4;
     border-radius: 20px;
 }
 
@@ -23,6 +23,10 @@
     width: 552px;
     margin: 0 auto;
     text-align: center;
+}
+
+.form_group > input {
+    border: 1px solid #FF9B65;
 }
 
 .error_message {

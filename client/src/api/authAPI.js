@@ -113,7 +113,7 @@ export const forgotPassword = async (email) => {
 // 8. ПОДТВЕРЖДЕНИЕ КОДА СБРОСА ПАРОЛЯ
 export const verifyResetCode = async (email, code) => {
   try {
-    const response = await axiosInstance.post(API_ENDPOINTS.CHANGE_PASSWORD, {
+    const response = await axiosInstance.post(API_ENDPOINTS.RESET_PASSWORD, {
       email,
       code
     });
@@ -125,12 +125,13 @@ export const verifyResetCode = async (email, code) => {
 };
 
 // 9. СБРОС ПАРОЛЯ
-export const resetPassword = async (email, code, newPassword) => {
+export const resetPassword = async (email, code, password, password_confirmation) => {
   try {
-    const response = await axiosInstance.post(API_ENDPOINTS.RESET_PASSWORD, {
+    const response = await axiosInstance.post(API_ENDPOINTS.CHANGE_PASSWORD, {
       email,
       code,
-      newPassword
+      password,
+      password_confirmation
     });
     
     return response.data;

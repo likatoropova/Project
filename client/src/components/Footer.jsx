@@ -14,12 +14,11 @@ const Footer = () => {
       </div>
       <div className="social_icons">
         <div>
-          <img src="/img/Icons.svg" alt="Telegram" />
-          <p>Telegram</p>
+          <p>Социальные сети:</p>
         </div>
         <div>
-          <img src="/img/Icons.svg" alt="VK" />
-          <p>VK</p>
+          <a href="#"><img src="/img/VK.svg" alt="VK" /></a>
+          <a href="#"><img src="/img/Telegram.svg" alt="Telegram" /></a>
         </div>
       </div>
     </footer>

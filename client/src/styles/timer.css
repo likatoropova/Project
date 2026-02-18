@@ -20,16 +20,14 @@
 .timer-time {
   color: #111827;
   font-weight: 500;
-  background: #F9FAFB;
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid #E5E7EB;
   min-width: 50px;
   text-align: center;
 }
 
 .timer-resend-btn {
-  background: #B48AD8;
+  background: #FC7D47;
   color: white;
   border: none;
   border-radius: 6px;
@@ -42,7 +40,13 @@
 }
 
 .timer-resend-btn:hover {
-  background: #D4AAF8;
+  background: #FF9B65;
+}
+
+.timer-resend-btn:active {
+  background: rgba(252, 125, 71, 0.4);
+  border: 1px solid rgba(252, 125, 71, 0.8);
+  color: #FC7D47;
 }
 
 .timer-resend-btn:disabled {

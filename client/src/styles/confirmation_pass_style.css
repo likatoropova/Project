@@ -14,7 +14,7 @@ main {
     width: 504px;
     height: 28px;
     padding: 12px 24px;
-    border: 1px solid #797979;
+    border: 1px solid #FF9B65;
     border-radius: 7px;
     color: #999A9B;
     font-size: 16px;
@@ -50,7 +50,7 @@ main {
     font-size: 16px;
     line-height: 24px;
     color: #FFF;
-    background-color: #FA70A6;
+    background-color: #FC7D47;
     font-family: "Montserrat Alternates-SemiBold", sans-serif;
 }
 
