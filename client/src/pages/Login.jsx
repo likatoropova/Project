@@ -9,10 +9,12 @@ import { login } from '../api/authAPI';
 import '../styles/auth_style.css';
 import '../styles/form.css';
 import '../styles/fonts.css';
+import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
   const { execute: executeLogin, loading, error } = useApi(login);
+  const { login: authLogin } = useAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -66,7 +68,7 @@ const Login = () => {
     );
 
     if (result.success) {
-      // Перенаправляем на главную страницу или дашборд
+      await authLogin(formData.email.trim(), formData.password);
       navigate('/');
     }
   };

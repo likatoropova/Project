@@ -65,7 +65,7 @@ const RegisterCode = () => {
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Регистрация</legend>
 
-            <p className="politic">
+            <p className="description">
               Введите код из письма, чтобы подтвердить вашу почту<br />
               и завершить регистрацию
             </p>

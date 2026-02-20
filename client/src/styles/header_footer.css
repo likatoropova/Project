@@ -39,6 +39,14 @@ header > div {
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
 
+.nav_links a:hover {
+    color: #FC7D47;
+}
+
+.nav_links a:active {
+    color: #FF9B65;
+}
+
 .nav_buttons {
     display: flex;
     gap: 24px;
@@ -82,13 +90,21 @@ footer {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 15%;
+    width: 16%;
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
 
 .footer_links a {
     text-decoration: none;
     color: black;
+}
+
+.footer_links a:hover {
+    color: #FC7D47;
+}
+
+.footer_links a:active {
+    color: #FF9B65;
 }
 
 .social_icons {
@@ -102,4 +118,9 @@ footer {
     flex-direction: row;
     align-items: center;
     gap: 8px;
+}
+
+.social_icons > div > p {
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 18px;
 }

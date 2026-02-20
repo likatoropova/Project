@@ -29,6 +29,15 @@
     border: 1px solid #FF9B65;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: rgba(252, 125, 71, 0.6);
+}
+
+.form_group > input:focus,.password_group > input:focus {
+    outline: none;
+}
+
 .error_message {
     color: #721c24;
     padding: 12px;

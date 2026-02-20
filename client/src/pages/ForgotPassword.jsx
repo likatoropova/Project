@@ -71,7 +71,7 @@ const ForgotPassword = () => {
               </div>
             )}
             
-            <p className="politic">
+            <p className="description">
               Введите email, который вы использовали при регистрации, 
               мы отправим вам код для сброса пароля
             </p>

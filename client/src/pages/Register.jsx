@@ -174,12 +174,10 @@ const Register = () => {
             )}
             <p className="politic">
               Нажимая на кнопку "Зарегистрироваться", вы соглашаетесь с условиями
+              <Link to="#" className="politic_link">
+                Политики конфиденциальности
+              </Link>
             </p>
-            
-            <Link to="#" className="politic_link">
-              Политики конфиденциальности
-            </Link>
-            
             <div className="personal_data">
               <input
                 type="checkbox"

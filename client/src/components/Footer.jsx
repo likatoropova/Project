@@ -7,6 +7,7 @@ const Footer = () => {
       <div className="footer_links">
         <a href="#">Информация о тренировках</a>
         <a href="#">Политика конфиденциальности</a>
+        <a href="#">Публичная оферта</a>
       </div>
       <div className="logo">
         <img src="/img/logo.svg" alt="Logo" />

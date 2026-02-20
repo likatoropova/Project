@@ -15,9 +15,9 @@ main {
     height: 28px;
     padding: 12px 24px;
     border-radius: 7px;
-    color: #999A9B;
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
+    color: rgba(252, 125, 71, 0.6);
 }
 
 #email {
@@ -44,22 +44,33 @@ main {
 }
 
 .politic{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
     color: rgba(22, 22, 22, 1);
     font-size: 12px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
     margin-top: 20px;
+    width: 90%;
 }
 
 .politic_link{
     color: rgba(22, 22, 22, 1);
-    font-size: 12px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
     text-decoration: underline;
+}
+
+.politic_link:hover {
+    color: #FC7D47;
+}
+
+.politic_link:active {
+    color: #FF9B65;
 }
 
 .personal_data {
     display: flex;
-    margin-top: 8px;
+    margin-top: 20px;
     margin-left: 6px;
     gap: 12px;
 }
@@ -67,7 +78,6 @@ main {
 .personal_data > input {
     transform:scale(1.7);
     opacity:0.9;
-    cursor:pointer;
 }
 
 .personal_data label{
@@ -83,6 +93,43 @@ main {
     text-decoration: underline;
 }
 
+.personal_data label a:hover {
+    color: #FC7D47;
+}
+
+.personal_data label a:active {
+    color: #FF9B65;
+}
+
+.personal_data > input[type="checkbox"] {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+    background-color: white;
+}
+
+.personal_data > input[type="checkbox"]:checked {
+    border: 1px solid #4C5050;
+    background-color: transparent;
+}
+
+.personal_data > input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 2px;
+  height: 5px;
+  border: solid #4C5050;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
 .butn {
     width: 100%;
     margin-top: 36px;
@@ -93,6 +140,17 @@ main {
     line-height: 24px;
     background-color: #FC7D47;
     font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.butn:hover {
+    background-color: #FF9B65;
+    cursor: pointer;
+}
+
+.butn:active {
+    border: 1px solid rgba(252, 125, 71, 0.8);
+    background-color: rgba(252, 125, 71, 0.4);
+    color: #FC7D47;
 }
 
 .to_login {
@@ -115,6 +173,14 @@ main {
     font-size: 16px;
     color: #3B3B3B;
     font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.to_login > a:hover {
+    color: #FC7D47;
+}
+
+.to_login > a:active {
+    color: #FF9B65;
 }
 
 .back {

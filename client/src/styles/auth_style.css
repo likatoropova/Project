@@ -15,7 +15,7 @@ main {
     height: 28px;
     padding: 12px 24px;
     border-radius: 7px;
-    color: #999A9B;
+    color: rgba(252, 125, 71, 0.6);
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
@@ -47,6 +47,14 @@ main {
     margin-top: 12px;
 }
 
+.forgot_pass:hover {
+    color: #FC7D47;
+}
+
+.forgot_pass:active {
+    color: #FF9B65;
+}
+
 .butn_for_login {
     width: 100%;
     margin-top: 36px;
@@ -58,6 +66,17 @@ main {
     color: #FFF;
     background-color: #FC7D47;
     font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.butn_for_login:hover {
+    background-color: #FF9B65;
+    cursor: pointer;
+}
+
+.butn_for_login:active {
+    border: 1px solid rgba(252, 125, 71, 0.8);
+    background-color: rgba(252, 125, 71, 0.4);
+    color: #FC7D47;
 }
 
 .to_registration {
@@ -80,6 +99,14 @@ main {
     font-size: 16px;
     color: #3B3B3B;
     font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.to_registration > a:hover {
+    color: #FC7D47;
+}
+
+.to_registration > a:active {
+    color: #FF9B65;
 }
 
 .back {

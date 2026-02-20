@@ -108,7 +108,7 @@ const RestorePassword = () => {
               </div>
             )}
             
-            <p className="politic" style={{ textAlign: 'center', marginBottom: '10px' }}>
+            <p className="description" style={{ textAlign: 'center', marginBottom: '10px' }}>
               Введите код, отправленный на почту
             </p>
             <input
