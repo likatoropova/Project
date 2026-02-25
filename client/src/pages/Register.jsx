@@ -22,33 +22,51 @@ const Register = () => {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
 
-  const validateForm = () => {
-    const errors = {};
-    
-    // Валидация email
-    if (!formData.email) {
-      errors.email = 'Email обязателен';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = 'Введите корректный email';
+  const validateEmail = (email) => {
+    if (!email) return 'Email обязателен';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return 'Введите корректный email';
     }
-    
-    // Валидация имени
-    if (!formData.name) {
-      errors.name = 'Имя обязательно';
-    } else if (formData.name.trim().length < 2) {
-      errors.name = 'Имя должно содержать минимум 2 символа';
+    return '';
+  };
+
+  const validateName = (name) => {
+    if (!name) return 'Имя обязательно';
+    if (name.trim().length < 2) return 'Имя должно содержать минимум 2 символа';
+    return '';
+  };
+
+  const validatePassword = (password) => {
+    if (!password) return 'Пароль обязателен';
+    if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
+    if (password.length > 12) return 'Пароль должен содерждать не больше 12 символов'
+    return '';
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'email':
+        return validateEmail(value);
+      case 'name':
+        return validateName(value);
+      case 'password':
+        return validatePassword(value);
+      default:
+        return '';
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouchedFields(prev => ({ ...prev, [name]: true }));
     
-    // Валидация пароля
-    if (!formData.password) {
-      errors.password = 'Пароль обязателен';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Пароль должен содержать минимум 6 символов';
-    }
-    
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
+    const error = validateField(name, value);
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
   
   const [notification, setNotification] = useState({
@@ -63,10 +81,11 @@ const Register = () => {
       [name]: type === 'checkbox' ? checked : value
     }));
     
-    if (validationErrors[name]) {
+    if (touchedFields[name]) {
+      const error = validateField(name, value);
       setValidationErrors(prev => ({
         ...prev,
-        [name]: null
+        [name]: error
       }));
     }
   };
@@ -83,6 +102,23 @@ const Register = () => {
       ...prev,
       show: false
     }));
+  };
+
+  const validateForm = () => {
+    const errors = {
+      email: validateEmail(formData.email),
+      name: validateName(formData.name),
+      password: validatePassword(formData.password)
+    };
+    
+    setValidationErrors(errors);
+    setTouchedFields({
+      email: true,
+      name: true,
+      password: true
+    });
+    
+    return !errors.email && !errors.name && !errors.password;
   };
 
   const handleSubmit = async (e) => {
@@ -133,19 +169,19 @@ const Register = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Регистрация</legend>
-            {error && <div className="error_message">{error}</div>}
             <input
-              type="email"
+              type="text"
               name="email"
               id="email"
               placeholder="Введите email"
               required
               value={formData.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
-              className={validationErrors.email ? 'error' : ''}
+              className={validationErrors.email && touchedFields.email ? 'error' : ''}
             />
-            {validationErrors.email && (
+            {validationErrors.email && touchedFields.email && (
               <span className="field_error">{validationErrors.email}</span>
             )}
             <input
@@ -156,10 +192,11 @@ const Register = () => {
               required
               value={formData.name}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
-              className={validationErrors.name ? 'error' : ''}
+              className={validationErrors.name && touchedFields.name ? 'error' : ''}
             />
-            {validationErrors.name && (
+            {validationErrors.name && touchedFields.name && (
               <span className="field_error">{validationErrors.name}</span>
             )}
             <PasswordInput
@@ -167,9 +204,11 @@ const Register = () => {
               placeholder="Введите пароль"
               value={formData.password}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
+              error={validationErrors.password && touchedFields.password}
             />
-            {validationErrors.password && (
+            {validationErrors.password && touchedFields.password && (
               <span className="field_error">{validationErrors.password}</span>
             )}
             <p className="politic">

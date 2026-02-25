@@ -10,17 +10,17 @@ main {
     height: 77vh;
 }
 
-#code {
+#code_input {
     width: 504px;
     height: 28px;
     padding: 12px 24px;
     border-radius: 7px;
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
-    color: rgba(252, 125, 71, 0.6);
+    color: black;
 }
 
-#code {
+#code_input {
     margin-top: 44px;
 }
 

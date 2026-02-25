@@ -56,12 +56,18 @@ header > div {
 .nav_buttons > a {
     background-color: #FC7D47;
     line-height: 24px;
-    padding: 10px 24px;
+    padding: 12px 32px;
     color: #FEFEFE;
     font-size: 16px;
     border: none;
     border-radius: 12px;
     font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}
+
+.nav_buttons a:nth-of-type(2){
+    background-color: rgba(252, 125, 71, 0.1);
+    border: 1px solid #FC7D47;
+    color: rgba(252, 125, 71, 0.6);
 }
 
 .nav_buttons > a:hover {
@@ -71,8 +77,24 @@ header > div {
 
 .nav_buttons > a:active {
     border: 1px solid #FC7D47;
-    background-color: rgba(252, 125, 71, 0.4);
+    background-color: rgba(252, 125, 71, 0.1);
     color: #FC7D47;
+}
+
+.nav_buttons a:nth-of-type(2):hover {
+    background-color: rgba(252, 125, 71, 0.3);
+    color: rgba(252, 125, 71, 0.6);
+}
+
+.nav_buttons a:nth-of-type(2):active {
+    background-color: rgba(252, 125, 71, 0.08);
+    border: 1px solid rgba(252, 125, 71, 0.6);
+}
+
+.nav_buttons a:nth-of-type(2):disabled {
+    background-color: rgba(194, 194, 194, 0.1);
+    border: 1px solid #C2C2C2;
+    color: rgba(194, 194, 194, 0.6);
 }
 
 footer {

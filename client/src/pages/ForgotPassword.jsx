@@ -12,41 +12,50 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [validationError, setValidationError] = useState('');
+  const [touched, setTouched] = useState(false);
+
   
   const { execute: executeForgot, loading, error } = useApi(forgotPassword);
 
-  const validateEmail = () => {
-    if (!email) {
-      setValidationError('Email обязателен');
-      return false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setValidationError('Введите корректный email');
-      return false;
+  const validateEmail = (value) => {
+    if (!value) return 'Email обязателен';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      return 'Введите корректный email';
     }
-    setValidationError('');
-    return true;
+    return '';
+  };
+
+  const handleBlur = (e) => {
+    setTouched(true);
+    const error = validateEmail(email);
+    setValidationError(error);
+  };
+
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+    if (touched) {
+      const error = validateEmail(e.target.value);
+      setValidationError(error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateEmail()) {
-      return;
-    }
-
-    console.log('📤 Sending forgot password request for email:', email);
+    
+    setTouched(true);
+    const error = validateEmail(email);
+    setValidationError(error);
+    
+    if (error) return;
 
     const result = await executeForgot(email);
 
-    console.log('📥 Forgot password result:', result);
-
     if (result.success) {
-      // Сохраняем email для следующих шагов
       localStorage.setItem('resetEmail', email);
-      // Переходим на страницу ввода кода
       navigate('/restore-password');
     }
   };
+
 
   return (
     <>
@@ -55,21 +64,6 @@ const ForgotPassword = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Забыли пароль?</legend>
-            
-            {(error || validationError) && (
-              <div className="error_message" style={{
-                color: '#721c24',
-                padding: '12px',
-                marginBottom: '20px',
-                backgroundColor: '#f8d7da',
-                border: '1px solid #f5c6cb',
-                borderRadius: '4px',
-                fontSize: '14px',
-                textAlign: 'center'
-              }}>
-                {validationError || error}
-              </div>
-            )}
             
             <p className="description">
               Введите email, который вы использовали при регистрации, 
@@ -83,13 +77,14 @@ const ForgotPassword = () => {
               placeholder="Введите email"
               required
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setValidationError('');
-              }}
+              onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
-              className={validationError ? 'error' : ''}
+              className={validationError && touched ? 'error' : ''}
             />
+            {validationError && touched && (
+              <span className="field_error">{validationError}</span>
+            )}
             
             <button
               type="submit"

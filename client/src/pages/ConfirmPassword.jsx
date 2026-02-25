@@ -18,6 +18,7 @@ const ConfirmPassword = () => {
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [validationErrors, setValidationErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
   
   const { execute: executeReset, loading, error } = useApi(resetPassword);
 
@@ -33,23 +34,38 @@ const ConfirmPassword = () => {
     }
   }, [navigate]);
 
-  const validateForm = () => {
-    const errors = {};
-    
-    if (!formData.password) {
-      errors.password = 'Пароль обязателен';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Пароль должен содержать минимум 6 символов';
+   const validatePassword = (password) => {
+    if (!password) return 'Пароль обязателен';
+    if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
+    return '';
+  };
+
+  const validateConfirmPassword = (confirmPassword) => {
+    if (!confirmPassword) return 'Подтверждение пароля обязательно';
+    if (formData.password !== confirmPassword) return 'Пароли не совпадают';
+    return '';
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'password':
+        return validatePassword(value);
+      case 'confirmPassword':
+        return validateConfirmPassword(value);
+      default:
+        return '';
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouchedFields(prev => ({ ...prev, [name]: true }));
     
-    if (!formData.confirmPassword) {
-      errors.confirmPassword = 'Подтверждение пароля обязательно';
-    } else if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = 'Пароли не совпадают';
-    }
-    
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
+    const error = validateField(name, value);
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const handleChange = (e) => {
@@ -59,12 +75,37 @@ const ConfirmPassword = () => {
       [name]: value
     }));
     
-    if (validationErrors[name]) {
+    if (touchedFields[name]) {
+      const error = validateField(name, value);
       setValidationErrors(prev => ({
         ...prev,
-        [name]: null
+        [name]: error
       }));
+      
+      // При изменении пароля, проверяем и подтверждение если оно было заполнено
+      if (name === 'password' && touchedFields.confirmPassword && formData.confirmPassword) {
+        const confirmError = validateConfirmPassword(formData.confirmPassword);
+        setValidationErrors(prev => ({
+          ...prev,
+          confirmPassword: confirmError
+        }));
+      }
     }
+  };
+
+  const validateForm = () => {
+    const errors = {
+      password: validatePassword(formData.password),
+      confirmPassword: validateConfirmPassword(formData.confirmPassword)
+    };
+    
+    setValidationErrors(errors);
+    setTouchedFields({
+      password: true,
+      confirmPassword: true
+    });
+    
+    return !errors.password && !errors.confirmPassword;
   };
 
   const handleSubmit = async (e) => {
@@ -73,13 +114,6 @@ const ConfirmPassword = () => {
     if (!validateForm()) {
       return;
     }
-
-    console.log('📤 Sending reset password request:', {
-      email,
-      code,
-      password: formData.password,
-      password_confirmation: formData.confirmPassword
-    });
 
     const result = await executeReset(
       email,
@@ -109,22 +143,6 @@ const ConfirmPassword = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Восстановление пароля</legend>
-            
-            {error && (
-              <div className="error_message" style={{
-                color: '#721c24',
-                padding: '12px',
-                marginBottom: '20px',
-                backgroundColor: '#f8d7da',
-                border: '1px solid #f5c6cb',
-                borderRadius: '4px',
-                fontSize: '14px',
-                textAlign: 'center'
-              }}>
-                {getErrorMessage()}
-              </div>
-            )}
-            
             <p className="politic">
               Придумайте новый пароль для вашего аккаунта
             </p>
@@ -135,12 +153,12 @@ const ConfirmPassword = () => {
               placeholder="Введите новый пароль"
               value={formData.password}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
+              error={validationErrors.password && touchedFields.password}
             />
-            {validationErrors.password && (
-              <span className="field_error" style={{color: 'red', fontSize: '12px', display: 'block', marginTop: '5px'}}>
-                {validationErrors.password}
-              </span>
+            {validationErrors.password && touchedFields.password && (
+              <span className="field_error">{validationErrors.password}</span>
             )}
             
             <PasswordInput
@@ -149,12 +167,12 @@ const ConfirmPassword = () => {
               placeholder="Повторите новый пароль"
               value={formData.confirmPassword}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
+              error={validationErrors.confirmPassword && touchedFields.confirmPassword}
             />
-            {validationErrors.confirmPassword && (
-              <span className="field_error" style={{color: 'red', fontSize: '12px', display: 'block', marginTop: '5px'}}>
-                {validationErrors.confirmPassword}
-              </span>
+            {validationErrors.confirmPassword && touchedFields.confirmPassword && (
+              <span className="field_error">{validationErrors.confirmPassword}</span>
             )}
             
             <button
