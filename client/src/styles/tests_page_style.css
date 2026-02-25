@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
 }
 
-main {
+.main_container {
     flex: 1;
     flex-direction: column;
     max-width: 75.4vw;

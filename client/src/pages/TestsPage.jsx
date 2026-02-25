@@ -269,7 +269,7 @@ const TestsPage = () => {
     return (
         <>
             <Header />
-            <main>
+            <main className="main_container">
                 <section className="hero">
                     <h1>Тесты</h1>
                     <p>
