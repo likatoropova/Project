@@ -128,6 +128,13 @@
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/clock" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/lcobucci/jwt" />
       <excludeFolder url="file://$MODULE_DIR$/server/vendor/tymon/jwt-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/devkandil/notifire" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/server/vendor/phpseclib/phpseclib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
