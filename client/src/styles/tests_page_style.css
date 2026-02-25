@@ -1,0 +1,465 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    flex-direction: column;
+    max-width: 75.4vw;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.25vw;
+}
+
+.back_btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 0.375vw;
+    height: 2.5vw;
+    width: 2.5vw;
+    min-height: 32px;
+    min-width: 32px;
+    font-size: 1.5vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.back_btn:hover {
+    background: #f0f0f0;
+}
+
+.hero {
+    margin: 6.25vw 0 3.5vw 0;
+}
+
+h1 {
+    font-size: 2.5vw;
+    text-align: center;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+    margin-bottom: 1vw;
+}
+
+.hero p {
+    color: rgba(112, 107, 107, 1);
+    max-width: 59.4vw;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.cards_container {
+    display: flex;
+    justify-content: center;
+    gap: 1.9vw;
+    margin-bottom: 3.75vw;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.cards_container > div {
+    display: flex;
+    gap: 3vw;
+    flex: 0 1 auto;
+}
+
+.card_link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 35vw;
+    max-width: 100%;
+}
+
+.card {
+    display: flex;
+    gap: 1.25vw;
+    background: white;
+    border-radius: 1vw;
+    box-shadow: 0 0.25vw 0.9375vw rgba(0, 0, 0, 0.05);
+    padding: 1.5vw 1.2vw;
+    width: 100%;
+    border: 1px solid #eaeaea;
+    cursor: pointer;
+    color: black;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5vw 1.5625vw rgba(0, 0, 0, 0.1);
+    transform: translateY(-0.125vw);
+}
+
+.card_image {
+    width: 13vw;
+    height: 13vw;
+    max-width: 250px;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 0.5vw;
+    flex-shrink: 0;
+}
+
+.flex {
+    flex: 1;
+    max-width: 18.3vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex h2 {
+    font-size: 1.5vw;
+    margin-bottom: 0.25vw;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    word-break: break-word;
+}
+
+.duration {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1vw;
+    margin-bottom: 2.5vw;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    color: #666;
+}
+
+.description_test {
+    color: rgba(89, 89, 89, 1);
+    font-size: 0.9vw;
+    margin-top: 1.5vw;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    line-height: 1.5;
+    max-width: 18.3vw;
+}
+
+.card_tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5vw;
+    margin-bottom: auto;
+}
+
+.card_tags span {
+    padding: 0.5vw 1vw;
+    border-radius: 1.25vw;
+    border: 1px solid rgba(120, 120, 120, 1);
+    white-space: nowrap;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 0.9vw;
+    background: white;
+}
+
+.search_filtration {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5vw;
+    gap: 31.7vw;
+    flex-wrap: wrap;
+}
+
+.search_group {
+    position: relative;
+    flex: 1;
+    max-width: 37.5vw;
+    width: 100%;
+}
+
+.search_group input {
+    width: 28.7vw;
+    padding: 0.75vw 0.75vw 0.75vw 2.82vw;
+    border: 1px solid rgba(184, 182, 182, 1);
+    border-radius: 1.25vw;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 0.9vw;
+    transition: all 0.2s;
+}
+
+.search_group input:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 0.13vw rgba(0,0,0,0.05);
+}
+
+.search_group > img {
+    position: absolute;
+    left: 0.94vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25vw;
+    height: 1.25vw;
+    opacity: 0.6;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    min-width: 12.5vw;
+    width: 100%;
+    max-width: 12.5vw;
+}
+
+.dropdown_btn {
+    width: 100%;
+    padding: 0.75vw 2.5vw 0.75vw 0.75vw;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 0.5vw;
+    text-align: left;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-size: 0.875vw;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown_btn.active {
+    background: #e9ecef;
+    border-color: #666;
+}
+
+.dropdown_btn:hover:not(:disabled) {
+    background: #e9ecef;
+}
+
+.dropdown_btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.dropdown > img {
+    position: absolute;
+    right: 0.75vw;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.125vw;
+    height: 1.125vw;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.dropdown_content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    min-width: 15.625vw;
+    max-height: 25vw;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 0.5vw;
+    box-shadow: 0 0.25vw 1.25vw rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    padding: 0.75vw;
+    margin-top: 0.5vw;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+}
+
+.dropdown_content.show {
+    display: block;
+}
+
+.dropdown_item {
+    display: flex;
+    align-items: center;
+    padding: 0.625vw;
+    cursor: pointer;
+    border-radius: 0.25vw;
+    transition: background 0.2s;
+}
+
+.dropdown_item:hover {
+    background: #f8f9fa;
+}
+
+.dropdown_item input[type="checkbox"] {
+    margin-right: 0.75vw;
+    width: 1.125vw;
+    height: 1.125vw;
+    cursor: pointer;
+}
+
+.dropdown_actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6vw;
+    padding-top: 0.75vw;
+    margin-top: 0.75vw;
+    border-top: 1px solid #eee;
+    position: sticky;
+    bottom: 0;
+    background: white;
+}
+
+.dropdown_actions button {
+    flex: 1;
+    padding: 0.6vw 0.75vw;
+    border: none;
+    border-radius: 0.4vw;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-size: 0.9vw;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dropdown_actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.apply_btn {
+    background: #FC7D47;
+    color: white;
+}
+
+.apply_btn:hover:not(:disabled) {
+    background: #FF9B65;
+}
+
+.clear_btn {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.clear_btn:hover:not(:disabled) {
+    background: #e1e1e1;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75vw;
+    margin: 2.5vw 0 3.75vw 0;
+    padding: 1.25vw 0;
+    flex-wrap: wrap;
+}
+
+.pagination_button {
+    min-width: 2.5vw;
+    height: 2.5vw;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0 0.5vw;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 0.5vw;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-size: 0.9vw;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination_button:hover:not(:disabled) {
+    background: #f0f0f0;
+    border-color: #999;
+}
+
+.pagination_button.active {
+    background: #FC7D47;
+    color: white;
+}
+
+.pagination_button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination_button.prev_next {
+    padding: 0 1vw;
+}
+
+.pagination_ellipsis {
+    color: #666;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+}
+
+/* Состояния загрузки, ошибок и пустого результата */
+.loading_container,
+.error_container,
+.empty_container {
+    text-align: center;
+    padding: 5vw 1.25vw;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    min-height: 25vw;
+    /*min-height: 50vh;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading_spinner {
+    border: 0.25vw solid #f3f3f3;
+    border-top: 0.25vw solid #2c3e50;
+    border-radius: 50%;
+    width: 3.2vw;
+    height: 3.2vw;
+    min-width: 40px;
+    min-height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1.25vw;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error_container {
+    color: #dc3545;
+}
+
+.error_container button,
+.empty_container button {
+    margin-top: 1.25vw;
+    padding: 0.8vw 1.9vw;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-size: 1vw;
+    transition: background 0.2s;
+}
+
+.error_container button:hover,
+.empty_container button:hover {
+    background: #1a252f;
+}
+
+.empty_container {
+    color: #666;
+}
+
+/* Информация о количестве тестов */
+.tests_info {
+    text-align: center;
+    margin-bottom: 1.3vw;
+    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    color: #666;
+    font-size: 0.9vw;
+}
+
