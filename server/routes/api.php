@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\TestingController;
 use App\Http\Controllers\Admin\TestingExerciseController;
+use App\Http\Controllers\Api\FcmTokenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\PasswordResetController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\UserParameterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExerciseController;
 use App\Http\Controllers\Admin\WarmupController;
+use App\Http\Controllers\Admin\WorkoutController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -33,27 +35,23 @@ Route::get('/workouts/{id}', [App\Http\Controllers\WorkoutController::class, 'sh
 Route::post('/user-parameters/goal', [UserParameterController::class, 'saveGoal']);
 Route::post('/user-parameters/anthropometry', [UserParameterController::class, 'saveAnthropometry']);
 Route::post('/user-parameters/level', [UserParameterController::class, 'saveLevel']);
-Route::get('/user-parameters/guest', [UserParameterController::class, 'getGuestData']);
 Route::delete('/user-parameters/guest', [UserParameterController::class, 'clearGuestData']);
-Route::get('/user-parameters/onboarding-status', [UserParameterController::class, 'checkOnboardingStatus']);
-
-Route::get('/user-parameters/reference', [UserParameterController::class, 'getReferenceData']);
 
 
 Route::middleware(['auth:api', 'track.activity'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
+
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/my-subscriptions', [App\Http\Controllers\SubscriptionController::class, 'mySubscriptions']);
     Route::get('/my-test-history', [App\Http\Controllers\TestingController::class, 'myTestHistory']);
     Route::get('/my-workout-history', [App\Http\Controllers\WorkoutController::class, 'myWorkoutHistory']);
 
-    // Перенос данных из кэша в профиль
-    Route::post('/user-parameters/transfer-from-guest', [UserParameterController::class, 'transferFromGuest']);
-
-    // Получение и обновление параметров из БД
     Route::get('/user-parameters/me', [UserParameterController::class, 'getMyParameters']);
     Route::put('/user-parameters', [UserParameterController::class, 'update']);
+
+    Route::post('/fcm/token', [FcmTokenController::class, 'update']);
+    Route::delete('/fcm/token', [FcmTokenController::class, 'destroy']);
 
 });
 
@@ -102,5 +100,11 @@ Route::middleware(['auth:api', 'admin', 'track.activity'])->prefix('admin')->gro
     Route::get('/warmups/{id}', [WarmupController::class, 'show']);
     Route::put('/warmups/{id}', [WarmupController::class, 'update']);
     Route::delete('/warmups/{id}', [WarmupController::class, 'destroy']);
+
+    Route::get('/workouts', [WorkoutController::class, 'index']);
+    Route::post('/workouts', [WorkoutController::class, 'store']);
+    Route::get('/workouts/{id}', [WorkoutController::class, 'show']);
+    Route::put('/workouts/{id}', [WorkoutController::class, 'update']);
+    Route::delete('/workouts/{id}', [WorkoutController::class, 'destroy']);
 
 });

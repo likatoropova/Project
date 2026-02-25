@@ -14,6 +14,8 @@ const RegisterCode = () => {
   const navigate = useNavigate();
   const [code, setCode] = useState('');
   const [email, setEmail] = useState('');
+  const [validationError, setValidationError] = useState('');
+  const [touched, setTouched] = useState(false);
   
   const { execute: executeVerify, loading: verifyLoading, error: verifyError } = useApi(verifyEmail);
   const { execute: executeResend, loading: resendLoading, error: resendError } = useApi(resendVerificationCode);
@@ -22,26 +24,43 @@ const RegisterCode = () => {
     const savedEmail = localStorage.getItem('registrationEmail');
     
     if (!savedEmail) {
-      // Просто перенаправляем без уведомления
       navigate('/register');
     } else {
       setEmail(savedEmail);
     }
   }, [navigate]);
 
+  const validateCode = (value) => {
+    if (!value) return 'Введите код подтверждения';
+    if (value.length !== 6) return 'Код должен содержать 6 символов';
+    return '';
+  };
+
+  const handleBlur = (e) => {
+    setTouched(true);
+    const error = validateCode(code);
+    setValidationError(error);
+  };
+
   const handleChange = (e) => {
     const value = e.target.value.toUpperCase();
     if (value.length <= 6) {
       setCode(value);
+      if (touched) {
+        const error = validateCode(value);
+        setValidationError(error);
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (code.length !== 6) {
-      return;
-    }
+    setTouched(true);
+    const error = validateCode(code);
+    setValidationError(error);
+    
+    if (error) return;
 
     const result = await executeVerify(email, code);
 
@@ -55,7 +74,7 @@ const RegisterCode = () => {
     await executeResend(email);
   };
 
-  const errorMessage = verifyError || resendError;
+  const errorMessage = verifyError || resendError || validationError;
 
   return (
     <>
@@ -70,20 +89,21 @@ const RegisterCode = () => {
               и завершить регистрацию
             </p>
             
-            {errorMessage && (
-              <div className="error_message">{errorMessage}</div>
-            )}
-            
             <input
               type="text"
               name="code"
               placeholder="Введите код"
               value={code}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={verifyLoading || resendLoading}
               maxLength={6}
               id='code'
+              className={validationError && touched ? 'error' : ''}
             />
+            {validationError && touched && (
+              <span className="field_error">{validationError}</span>
+            )}
             
             <Timer 
               initialSeconds={300}

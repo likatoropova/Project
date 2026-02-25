@@ -22,22 +22,41 @@ const Login = () => {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
 
-  const validateForm = () => {
-    const errors = {};
-    
-    if (!formData.email) {
-      errors.email = 'Email обязателен';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = 'Введите корректный email';
+  const validateEmail = (email) => {
+    if (!email) return 'Email обязателен';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return 'Введите корректный email';
     }
-    
-    if (!formData.password) {
-      errors.password = 'Пароль обязателен';
+    return '';
+  };
+
+  const validatePassword = (password) => {
+    if (!password) return 'Пароль обязателен';
+    return '';
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'email':
+        return validateEmail(value);
+      case 'password':
+        return validatePassword(value);
+      default:
+        return '';
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouchedFields(prev => ({ ...prev, [name]: true }));
     
-    setValidationErrors(errors);
-    return Object.keys(errors).length === 0;
+    const error = validateField(name, value);
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const handleChange = (e) => {
@@ -53,6 +72,21 @@ const Login = () => {
         [name]: null
       }));
     }
+  };
+
+  const validateForm = () => {
+    const errors = {
+      email: validateEmail(formData.email),
+      password: validatePassword(formData.password)
+    };
+    
+    setValidationErrors(errors);
+    setTouchedFields({
+      email: true,
+      password: true
+    });
+    
+    return !errors.email && !errors.password;
   };
 
   const handleSubmit = async (e) => {
@@ -80,23 +114,17 @@ const Login = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Авторизация</legend>
-            
-            {error && (
-              <div className="error_message">
-                {error}
-              </div>
-            )}
-            
             <input
-              type="email"
+              type="text"
               name="email"
               id="email"
               placeholder="Введите email"
               required
               value={formData.email}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
-              className={validationErrors.email ? 'error' : ''}
+              className={validationErrors.email && touchedFields.email ? 'error' : ''}
             />
             {validationErrors.email && (
               <span className="field_error">{validationErrors.email}</span>
@@ -107,9 +135,11 @@ const Login = () => {
               placeholder="Введите пароль"
               value={formData.password}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={loading}
+              error={validationErrors.password && touchedFields.password}
             />
-            {validationErrors.password && (
+            {validationErrors.password && touchedFields.password && (
               <span className="field_error">{validationErrors.password}</span>
             )}
             

@@ -14,6 +14,7 @@ const RestorePassword = () => {
   const [code, setCode] = useState('');
   const [email, setEmail] = useState('');
   const [validationError, setValidationError] = useState('');
+  const [touched, setTouched] = useState(false);
   
   const { execute: executeVerify, loading: verifyLoading, error: verifyError } = useApi(verifyResetCode);
   const { execute: executeResend, loading: resendLoading } = useApi(forgotPassword);
@@ -21,65 +22,58 @@ const RestorePassword = () => {
   useEffect(() => {
     const savedEmail = localStorage.getItem('resetEmail');
     if (!savedEmail) {
-      // Если нет email, возвращаем на страницу запроса
       navigate('/forgot-password');
     } else {
       setEmail(savedEmail);
     }
   }, [navigate]);
 
-  const validateCode = () => {
-    if (!code) {
-      setValidationError('Введите код подтверждения');
-      return false;
-    } else if (code.length !== 6) {
-      setValidationError('Код должен содержать 6 символов');
-      return false;
-    }
-    setValidationError('');
-    return true;
+  const validateCode = (value) => {
+    if (!value) return 'Введите код подтверждения';
+    if (value.length !== 6) return 'Код должен содержать 6 символов';
+    return '';
+  };
+
+  const handleBlur = (e) => {
+    setTouched(true);
+    const error = validateCode(code);
+    setValidationError(error);
   };
 
   const handleChange = (e) => {
     const value = e.target.value.toUpperCase();
-    // Разрешаем только буквы и цифры
     const filtered = value.replace(/[^A-Z0-9]/g, '');
     if (filtered.length <= 6) {
       setCode(filtered);
-      setValidationError('');
+      if (touched) {
+        const error = validateCode(filtered);
+        setValidationError(error);
+      }
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateCode()) {
-      return;
-    }
-
-    console.log('📤 Verifying reset code:', { email, code });
+    
+    setTouched(true);
+    const error = validateCode(code);
+    setValidationError(error);
+    
+    if (error) return;
 
     const result = await executeVerify(email, code);
 
-    console.log('📥 Verify result:', result);
-
     if (result.success) {
-      // Сохраняем код для следующего шага
       localStorage.setItem('resetCode', code);
       navigate('/confirm-password');
     }
   };
 
   const handleResendCode = async () => {
-    console.log('📤 Resending code to:', email);
-    
     const result = await executeResend(email);
-    
     if (result.success) {
-      // Код отправлен, таймер сбросится автоматически
-      console.log('✅ Code resent successfully');
-      // Очищаем поле кода при повторной отправке
       setCode('');
+      setTouched(false);
     }
   };
 
@@ -92,38 +86,33 @@ const RestorePassword = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Восстановление пароля</legend>
-            
-            {errorMessage && (
-              <div className="error_message" style={{
-                color: '#721c24',
-                padding: '12px',
-                marginBottom: '20px',
-                backgroundColor: '#f8d7da',
-                border: '1px solid #f5c6cb',
-                borderRadius: '4px',
-                fontSize: '14px',
-                textAlign: 'center'
-              }}>
-                {errorMessage}
-              </div>
-            )}
-            
             <p className="description" style={{ textAlign: 'center', marginBottom: '10px' }}>
               Введите код, отправленный на почту
             </p>
             <input
               type="text"
-              name="code"
+              name="code_input"
               id="code"
               placeholder="Введите код"
               required
               value={code}
               onChange={handleChange}
+              onBlur={handleBlur}
               disabled={verifyLoading || resendLoading}
               maxLength={6}
-              className="code_input"
+              className={validationError && touched ? 'error' : ''}
               autoFocus
             />
+            {validationError && touched && (
+              <span className="field_error">{validationError}</span>
+            )}
+
+            <Timer 
+              initialSeconds={300}
+              onResend={handleResendCode}
+              isResendDisabled={verifyLoading || resendLoading}
+            />
+
             <button
               type="submit"
               className="butn"
@@ -131,11 +120,6 @@ const RestorePassword = () => {
             >
               {verifyLoading ? 'Проверка...' : 'Отправить'}
             </button>
-            <Timer 
-              initialSeconds={300}
-              onResend={handleResendCode}
-              isResendDisabled={verifyLoading || resendLoading}
-            />
           </form>
         </div>
         <img className="back" src="/img/bg-right.svg" alt="background" />

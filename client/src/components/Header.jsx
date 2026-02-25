@@ -45,13 +45,13 @@ const Header = () => {
           <>
             <Link 
               to="/login" 
-              className={isRegisterPage ? "login" : ""}
+              className={isRegisterPage ? "login" : "toLogin"}
             >
               Войти
             </Link>
             <Link 
               to="/register" 
-              className={isLoginPage ? "register" : ""}
+              className={isLoginPage ? "register" : "toRegister"}
             >
               Зарегистрироваться
             </Link>

@@ -15,7 +15,7 @@ main {
     height: 28px;
     padding: 12px 24px;
     border-radius: 7px;
-    color: rgba(252, 125, 71, 0.6);
+    color: black;
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
@@ -37,6 +37,19 @@ main {
     height: 20px;
     top: 33px;
     right: 20px;
+}
+
+.password-input.error {
+  border: 2px solid #dc3545;
+  background-color: #fff8f8;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+  text-align: left;
 }
 
 .forgot_pass{

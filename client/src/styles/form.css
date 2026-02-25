@@ -31,7 +31,7 @@
 
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
-    -webkit-text-fill-color: rgba(252, 125, 71, 0.6);
+    -webkit-text-fill-color: black;
 }
 
 .form_group > input:focus,.password_group > input:focus {
@@ -46,4 +46,15 @@ input:-webkit-autofill {
     border: 1px solid #f5c6cb;
     border-radius: 4px;
     text-align: center;
+}
+
+input.error, .password_group > input.error {
+    border-color: #dc3545 !important;
+}
+
+.field_error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
 }
