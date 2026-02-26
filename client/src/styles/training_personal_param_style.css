@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.pers_param_main {
+    display: flex;
+    justify-content: center;
+    background-image: url(../img/bg-pers-param.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 77vh;
+}
+
+.pers_param_main > div {
+    display: flex;
+}
+
+.hero img {
+    display: block;
+}
+
+.back_btn {
+    background: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.content-section {
+    flex: 1;
+    max-width: 680px;
+}
+
+.content-section h1 {
+    font-size: 40px;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-weight: 500;
+    text-align: left;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.form_container_param {
+    padding: 68px 48px 40px;
+    width: 100%;
+    margin-left: 100px;
+    box-shadow: 0 0 10px 7px rgba(210, 210, 210, 0.3);
+    border-radius: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    text-align: center;
+}
+
+.form_group_param {
+    width: 712px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form_choice > label {
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.form_group_param:nth-of-type(2) {
+    display: flex;
+    gap: 24px;
+    flex-direction: row;
+}
+
+.form_group_param:nth-of-type(2) > div {
+    display: flex;
+    flex-direction: column;
+    width: 210px;
+}
+
+.form_group_param:nth-of-type(2) > div > label {
+    font-size: 18px;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.form_group_param:nth-of-type(2) > div > input {
+    padding: 16px 24px;
+    border: 1px solid #C6C6C6;
+    border-radius: 8px;
+}
+
+.form_group_param:nth-of-type(2) > div > input[type="text"] {
+    font-size: 16px;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+}
+
+.form_choice input[type="radio"] {
+    display: none;
+}
+
+.form_group_param > label {
+    font-size: 18px;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+}
+
+.form_group_param:not(.form_group_param:nth-of-type(2)) > div {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+.form_group_param:not(.form_group_param:nth-of-type(2)) > div > label {
+    width: 280px;
+    padding: 16px 24px;
+    border: 1px solid #C6C6C6;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.form_group_param:not(.form_group_param:nth-of-type(2)) > div > label:hover {
+    color: #FFFFFF;
+    background-color: #D4AAF8;
+}
+
+.form_choice input[type="radio"]:checked + label {
+    background-color: #D4AAF8;
+    border-color: #D4AAF8;
+    color: white;
+}
+
+.butn {
+    width: 100%;
+    margin-top: 44px;
+    margin-bottom: 40px;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+}

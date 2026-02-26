@@ -34,10 +34,13 @@ const Header = () => {
       <div className="nav_buttons">
         {isAuthenticated ? (
           <>
+            <Link className='notifications'>
+              <img src="/img/notifications.svg" alt="notifications" />
+            </Link>
             <Link to="/profile" className="profile-btn">
               <span>Профиль</span>
             </Link>
-            <Link to="/" onClick={handleLogout} className="logout-btn">
+            <Link to="/" onClick={handleLogout} className="second_button">
               Выйти
             </Link>
           </>
@@ -51,7 +54,7 @@ const Header = () => {
             </Link>
             <Link 
               to="/register" 
-              className={isLoginPage ? "register" : "toRegister"}
+              className={isLoginPage ? "second_button" : "second_button"}
             >
               Зарегистрироваться
             </Link>

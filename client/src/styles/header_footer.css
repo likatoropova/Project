@@ -53,7 +53,7 @@ header > div {
 
 }
 
-.nav_buttons > a {
+.nav_buttons > a:not(.notifications, .second_button) {
     background-color: #FC7D47;
     line-height: 24px;
     padding: 12px 32px;
@@ -64,37 +64,35 @@ header > div {
     font-family: "Montserrat Alternates-SemiBold", sans-serif;
 }
 
-.nav_buttons a:nth-of-type(2){
+.second_button {
+    line-height: 24px;
+    padding: 12px 32px;
     background-color: rgba(252, 125, 71, 0.1);
     border: 1px solid #FC7D47;
     color: rgba(252, 125, 71, 0.6);
+    border-radius: 12px;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
 }
 
-.nav_buttons > a:hover {
+.nav_buttons > a:not(.notifications):hover {
     background-color: #FF9B65;
     color: #FFFFFF;
 }
 
-.nav_buttons > a:active {
+.nav_buttons > a:not(.notifications):active {
     border: 1px solid #FC7D47;
     background-color: rgba(252, 125, 71, 0.1);
     color: #FC7D47;
 }
 
-.nav_buttons a:nth-of-type(2):hover {
+.second_button:hover {
     background-color: rgba(252, 125, 71, 0.3);
     color: rgba(252, 125, 71, 0.6);
 }
 
-.nav_buttons a:nth-of-type(2):active {
+.second_button:active {
     background-color: rgba(252, 125, 71, 0.08);
     border: 1px solid rgba(252, 125, 71, 0.6);
-}
-
-.nav_buttons a:nth-of-type(2):disabled {
-    background-color: rgba(194, 194, 194, 0.1);
-    border: 1px solid #C2C2C2;
-    color: rgba(194, 194, 194, 0.6);
 }
 
 footer {
@@ -103,7 +101,7 @@ footer {
     justify-content: space-around;
     align-items: center;
     height: 101px;
-    border: 3px solid #FFF5F8;
+    border: 3px solid rgba(252, 125, 71, 0.1);
     background-color: #FFFFFF;
     z-index: 1;
 }

@@ -13,4 +13,8 @@ export const API_ENDPOINTS = {
   CHANGE_PASSWORD: '/reset-password',
   REFRESH_TOKEN: '/refresh',
   PROFILE: '/me',
+  SAVE_GOAL: '/user-parameters/goal',
+  SAVE_ANTHROPOMETRY: '/user-parameters/anthropometry',
+  SAVE_LEVEL: '/user-parameters/level',
+  GET_USER_PARAMS: '/user-parameters/me',
 };

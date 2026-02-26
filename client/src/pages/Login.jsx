@@ -1,4 +1,3 @@
-// pages/Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -6,6 +5,7 @@ import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { login } from '../api/authAPI';
+import { getUserParams } from '../api/userParamsAPI';
 import '../styles/auth_style.css';
 import '../styles/form.css';
 import '../styles/fonts.css';
@@ -89,6 +89,17 @@ const Login = () => {
     return !errors.email && !errors.password;
   };
 
+  const checkUserParams = async () => {
+    try {
+      const response = await getUserParams();
+      // Если есть данные пользователя, значит тест уже пройден
+      return !!response.data;
+    } catch (error) {
+      // Если ошибка 404 или другая, значит параметров нет
+      return false;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -103,7 +114,12 @@ const Login = () => {
 
     if (result.success) {
       await authLogin(formData.email.trim(), formData.password);
-      navigate('/');
+      const hasParams = await checkUserParams();
+      if (hasParams) {
+        navigate('/');
+      } else {
+        navigate('/training-goal');
+      }
     }
   };
 
