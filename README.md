@@ -387,3 +387,24 @@ docker exec laravel-api php artisan migrate
 docker exec laravel-api php artisan migrate:status
 ```
 ---
+###  Шаг 11: Скачивание зависимостей (если нужно)
+```bash
+# Для firebase
+docker exec laravel-api composer require devkandil/notifire  
+
+# Для jwt
+docker exec laravel-api composer require tymon/jwt-auth 
+
+# Создание секретного ключа
+docker exec laravel-api php artisan jwt:secret 
+```
+---
+###  Шаг 12: Оставнока и повторынй запуск контейнера (если нужно)
+```bash
+# Остановка контейнера
+docker-compose down
+
+# Пересборка и запуск контейнера
+docker-compose up --build 
+```
+---
