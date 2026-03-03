@@ -1,83 +1,119 @@
 import axiosInstance from './axiosConfig';
 import { API_ENDPOINTS } from '../utils/constants';
 
+// Сохранить цель тренировок (шаг 1)
 export const saveGoal = async (goalId) => {
   try {
-    console.log('Saving goal:', { goal_id: goalId });
+    console.log('📝 SAVING GOAL - Step 1:', { goal_id: goalId });
+    
     const response = await axiosInstance.post(API_ENDPOINTS.SAVE_GOAL, {
-      goal_id: goalId
+      goal_id: parseInt(goalId)
     });
-    console.log('Goal saved:', response.data);
-    if (response.data.data?.guest_id) {
-      localStorage.setItem('guestId', response.data.data.guest_id);
-    }
-    return response.data;
+    
+    console.log('✅ GOAL SAVED - Response:', response.data);
+    return { success: true, data: response.data };
   } catch (error) {
-    console.error('Error saving goal:', error.response?.data);
-    throw error.response?.data || { message: 'Ошибка сохранения цели' };
+    console.error('❌ ERROR SAVING GOAL:', error.response?.data);
+    return { 
+      success: false, 
+      error: error.response?.data || { message: 'Ошибка сохранения цели' } 
+    };
   }
 };
 
+// Сохранить антропометрические данные (шаг 2)
 export const saveAnthropometry = async (data) => {
   try {
-    console.log('Saving anthropometry:', data);
-    const guestId = localStorage.getItem('guestId');
+    console.log('📝 SAVING ANTHROPOMETRY - Step 2:', data);
+    
     const payload = {
       gender: data.gender,
       age: parseInt(data.age),
       weight: parseFloat(data.weight),
       height: parseInt(data.height),
-      equipment_id: data.equipment_id
+      equipment_id: parseInt(data.equipment_id)
     };
-    if (guestId) {
-      payload.guest_id = guestId;
-    }
+    
+    console.log('📦 Payload:', payload);
+    
     const response = await axiosInstance.post(API_ENDPOINTS.SAVE_ANTHROPOMETRY, payload);
-    console.log('Anthropometry saved:', response.data);
-    return response.data;
+    
+    console.log('✅ ANTHROPOMETRY SAVED - Response:', response.data);
+    return { success: true, data: response.data };
   } catch (error) {
-    console.error('Error saving anthropometry:', error.response?.data);
-    throw error.response?.data || { message: 'Ошибка сохранения антропометрии' };
+    console.error('❌ ERROR SAVING ANTHROPOMETRY:', error.response?.data);
+    return { 
+      success: false, 
+      error: error.response?.data || { message: 'Ошибка сохранения антропометрии' } 
+    };
   }
 };
 
+// Сохранить уровень подготовки (шаг 3)
 export const saveLevel = async (levelId) => {
   try {
-    console.log('📝 Saving level:', { level_id: levelId });
-    const guestId = localStorage.getItem('guestId');
-    const payload = {
-      level_id: levelId
-    };
-    if (guestId) {
-      payload.guest_id = guestId;
-    }
-    const response = await axiosInstance.post(API_ENDPOINTS.SAVE_LEVEL, payload);
-    console.log('Level saved:', response.data);
-    localStorage.removeItem('guestId');
+    console.log('📝 SAVING LEVEL - Step 3:', { level_id: levelId });
     
-    return response.data;
+    const payload = {
+      level_id: parseInt(levelId)
+    };
+    
+    console.log('📦 Payload:', payload);
+    
+    const response = await axiosInstance.post(API_ENDPOINTS.SAVE_LEVEL, payload);
+    
+    console.log('✅ LEVEL SAVED - Response:', response.data);
+    return { success: true, data: response.data };
   } catch (error) {
-    console.error('Error saving level:', error.response?.data);
-    throw error.response?.data || { message: 'Ошибка сохранения уровня' };
+    console.error('❌ ERROR SAVING LEVEL:', error.response?.data);
+    return { 
+      success: false, 
+      error: error.response?.data || { message: 'Ошибка сохранения уровня' } 
+    };
   }
 };
 
+// ПОЛУЧИТЬ ПАРАМЕТРЫ АВТОРИЗОВАННОГО ПОЛЬЗОВАТЕЛЯ
 export const getUserParams = async () => {
   try {
-    console.log('Getting user parameters');
+    console.log('📝 GETTING USER PARAMS FROM API');
     
-    const response = await axiosInstance.get(API_ENDPOINTS.GET_USER_PARAMS);
+    const token = localStorage.getItem('accessToken');
     
-    console.log('User params received:', response.data);
-    return response.data;
-  } catch (error) {
-    console.error('Error getting user params:', error.response?.data);
-    
-    // Если 404 - это нормально, значит данных нет
-    if (error.response?.status === 404) {
+    if (!token) {
+      console.log('❌ No token, user not authenticated');
       return { success: false, data: null };
     }
     
-    throw error.response?.data || { message: 'Ошибка получения параметров' };
+    const response = await axiosInstance.get(API_ENDPOINTS.GET_USER_PARAMS);
+    
+    console.log('✅ USER PARAMS RECEIVED:', response.data);
+    
+    // Проверяем, есть ли данные
+    if (response.data?.data && Object.keys(response.data.data).length > 0) {
+      console.log('📊 User has parameters in DB');
+      return { success: true, data: response.data.data };
+    }
+    
+    console.log('❌ No parameters found for user');
+    return { success: false, data: null };
+    
+  } catch (error) {
+    console.error('❌ ERROR GETTING USER PARAMS:', {
+      status: error.response?.status,
+      data: error.response?.data
+    });
+    
+    // 404 означает, что данных нет
+    if (error.response?.status === 404) {
+      console.log('ℹ️ User has no parameters (404)');
+      return { success: false, data: null };
+    }
+    
+    return { 
+      success: false, 
+      error: error.response?.data || { message: 'Ошибка получения параметров' },
+      data: null 
+    };
   }
 };

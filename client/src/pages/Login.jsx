@@ -14,7 +14,7 @@ import { useAuth } from '../hooks/useAuth';
 const Login = () => {
   const navigate = useNavigate();
   const { execute: executeLogin, loading, error } = useApi(login);
-  const { login: authLogin } = useAuth();
+  const { login: authLogin, hasCompletedFirstTest } = useAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -89,17 +89,6 @@ const Login = () => {
     return !errors.email && !errors.password;
   };
 
-  const checkUserParams = async () => {
-    try {
-      const response = await getUserParams();
-      // Если есть данные пользователя, значит тест уже пройден
-      return !!response.data;
-    } catch (error) {
-      // Если ошибка 404 или другая, значит параметров нет
-      return false;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,12 +103,20 @@ const Login = () => {
 
     if (result.success) {
       await authLogin(formData.email.trim(), formData.password);
-      const hasParams = await checkUserParams();
-      if (hasParams) {
-        navigate('/');
-      } else {
-        navigate('/training-goal');
-      }
+      
+      // Даем время на обновление контекста
+      setTimeout(() => {
+        const testPassed = localStorage.getItem('firstTestPassed') === 'true';
+        console.log('🔍 After login - firstTestPassed:', testPassed);
+        
+        if (!testPassed) {
+          console.log('➡️ Redirecting to training goal');
+          navigate('/training-goal');
+        } else {
+          console.log('➡️ Redirecting to home');
+          navigate('/');
+        }
+      }, 500);
     }
   };
 
@@ -130,6 +127,11 @@ const Login = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Авторизация</legend>
+            {error && (
+              <div className="error_message">
+                {error}
+              </div>
+            )}
             <input
               type="text"
               name="email"

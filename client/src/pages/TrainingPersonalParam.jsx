@@ -187,11 +187,11 @@ const TrainingPersonalParam = () => {
                 <span className="field_error">{errors.gender}</span>
               )}
             </div>
-            <div className="form_group measurements">
+            <div className="form_group_measurements">
               <div>
                 <label htmlFor="age">Возраст (лет):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="age"
                   name="age"
                   min="1"
@@ -209,7 +209,7 @@ const TrainingPersonalParam = () => {
               <div>
                 <label htmlFor="weight">Вес (кг):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="weight"
                   name="weight"
                   min="1"
@@ -228,7 +228,7 @@ const TrainingPersonalParam = () => {
               <div>
                 <label htmlFor="height">Рост (см):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="height"
                   name="height"
                   min="50"
@@ -243,7 +243,7 @@ const TrainingPersonalParam = () => {
                 )}
               </div>
             </div>
-            <div className="form_group">
+            <div className="form_group_param">
               <label>Оборудование</label>
               <div className="form_choice">
                 {equipmentOptions.map(equip => (

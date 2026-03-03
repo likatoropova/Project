@@ -7,13 +7,15 @@ import { saveLevel } from '../api/userParamsAPI';
 import '../styles/lavel_of_training_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
+import { useAuth } from '../hooks/useAuth';
 
 const TrainingLevel = () => {
   const navigate = useNavigate();
+  const { completeFirstTest } = useAuth();
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [error, setError] = useState('');
-  
-  const { execute: executeSaveLevel, loading } = useApi(saveLevel);
+  const [loading, setLoading] = useState(false);
+
   const levels = [
     { id: 1, label: 'Новичок' },
     { id: 2, label: 'Опытный' },
@@ -26,6 +28,7 @@ const TrainingLevel = () => {
     } else {
       setSelectedLevel(levelId);
     }
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -36,13 +39,41 @@ const TrainingLevel = () => {
       return;
     }
 
+    setLoading(true);
     setError('');
-    
-    const result = await executeSaveLevel(selectedLevel);
 
-    if (result.success) {
-      localStorage.setItem('firstTestPassed', 'true');
-      navigate('/');
+    try {
+      console.log('📤 SAVING LEVEL - Step 3:', selectedLevel);
+      console.log('🔑 Current auth token:', localStorage.getItem('accessToken') ? 'present' : 'missing');
+      
+      const result = await saveLevel(selectedLevel);
+      console.log('📥 Save result:', result);
+
+      if (result && result.success) {
+        console.log('✅ Level saved successfully!');
+        
+        // ВАЖНО: устанавливаем флаг, что тест пройден
+        completeFirstTest();
+        console.log('🏁 First test completed flag set');
+        
+        // Проверяем, что флаг установился
+        const checkFlag = localStorage.getItem('firstTestPassed');
+        console.log('🔍 firstTestPassed flag:', checkFlag);
+        
+        // Даем время на обновление контекста
+        setTimeout(() => {
+          console.log('➡️ Redirecting to home page');
+          navigate('/');
+        }, 500);
+      } else {
+        console.error('❌ Save failed:', result?.error);
+        setError(result?.error?.message || 'Ошибка сохранения данных');
+      }
+    } catch (err) {
+      console.error('❌ Unexpected error:', err);
+      setError('Произошла ошибка при сохранении');
+    } finally {
+      setLoading(false);
     }
   };
 

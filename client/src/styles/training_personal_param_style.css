@@ -7,15 +7,11 @@
     display: flex;
     justify-content: center;
     background-image: url(../img/bg-pers-param.png);
-    background-size: cover;
+    background-size: 100% 80%;
     background-repeat: no-repeat;
     background-position: center center;
     width: 100%;
-    height: 77vh;
-}
-
-.pers_param_main > div {
-    display: flex;
+    height: 80vh;
 }
 
 .hero img {
@@ -32,14 +28,15 @@
 }
 
 .content-section {
-    flex: 1;
-    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 35%;
 }
 
 .content-section h1 {
     font-size: 40px;
     font-family: "Montserrat Alternates-Medium", sans-serif;
-    font-weight: 500;
     text-align: left;
     margin-bottom: 40px;
     width: 100%;
@@ -49,8 +46,13 @@
     padding: 68px 48px 40px;
     width: 100%;
     margin-left: 100px;
-    box-shadow: 0 0 10px 7px rgba(210, 210, 210, 0.3);
+    box-shadow: 0 0 4px 0px rgba(59, 163, 164, 0.6);
     border-radius: 20px;
+    background: #FFFFFF;
+}
+
+.form_container_param div {
+    margin-bottom: 20px;
 }
 
 .title {
@@ -59,42 +61,39 @@
     text-align: center;
 }
 
-.form_group_param {
-    width: 712px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
 .form_choice > label {
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
 
-.form_group_param:nth-of-type(2) {
+.form_group_measurements {
     display: flex;
     gap: 24px;
     flex-direction: row;
 }
 
-.form_group_param:nth-of-type(2) > div {
+.form_group_measurements > div {
     display: flex;
     flex-direction: column;
-    width: 210px;
+    width: 31%;
 }
 
-.form_group_param:nth-of-type(2) > div > label {
+.form_group_measurements > div > label {
     font-size: 18px;
     font-family: "Montserrat Alternates-Medium", sans-serif;
 }
 
-.form_group_param:nth-of-type(2) > div > input {
+.form_group_measurements > div > input {
     padding: 16px 24px;
     border: 1px solid #C6C6C6;
     border-radius: 8px;
 }
 
-.form_group_param:nth-of-type(2) > div > input[type="text"] {
+.form_group_measurements div input:hover {
+    border: 1px solid rgba(252, 125, 71, 0.4);
+}
+
+.form_group_measurements > div > input[type="text"] {
     font-size: 16px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
 }
@@ -108,31 +107,35 @@
     font-family: "Montserrat Alternates-Medium", sans-serif;
 }
 
-.form_group_param:not(.form_group_param:nth-of-type(2)) > div {
+.form_group_param > div {
     display: flex;
     flex-direction: row;
     gap: 24px;
 }
 
-.form_group_param:not(.form_group_param:nth-of-type(2)) > div > label {
-    width: 280px;
-    padding: 16px 24px;
-    border: 1px solid #C6C6C6;
+.choice-item {
+    width: 50%;
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
     transition: all 0.3s ease;
+    font-family: "Montserrat Alternates-Regular", sans-serif;
 }
 
-.form_group_param:not(.form_group_param:nth-of-type(2)) > div > label:hover {
-    color: #FFFFFF;
-    background-color: #D4AAF8;
+.choice-item > label {
+    display: block;
+    width: 100%;
+    border: 1px solid #C6C6C6;
+    padding: 16px 24px;
+    border-radius: 8px;
 }
 
-.form_choice input[type="radio"]:checked + label {
-    background-color: #D4AAF8;
-    border-color: #D4AAF8;
-    color: white;
+.choice-item > label:hover {
+    border: 1px solid rgba(252, 125, 71, 0.4);
+}
+
+.choice-item input[type="radio"]:checked + label {
+    border: 1px solid rgba(252, 125, 71, 0.8);
 }
 
 .butn {

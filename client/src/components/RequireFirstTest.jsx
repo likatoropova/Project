@@ -4,23 +4,32 @@ import { useAuth } from '../hooks/useAuth';
 
 const RequireFirstTest = ({ children }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, hasPersonalData, loading } = useAuth();
+  const { isAuthenticated, hasCompletedFirstTest, loading } = useAuth();
 
   useEffect(() => {
     if (!loading) {
+      console.log('🔍 RequireFirstTest check:', { 
+        isAuthenticated, 
+        hasCompletedFirstTest 
+      });
+      
       if (!isAuthenticated) {
+        console.log('➡️ Not authenticated, redirecting to login');
         navigate('/login');
-      } else if (hasPersonalData) {
+      } else if (hasCompletedFirstTest) {
+        console.log('➡️ Test already completed, redirecting to home');
         navigate('/');
+      } else {
+        console.log('✅ Showing test page');
       }
     }
-  }, [isAuthenticated, hasPersonalData, loading, navigate]);
+  }, [isAuthenticated, hasCompletedFirstTest, loading, navigate]);
 
   if (loading) {
-    return <div>Загрузка...</div>;
+    return <div className="loading">Загрузка...</div>;
   }
 
-  if (!isAuthenticated || hasPersonalData) {
+  if (!isAuthenticated || hasCompletedFirstTest) {
     return null;
   }
 

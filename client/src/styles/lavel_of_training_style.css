@@ -7,15 +7,11 @@
     display: flex;
     justify-content: center;
     background-image: url(../img/bg-pers-param.png);
-    background-size: cover;
+    background-size: 100% 80%;
     background-repeat: no-repeat;
     background-position: center center;
     width: 100%;
-    height: 77vh;
-}
-
-.pers_param_main > div {
-    display: flex;
+    height: 80vh;
 }
 
 .hero img {
@@ -32,15 +28,9 @@
     cursor: pointer;
 }
 
-.content-section {
-    flex: 1;
-    max-width: 680px;
-}
-
 .content-section h1 {
     font-size: 40px;
     font-family: "Montserrat Alternates-Medium", sans-serif;
-    font-weight: 500;
     text-align: left;
     margin-bottom: 40px;
     width: 100%;
@@ -52,6 +42,7 @@
     margin-left: 100px;
     box-shadow: 0 0 10px 7px rgba(210, 210, 210, 0.3);
     border-radius: 20px;
+    background: #FFFFFF;
 }
 
 .radio_choice {
@@ -66,20 +57,18 @@
 }
 
 .radio_choice:hover {
-    color: #FFFFFF;
-    background-color: #D4AAF8;
+    border: 1px solid rgba(252, 125, 71, 0.4);
 }
 
 .radio_choice.active {
-    color: rgba(180, 138, 216, 1);
-    background-color: rgba(180, 138, 216, 0.4);
+    border: 1px solid rgba(252, 125, 71, 0.8);
 }
 
 .radio_choice > input {
     appearance: none;
 }
 
-.form_container > h2 {
+.form_container_level > h2 {
     font-size: 24px;
     font-family: "Montserrat Alternates-Regular", sans-serif;
     text-align: center;
