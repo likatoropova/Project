@@ -61,14 +61,14 @@ const Register = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     setTouchedFields(prev => ({ ...prev, [name]: true }));
-    
+
     const error = validateField(name, value);
     setValidationErrors(prev => ({
       ...prev,
       [name]: error
     }));
   };
-  
+
   const [notification, setNotification] = useState({
     show: false,
     message: ''
@@ -80,7 +80,7 @@ const Register = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    
+
     if (touchedFields[name]) {
       const error = validateField(name, value);
       setValidationErrors(prev => ({
@@ -110,14 +110,14 @@ const Register = () => {
       name: validateName(formData.name),
       password: validatePassword(formData.password)
     };
-    
+
     setValidationErrors(errors);
     setTouchedFields({
       email: true,
       name: true,
       password: true
     });
-    
+
     return !errors.email && !errors.name && !errors.password;
   };
 
@@ -133,10 +133,22 @@ const Register = () => {
       return;
     }
 
+    const registrationData = {
+      email: formData.email.trim(),
+      name: formData.name.trim(),
+      password: formData.password,
+    };
+
+    console.log('Sending registration data:', registrationData);
+    if (!registrationData.name) {
+      showNotification('Имя не может быть пустым');
+      return;
+    }
+
     const result = await executeRegister(
-      formData.email.trim(),
-      formData.name.trim(),
-      formData.password
+        formData.email.trim(),
+        formData.name.trim(),
+        formData.password
     );
 
     if (result.success) {
@@ -144,105 +156,104 @@ const Register = () => {
       navigate('/register-code');
     }
   };
-
   return (
-    <>
-      <Header />
-      <main>
-        <div className="form_container">
-          <form className="form_group" onSubmit={handleSubmit}>
-            <legend>Регистрация</legend>
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="Введите email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              disabled={loading}
-              className={validationErrors.email && touchedFields.email ? 'error' : ''}
-            />
-            {validationErrors.email && touchedFields.email && (
-              <span className="field_error">{validationErrors.email}</span>
-            )}
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Введите имя"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              disabled={loading}
-              className={validationErrors.name && touchedFields.name ? 'error' : ''}
-            />
-            {validationErrors.name && touchedFields.name && (
-              <span className="field_error">{validationErrors.name}</span>
-            )}
-            <PasswordInput
-              id="password"
-              placeholder="Введите пароль"
-              value={formData.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              disabled={loading}
-              error={validationErrors.password && touchedFields.password}
-            />
-            {validationErrors.password && touchedFields.password && (
-              <span className="field_error">{validationErrors.password}</span>
-            )}
-            <p className="politic">
-              Нажимая на кнопку "Зарегистрироваться", вы соглашаетесь с условиями
-              <Link to="#" className="politic_link">
-                Политики конфиденциальности
-              </Link>
-            </p>
-            <div className="personal_data">
+      <>
+        <Header />
+        <main>
+          <div className="form_container">
+            <form className="form_group" onSubmit={handleSubmit}>
+              <legend>Регистрация</legend>
               <input
-                type="checkbox"
-                id="agree"
-                name="agree"
-                checked={formData.agree}
-                onChange={handleChange}
-                disabled={loading}
+                  type="text"
+                  name="email"
+                  id="email"
+                  placeholder="Введите email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={loading}
+                  className={validationErrors.email && touchedFields.email ? 'error' : ''}
               />
-              <label htmlFor="agree">
-                Я согласен с{' '}
-                <Link to="#">
-                  условиями обработки персональных данных
+              {validationErrors.email && touchedFields.email && (
+                  <span className="field_error">{validationErrors.email}</span>
+              )}
+              <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Введите имя"
+                  required
+                  value={formData.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={loading}
+                  className={validationErrors.name && touchedFields.name ? 'error' : ''}
+              />
+              {validationErrors.name && touchedFields.name && (
+                  <span className="field_error">{validationErrors.name}</span>
+              )}
+              <PasswordInput
+                  id="password"
+                  placeholder="Введите пароль"
+                  value={formData.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={loading}
+                  error={validationErrors.password && touchedFields.password}
+              />
+              {validationErrors.password && touchedFields.password && (
+                  <span className="field_error">{validationErrors.password}</span>
+              )}
+              <p className="politic">
+                Нажимая на кнопку "Зарегистрироваться", вы соглашаетесь с условиями
+                <Link to="#" className="politic_link">
+                  Политики конфиденциальности
                 </Link>
-              </label>
+              </p>
+              <div className="personal_data">
+                <input
+                    type="checkbox"
+                    id="agree"
+                    name="agree"
+                    checked={formData.agree}
+                    onChange={handleChange}
+                    disabled={loading}
+                />
+                <label htmlFor="agree">
+                  Я согласен с{' '}
+                  <Link to="#">
+                    условиями обработки персональных данных
+                  </Link>
+                </label>
+              </div>
+
+              <input
+                  type="submit"
+                  name="button"
+                  value={loading ? 'Регистрация...' : 'Зарегистрироваться'}
+                  className="butn"
+                  disabled={loading}
+              />
+            </form>
+
+            <div className="to_login">
+              <p>Уже есть аккаунт?</p>
+              <Link to="/login">Войти</Link>
             </div>
-            
-            <input
-              type="submit"
-              name="button"
-              value={loading ? 'Регистрация...' : 'Зарегистрироваться'}
-              className="butn"
-              disabled={loading}
-            />
-          </form>
-          
-          <div className="to_login">
-            <p>Уже есть аккаунт?</p>
-            <Link to="/login">Войти</Link>
           </div>
-        </div>
-        <img className="back" src="/img/bg-right.svg" alt="background" />
-      </main>
-      <Footer />
-      
-      {notification.show && (
-        <Notification
-          message={notification.message}
-          duration={5000}
-          onClose={closeNotification}
-        />
-      )}
-    </>
+          <img className="back" src="/img/bg-right.svg" alt="background" />
+        </main>
+        <Footer />
+
+        {notification.show && (
+            <Notification
+                message={notification.message}
+                duration={5000}
+                onClose={closeNotification}
+            />
+        )}
+      </>
   );
 };
 
