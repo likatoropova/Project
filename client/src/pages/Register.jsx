@@ -133,6 +133,18 @@ const Register = () => {
       return;
     }
 
+    const registrationData = {
+      email: formData.email.trim(),
+      name: formData.name.trim(),
+      password: formData.password,
+    };
+
+    console.log('Sending registration data:', registrationData);
+    if (!registrationData.name) {
+      showNotification('Имя не может быть пустым');
+      return;
+    }
+
     const result = await executeRegister(
       formData.email.trim(),
       formData.name.trim(),

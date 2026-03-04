@@ -50,15 +50,26 @@ const Login = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     setTouchedFields(prev => ({ ...prev, [name]: true }));
+    
     const error = validateField(name, value);
-    setValidationErrors(prev => ({ ...prev, [name]: error }));
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({ ...prev, [name]: null }));
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: null
+      }));
     }
   };
 
@@ -67,8 +78,13 @@ const Login = () => {
       email: validateEmail(formData.email),
       password: validatePassword(formData.password)
     };
+    
     setValidationErrors(errors);
-    setTouchedFields({ email: true, password: true });
+    setTouchedFields({
+      email: true,
+      password: true
+    });
+    
     return !errors.email && !errors.password;
   };
 
