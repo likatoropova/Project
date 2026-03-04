@@ -70,14 +70,14 @@
 
 .form_container_level > h2 {
     font-size: 24px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     text-align: center;
     font-weight: 400;
 }
 
 .radio_choice > label {
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .butn {
@@ -89,5 +89,5 @@
     border: none;
     font-size: 16px;
     line-height: 24px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }

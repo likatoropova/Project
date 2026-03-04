@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    box-sizing: border-box;
 }
 
 body {
@@ -53,7 +52,7 @@ body {
 h1 {
     font-size: 2.5vw;
     text-align: center;
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
     margin-bottom: 1vw;
 }
 
@@ -63,7 +62,7 @@ h1 {
     width: 90%;
     margin: 0 auto;
     text-align: center;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .cards_container {
@@ -128,7 +127,7 @@ h1 {
 .flex h2 {
     font-size: 1.5vw;
     margin-bottom: 0.25vw;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
     word-break: break-word;
 }
 
@@ -137,7 +136,7 @@ h1 {
     justify-content: flex-end;
     font-size: 1vw;
     margin-bottom: 2.5vw;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     color: #666;
 }
 
@@ -145,7 +144,7 @@ h1 {
     color: rgba(89, 89, 89, 1);
     font-size: 0.9vw;
     margin-top: 1.5vw;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     line-height: 1.5;
     max-width: 18.3vw;
 }
@@ -162,7 +161,7 @@ h1 {
     border-radius: 1.25vw;
     border: 1px solid rgba(120, 120, 120, 1);
     white-space: nowrap;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     font-size: 0.9vw;
     background: white;
 }
@@ -188,7 +187,7 @@ h1 {
     padding: 0.75vw 0.75vw 0.75vw 2.82vw;
     border: 1px solid rgba(184, 182, 182, 1);
     border-radius: 1.25vw;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     font-size: 0.9vw;
     transition: all 0.2s;
 }
@@ -224,7 +223,7 @@ h1 {
     border: 1px solid #ddd;
     border-radius: 0.5vw;
     text-align: left;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     font-size: 0.875vw;
     cursor: pointer;
     transition: all 0.2s;
@@ -270,7 +269,7 @@ h1 {
     z-index: 1000;
     padding: 0.75vw;
     margin-top: 0.5vw;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
 }
 
 .dropdown_content.show {
@@ -314,7 +313,7 @@ h1 {
     padding: 0.6vw 0.75vw;
     border: none;
     border-radius: 0.4vw;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     font-size: 0.9vw;
     cursor: pointer;
     transition: all 0.2s;
@@ -362,7 +361,7 @@ h1 {
     border: 1px solid #ddd;
     background: white;
     border-radius: 0.5vw;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     font-size: 0.9vw;
     cursor: pointer;
     transition: all 0.2s;
@@ -392,7 +391,7 @@ h1 {
 
 .pagination_ellipsis {
     color: #666;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
 }
 
 /* Состояния загрузки, ошибок и пустого результата */
@@ -401,7 +400,7 @@ h1 {
 .empty_container {
     text-align: center;
     padding: 5vw 1.25vw;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     min-height: 25vw;
     /*min-height: 50vh;*/
     display: flex;
@@ -440,7 +439,7 @@ h1 {
     border: none;
     border-radius: 0.5vw;
     cursor: pointer;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     font-size: 1vw;
     transition: background 0.2s;
 }
@@ -458,7 +457,7 @@ h1 {
 .tests_info {
     text-align: center;
     margin-bottom: 1.3vw;
-    font-family: 'Montserrat Alternates-Regular', sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     color: #666;
     font-size: 0.9vw;
 }

@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import LogoutModal from '../components/LogoutModal';
 import '../styles/header_footer.css';
 
 const Header = () => {
   const location = useLocation();
   const { isAuthenticated, logout } = useAuth();
+   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   
   const isLoginPage = location.pathname === '/login';
   const isRegisterPage = location.pathname === '/register';
 
-  const handleLogout = async () => {
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = async () => {
+    setIsLogoutModalOpen(false);
     await logout();
     window.location.href = '/';
+  };
+
+  const handleCancelLogout = () => {
+    setIsLogoutModalOpen(false);
   };
 
   return (
@@ -40,7 +51,7 @@ const Header = () => {
             <Link to="/profile" className="profile-btn">
               <span>Профиль</span>
             </Link>
-            <Link to="/" onClick={handleLogout} className="second_button">
+            <Link to="/" onClick={handleLogoutClick} className="second_button">
               Выйти
             </Link>
           </>
@@ -61,6 +72,11 @@ const Header = () => {
           </>
         )}
       </div>
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={handleCancelLogout}
+        onConfirm={handleConfirmLogout}
+      />
     </header>
   );
 };

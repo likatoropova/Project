@@ -16,7 +16,7 @@ main {
     padding: 12px 24px;
     border-radius: 7px;
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     color: black;
 }
 
@@ -49,14 +49,14 @@ main {
     align-items: start;
     color: rgba(22, 22, 22, 1);
     font-size: 12px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     margin-top: 20px;
     width: 90%;
 }
 
 .politic_link{
     color: rgba(22, 22, 22, 1);
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
     text-decoration: underline;
 }
 
@@ -83,13 +83,13 @@ main {
 .personal_data label{
     color: rgba(22, 22, 22, 1);
     font-size: 12px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .personal_data label a {
     color: rgba(22, 22, 22, 1);
     font-size: 12px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     text-decoration: underline;
 }
 
@@ -139,7 +139,7 @@ main {
     font-size: 16px;
     line-height: 24px;
     background-color: #FC7D47;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }
 
 .butn:hover {
@@ -166,13 +166,13 @@ main {
 .to_login > p {
     font-size: 16px;
     color: #3B3B3B;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .to_login > a {
     font-size: 16px;
     color: #3B3B3B;
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
 }
 
 .to_login > a:hover {

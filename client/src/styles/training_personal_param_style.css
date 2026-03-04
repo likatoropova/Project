@@ -80,7 +80,7 @@
 
 .form_group_measurements > div > label {
     font-size: 18px;
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
 }
 
 .form_group_measurements > div > input {
@@ -95,7 +95,7 @@
 
 .form_group_measurements > div > input[type="text"] {
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .form_choice input[type="radio"] {
@@ -104,7 +104,7 @@
 
 .form_group_param > label {
     font-size: 18px;
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
 }
 
 .form_group_param > div {
@@ -119,7 +119,7 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.3s ease;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .choice-item > label {
@@ -147,5 +147,5 @@
     border: none;
     font-size: 16px;
     line-height: 24px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }

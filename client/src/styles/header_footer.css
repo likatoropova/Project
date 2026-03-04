@@ -36,7 +36,7 @@ header > div {
     color: #484646;
     text-decoration: none;
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Bold", sans-serif;
 }
 
 .nav_links a:hover {
@@ -61,42 +61,43 @@ header > div {
     font-size: 16px;
     border: none;
     border-radius: 12px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }
 
 .second_button {
     line-height: 24px;
     padding: 12px 32px;
-    background-color: rgba(252, 125, 71, 0.1);
-    border: 1px solid #FC7D47;
-    color: rgba(252, 125, 71, 0.6);
+    background-color: #FC7D471A;
+    border: 1px solid #FC7D47CC;
+    color: #FC7D47CC;
     border-radius: 12px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }
 
-.nav_buttons > a:not(.notifications):hover {
+.nav_buttons > a:not(.notifications, .second_button):hover {
     background-color: #FF9B65;
     color: #FFFFFF;
 }
 
-.nav_buttons > a:not(.notifications):active {
+.nav_buttons > a:not(.notifications, .second_button):active {
     border: 1px solid #FC7D47;
     background-color: rgba(252, 125, 71, 0.1);
     color: #FC7D47;
 }
 
 .second_button:hover {
-    background-color: rgba(252, 125, 71, 0.3);
-    color: rgba(252, 125, 71, 0.6);
+    background-color: #FC7D474D;
+    color: #FC7D4799;
 }
 
 .second_button:active {
-    background-color: rgba(252, 125, 71, 0.08);
-    border: 1px solid rgba(252, 125, 71, 0.6);
+    background-color: #FC7D4714;
+    border: 1px solid #FC7D4799;
+    color: #FC7D4799;
 }
 
 footer {
-    padding: 1rem 2rem;
+    padding: 36px 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -111,7 +112,7 @@ footer {
     flex-direction: column;
     gap: 1rem;
     width: 16%;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .footer_links a {
@@ -141,6 +142,6 @@ footer {
 }
 
 .social_icons > div > p {
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     font-size: 18px;
 }

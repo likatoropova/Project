@@ -1,0 +1,95 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 64px;
+  border-radius: 8px;
+  max-width: 486px;
+  width: 100%;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.modal-buttons button {
+  padding: 12px 32px;
+  border-radius: 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 100px;
+}
+
+.btn-confirm {
+  background-color: #FC7D47;
+  color: white;
+  border: none;
+}
+
+.btn-confirm:hover {
+  background-color: #FF9B65;
+}
+
+.btn-confirm:active {
+    border: 1px solid rgba(252, 125, 71, 0.8);
+    color: #FC7D47;
+    background-color: rgba(252, 125, 71, 0.4);
+}
+
+.btn-cancel {
+  background-color: rgba(252, 125, 71, 0.1);
+  color: rgba(252, 125, 71, 0.8);
+  border: 1px solid rgba(252, 125, 71, 0.8);
+}
+
+.btn-cancel:hover {
+  background-color: #FC7D474D;
+  color: #FC7D4799;
+  border: 1px solid #FC7D47;
+}
+
+.btn-cancel:active {
+    background-color: #FC7D4714;
+    color: #FC7D4799;
+    border: 1px solid #FC7D4799;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

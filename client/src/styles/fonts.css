@@ -1,21 +1,21 @@
 @font-face {
-    font-family: "Montserrat Alternates-Regular";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf);
+    font-family: "Montserrat-Regular";
+    src: url(fonts/Montserrat/Montserrat-Regular.ttf);
 }
 
 @font-face {
-    font-family: "Montserrat Alternates-Medium";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf);
+    font-family: "Montserrat-Medium";
+    src: url(fonts/Montserrat/Montserrat-Medium.ttf);
 }
 
 @font-face {
-    font-family: "Montserrat Alternates-SemiBold";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
+    font-family: "Montserrat-SemiBold";
+    src: url(fonts/Montserrat/Montserrat-SemiBold.ttf);
 }
 
 @font-face {
-    font-family: "Montserrat Alternates-Bold";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf);
+    font-family: "Montserrat-Bold";
+    src: url(fonts/Montserrat/Montserrat-Bold.ttf);
 }
 
 @font-face {
