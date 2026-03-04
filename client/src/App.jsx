@@ -3,7 +3,8 @@ import axios from 'axios';
 import { requestForToken, onMessageListener } from './firebase';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import RequireFirstTest from './components/RequireFirstTest';
+import { FirstTestProvider } from './context/FirstTestContext';
+import GuestRoute from './components/GuestTestGuard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterCode from './pages/RegisterCode';
@@ -91,32 +92,34 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <NotificationPopup title={notification.title} body={notification.body} />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/register-code" element={<RegisterCode />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/restore-password" element={<RestorePassword />} />
-          <Route path="/confirm-password" element={<ConfirmPassword />} />
-          <Route path="/tests" element={<TestsPage />} />
-          <Route path="/training-goal" element={
-            <RequireFirstTest>
-              <TrainingGoal />
-            </RequireFirstTest>
-          } />
-          <Route path="/training-personal-param" element={
-            <RequireFirstTest>
-              <TrainingPersonalParam />
-            </RequireFirstTest>
-          } />
-          <Route path="/training-level" element={
-            <RequireFirstTest>
-              <TrainingLevel />
-            </RequireFirstTest>
-          } />
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <FirstTestProvider>
+          <NotificationPopup title={notification.title} body={notification.body} />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/register-code" element={<RegisterCode />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/restore-password" element={<RestorePassword />} />
+            <Route path="/confirm-password" element={<ConfirmPassword />} />
+            <Route path="/tests" element={<TestsPage />} />
+            <Route path="/training-goal" element={
+              <GuestRoute>
+                <TrainingGoal />
+              </GuestRoute>
+            } />
+            <Route path="/training-personal-param" element={
+              <GuestRoute>
+                <TrainingPersonalParam />
+              </GuestRoute>
+            } />
+            <Route path="/training-level" element={
+              <GuestRoute>
+                <TrainingLevel />
+              </GuestRoute>
+            } />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </FirstTestProvider>
       </AuthProvider>
     </Router>
   );

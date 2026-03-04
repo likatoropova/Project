@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { login } from '../api/authAPI';
-import { getUserParams } from '../api/userParamsAPI';
 import '../styles/auth_style.css';
 import '../styles/form.css';
 import '../styles/fonts.css';
@@ -14,7 +13,7 @@ import { useAuth } from '../hooks/useAuth';
 const Login = () => {
   const navigate = useNavigate();
   const { execute: executeLogin, loading, error } = useApi(login);
-  const { login: authLogin, hasCompletedFirstTest } = useAuth();
+  const { login: authLogin } = useAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -51,26 +50,15 @@ const Login = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     setTouchedFields(prev => ({ ...prev, [name]: true }));
-    
     const error = validateField(name, value);
-    setValidationErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
+    setValidationErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (validationErrors[name]) {
-      setValidationErrors(prev => ({
-        ...prev,
-        [name]: null
-      }));
+      setValidationErrors(prev => ({ ...prev, [name]: null }));
     }
   };
 
@@ -79,44 +67,23 @@ const Login = () => {
       email: validateEmail(formData.email),
       password: validatePassword(formData.password)
     };
-    
     setValidationErrors(errors);
-    setTouchedFields({
-      email: true,
-      password: true
-    });
-    
+    setTouchedFields({ email: true, password: true });
     return !errors.email && !errors.password;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     const result = await executeLogin(
       formData.email.trim(),
       formData.password
     );
-
+    
     if (result.success) {
       await authLogin(formData.email.trim(), formData.password);
-      
-      // Даем время на обновление контекста
-      setTimeout(() => {
-        const testPassed = localStorage.getItem('firstTestPassed') === 'true';
-        console.log('🔍 After login - firstTestPassed:', testPassed);
-        
-        if (!testPassed) {
-          console.log('➡️ Redirecting to training goal');
-          navigate('/training-goal');
-        } else {
-          console.log('➡️ Redirecting to home');
-          navigate('/');
-        }
-      }, 500);
+      navigate('/');
     }
   };
 

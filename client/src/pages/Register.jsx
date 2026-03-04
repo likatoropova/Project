@@ -41,7 +41,7 @@ const Register = () => {
   const validatePassword = (password) => {
     if (!password) return 'Пароль обязателен';
     if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
-    if (password.length > 12) return 'Пароль должен содерждать не больше 12 символов'
+    if (password.length > 12) return 'Пароль должен содержать не больше 12 символов';
     return '';
   };
 
@@ -133,33 +133,16 @@ const Register = () => {
       return;
     }
 
-    const registrationData = {
-      email: formData.email.trim(),
-      name: formData.name.trim(),
-      password: formData.password,
-    };
-
-    console.log('Sending registration data:', registrationData);
-    if (!registrationData.name) {
-      showNotification('Имя не может быть пустым');
-      return;
-    }
-
     const result = await executeRegister(
       formData.email.trim(),
       formData.name.trim(),
       formData.password
-  );
+    );
 
     if (result.success) {
       localStorage.setItem('registrationEmail', formData.email);
-      
-      setTimeout(() => {
-        navigate('/register-code');
-      }, 200);
+      navigate('/register-code');
     }
-    
-    console.log('Register data:', formData);
   };
 
   return (

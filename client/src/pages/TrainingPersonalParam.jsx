@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useGuestTest } from '../context/FirstTestContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { useApi } from '../hooks/useApi';
-import { saveAnthropometry } from '../api/userParamsAPI';
 import '../styles/training_personal_param_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
 
 const TrainingPersonalParam = () => {
   const navigate = useNavigate();
+  const { guestId, saveGuestAnthropometry, guestData } = useGuestTest();
+  
   const [formData, setFormData] = useState({
-    gender: '',
-    age: '',
-    weight: '',
-    height: '',
-    equipment_id: ''
+    gender: guestData?.anthropometry?.gender || '',
+    age: guestData?.anthropometry?.age || '',
+    weight: guestData?.anthropometry?.weight || '',
+    height: guestData?.anthropometry?.height || '',
+    equipment_id: guestData?.anthropometry?.equipment_id || ''
   });
 
   const [errors, setErrors] = useState({});
-  const [touchedFields, setTouchedFields] = useState({});
-  
-  const { execute: executeSaveAnthropometry, loading } = useApi(saveAnthropometry);
+
+  useEffect(() => {
+    if (!guestId) {
+      console.log('⏳ Waiting for guest ID...');
+    }
+  }, [guestId]);
+
   const equipmentOptions = [
     { id: 1, label: 'Зал' },
     { id: 2, label: 'Смешанный' }
@@ -47,50 +52,32 @@ const TrainingPersonalParam = () => {
       case 'equipment_id':
         if (!value) return 'Выберите оборудование';
         break;
-      default:
-        return '';
     }
     return '';
-  };
-
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    setTouchedFields(prev => ({ ...prev, [name]: true }));
-    
-    const error = validateField(name, value);
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
-    if (touchedFields[name]) {
-      const error = validateField(name, value);
-      setErrors(prev => ({
-        ...prev,
-        [name]: error
-      }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
   };
 
   const handleGenderSelect = (gender) => {
     setFormData(prev => ({ ...prev, gender }));
-    if (touchedFields.gender) {
-      const error = validateField('gender', gender);
-      setErrors(prev => ({ ...prev, gender: error }));
-    }
+    setErrors(prev => ({ ...prev, gender: '' }));
   };
 
   const handleEquipmentSelect = (equipmentId) => {
     setFormData(prev => ({ ...prev, equipment_id: equipmentId }));
-    if (touchedFields.equipment_id) {
-      const error = validateField('equipment_id', equipmentId);
-      setErrors(prev => ({ ...prev, equipment_id: error }));
-    }
+    setErrors(prev => ({ ...prev, equipment_id: '' }));
   };
 
   const validateForm = () => {
@@ -103,42 +90,24 @@ const TrainingPersonalParam = () => {
     };
     
     setErrors(newErrors);
-    setTouchedFields({
-      gender: true,
-      age: true,
-      weight: true,
-      height: true,
-      equipment_id: true
-    });
-    
     return !Object.values(newErrors).some(error => error);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
       return;
     }
 
-    const result = await executeSaveAnthropometry({
-      gender: formData.gender,
-      age: parseInt(formData.age),
-      weight: parseFloat(formData.weight),
-      height: parseInt(formData.height),
-      equipment_id: parseInt(formData.equipment_id)
-    });
-
-    if (result.success) {
-      navigate('/training-level');
-    }
+    saveGuestAnthropometry(formData);
+    navigate('/training-level');
   };
 
-  const isFormValid = formData.gender && formData.age && formData.weight && formData.height && formData.equipment_id;
   return (
     <>
       <Header />
-      <main className='pers_param_main'>
+      <main>
         <section className="hero">
           <button className="back_btn" onClick={() => navigate('/training-goal')}>
             &lt;
@@ -148,102 +117,81 @@ const TrainingPersonalParam = () => {
         
         <section className="content-section">
           <h1>Ваш фитнес старт</h1>
-          <form className="form_container_param" onSubmit={handleSubmit}>
+          <form className="form_container" onSubmit={handleSubmit}>
             <legend className="title">Введите Ваши параметры</legend>
-            <div className="form_group_param">
+            
+            <div className="form_group">
               <label>Пол</label>
               <div className="form_choice">
-                <div 
-                  className={`choice-item ${formData.gender === 'male' ? 'active' : ''}`}
-                  onClick={() => handleGenderSelect('male')}
-                >
-                  <input
-                    type="radio"
-                    id="man"
-                    name="gender"
-                    value="male"
-                    checked={formData.gender === 'male'}
-                    onChange={() => {}}
-                  />
-                  <label htmlFor="man">Мужской</label>
-                </div>
-                
-                <div 
-                  className={`choice-item ${formData.gender === 'female' ? 'active' : ''}`}
-                  onClick={() => handleGenderSelect('female')}
-                >
-                  <input
-                    type="radio"
-                    id="woman"
-                    name="gender"
-                    value="female"
-                    checked={formData.gender === 'female'}
-                    onChange={() => {}}
-                  />
-                  <label htmlFor="woman">Женский</label>
-                </div>
+                {['male', 'female'].map(gender => (
+                  <div 
+                    key={gender}
+                    className={`choice-item ${formData.gender === gender ? 'active' : ''}`}
+                    onClick={() => handleGenderSelect(gender)}
+                  >
+                    <input
+                      type="radio"
+                      name="gender"
+                      id={gender}
+                      value={gender}
+                      checked={formData.gender === gender}
+                      onChange={() => {}}
+                    />
+                    <label htmlFor={gender}>
+                      {gender === 'male' ? 'Мужской' : 'Женский'}
+                    </label>
+                  </div>
+                ))}
               </div>
-              {errors.gender && touchedFields.gender && (
-                <span className="field_error">{errors.gender}</span>
-              )}
+              {errors.gender && <span className="field_error">{errors.gender}</span>}
             </div>
-            <div className="form_group_measurements">
+            
+            <div className="form_group measurements">
               <div>
                 <label htmlFor="age">Возраст (лет):</label>
                 <input
-                  type="text"
+                  type="number"
                   id="age"
                   name="age"
-                  min="1"
-                  max="120"
                   value={formData.age}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={errors.age && touchedFields.age ? 'error' : ''}
+                  className={errors.age ? 'error' : ''}
                 />
-                {errors.age && touchedFields.age && (
-                  <span className="field_error">{errors.age}</span>
-                )}
+                {errors.age && <span className="field_error">{errors.age}</span>}
               </div>
               
               <div>
                 <label htmlFor="weight">Вес (кг):</label>
                 <input
-                  type="text"
+                  type="number"
                   id="weight"
                   name="weight"
-                  min="1"
-                  max="300"
                   step="0.1"
                   value={formData.weight}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={errors.weight && touchedFields.weight ? 'error' : ''}
+                  className={errors.weight ? 'error' : ''}
                 />
-                {errors.weight && touchedFields.weight && (
-                  <span className="field_error">{errors.weight}</span>
-                )}
+                {errors.weight && <span className="field_error">{errors.weight}</span>}
               </div>
               
               <div>
                 <label htmlFor="height">Рост (см):</label>
                 <input
-                  type="text"
+                  type="number"
                   id="height"
                   name="height"
-                  min="50"
-                  max="250"
                   value={formData.height}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={errors.height && touchedFields.height ? 'error' : ''}
+                  className={errors.height ? 'error' : ''}
                 />
-                {errors.height && touchedFields.height && (
-                  <span className="field_error">{errors.height}</span>
-                )}
+                {errors.height && <span className="field_error">{errors.height}</span>}
               </div>
             </div>
-            <div className="form_group_param">
+            
+            <div className="form_group">
               <label>Оборудование</label>
               <div className="form_choice">
                 {equipmentOptions.map(equip => (
@@ -254,8 +202,8 @@ const TrainingPersonalParam = () => {
                   >
                     <input
                       type="radio"
-                      id={`equip_${equip.id}`}
                       name="equipment"
+                      id={`equip_${equip.id}`}
                       value={equip.id}
                       checked={formData.equipment_id === equip.id}
                       onChange={() => {}}
@@ -264,17 +212,11 @@ const TrainingPersonalParam = () => {
                   </div>
                 ))}
               </div>
-              {errors.equipment_id && touchedFields.equipment_id && (
-                <span className="field_error">{errors.equipment_id}</span>
-              )}
+              {errors.equipment_id && <span className="field_error">{errors.equipment_id}</span>}
             </div>
             
-            <button
-              type="submit"
-              className="butn"
-              disabled={loading || !isFormValid}
-            >
-              {loading ? 'Сохранение...' : 'Далее'}
+            <button type="submit" className="butn">
+              Далее
             </button>
           </form>
         </section>

@@ -23,11 +23,11 @@ const Header = () => {
       </div>
       <div className="nav_links">
         <Link to="/">Главная</Link>
-        <Link to="/trainings">Тренировки</Link>
+        <Link to="/tests">Тесты</Link>
+        <Link to="/subscriptions">Подписки</Link>
         {isAuthenticated && (
           <>
-            <Link to="/subscriptions">Подписки</Link>
-            <Link to="/tests">Тесты</Link>
+            <Link to="/trainings">Тренировки</Link>
           </>
         )}
       </div>
