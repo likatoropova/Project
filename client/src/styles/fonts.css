@@ -1,24 +1,59 @@
 @font-face {
     font-family: "Montserrat Alternates-Regular";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf);
+    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf);
 }
 
 @font-face {
     font-family: "Montserrat Alternates-Medium";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf);
+    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf);
 }
 
 @font-face {
     font-family: "Montserrat Alternates-SemiBold";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
+    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
 }
 
 @font-face {
     font-family: "Montserrat Alternates-Bold";
-    src: url(fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf);
+    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url(../../public/fonts/Montserrat/Montserrat-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-Medium";
+    src: url(../../public/fonts/Montserrat/Montserrat-Medium.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-SemiBold";
+    src: url(../../public/fonts/Montserrat/Montserrat-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url(../../public/fonts/Montserrat/Montserrat-Bold.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-ExtraBold";
+    src: url(../../public/fonts/Montserrat/Montserrat-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-Thin";
+    src: url(../../public/fonts/Montserrat/Montserrat-Thin.ttf);
+}
+
+@font-face {
+    font-family: "Montserrat-Light";
+    src: url(../../public/fonts/Montserrat/Montserrat-Light.ttf);
 }
 
 @font-face {
     font-family: "Roboto";
-    src: url(fonts/Roboto/Roboto.ttf);
+    src: url(../../public/fonts/Roboto/Roboto.ttf);
 }
