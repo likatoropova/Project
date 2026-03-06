@@ -89,7 +89,7 @@ export const FirstTestProvider = ({ children }) => {
   };
 
   const resetGuest = () => {
-    console.log('🔄 Resetting guest data');
+    console.log('🔄 Resetting guest data after registration');
     setGuestId(null);
     setHasGuestParams(false);
     localStorage.removeItem('guestId');

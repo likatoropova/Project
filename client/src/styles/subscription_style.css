@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    position: relative;
+}
+
+.title {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10%;
+    margin-top: 100px;
+    margin-bottom: 32px;
+}
+
+.title h1 {
+    width: 27%;
+    margin-right: 18%;
+}
+
+.title a {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 8px;
+    width: 20px;
+    background: #FFFFFF;
+}
+
+.subscriptions-catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+}
+
+.subscriptions-catalog > article {
+    display: flex;
+    width: 35%;
+    height: 429px;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 0 4px 0 rgba(59, 163, 164, 0.6);
+    padding: 0 20px 36px;
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.subscription-card:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+}
+
+.info {
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    width: 50%;
+}
+
+.info div {
+    position: absolute;
+    top: -80px;
+}
+
+.info  div h2 {
+    font-family: "Montserrat Alternates-Thin", sans-serif;
+    font-size: 160pt;
+    font-weight: 250;
+    width: 190px;
+    height: 171px;
+}
+
+.info div h2 span {
+    font-family: "Montserrat Alternates-Light", sans-serif;
+    font-size: 36px;
+}
+
+.info p {
+    margin-top: 160px;
+    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-size: 32px;
+}
+
+.info ul li {
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 16px;
+}
+
+.image-wrapper {
+    width: 50%;
+}
+
+.image-wrapper > img {
+    width: 80%;
+    height: 375px;
+}
+
+article > div:nth-of-type(2) {
+    position: absolute;
+    top: -30px;
+    right: -50px;
+}
+
+.bg-l, .bg-r {
+    width: 25%;
+    position: absolute;
+}
+
+.bg-l {
+    left: 0;
+}
+
+.bg-r {
+    right: 0;
+    bottom: 0;
+}

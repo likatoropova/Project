@@ -1,52 +1,71 @@
-// client/src/hooks/useSubscriptions.js
-
 import { useState, useEffect, useCallback } from 'react';
-import { useApi } from './useApi';
 import axiosInstance from '../api/axiosConfig';
 
 export const useSubscriptions = () => {
     const [subscriptions, setSubscriptions] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const { execute: fetchSubscriptions, loading, error } = useApi(async () => {
-        const response = await axiosInstance.get('/subscriptions');
-        return response.data;
-    });
-
-    const loadSubscriptions = useCallback(async () => {
-        const result = await fetchSubscriptions();
-        if (result.success && result.data) {
-            const subscriptionsData = result.data.data || [];
-            setSubscriptions(subscriptionsData);
+    const fetchSubscriptions = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            
+            console.log('📥 Fetching subscriptions...');
+            const response = await axiosInstance.get('/subscriptions');
+            console.log('✅ Subscriptions received:', response.data);
+            
+            // Извлекаем данные из ответа API
+            if (response.data?.success && Array.isArray(response.data?.data)) {
+                setSubscriptions(response.data.data);
+            } else if (Array.isArray(response.data)) {
+                setSubscriptions(response.data);
+            } else {
+                console.warn('Unexpected response format:', response.data);
+                setSubscriptions([]);
+                setError('Неверный формат данных от сервера');
+            }
+        } catch (err) {
+            console.error('❌ Error fetching subscriptions:', err);
+            setError(err.response?.data?.message || 'Не удалось загрузить подписки');
+            setSubscriptions([]);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
     useEffect(() => {
-        loadSubscriptions();
-    }, []);
+        fetchSubscriptions();
+    }, [fetchSubscriptions]);
 
     // Форматирование цены
     const formatPrice = (price) => {
+        const numPrice = parseFloat(price);
+        if (isNaN(numPrice)) return `${price} ₽`;
+        
         return new Intl.NumberFormat('ru-RU', {
             style: 'currency',
             currency: 'RUB',
-            minimumFractionDigits: 0
-        }).format(price);
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(numPrice);
     };
 
     // Форматирование длительности
     const formatDuration = (days) => {
-        if (days === 30) return 'месяц';
-        if (days === 90) return '3 месяца';
-        if (days === 180) return '6 месяцев';
-        if (days === 365) return 'год';
-        return `${days} дней`;
+        const numDays = parseInt(days);
+        if (numDays === 30) return '1 месяц';
+        if (numDays === 90) return '3 месяца';
+        if (numDays === 180) return '6 месяцев';
+        if (numDays === 365) return '12 месяцев';
+        return `${numDays} дней`;
     };
 
     return {
         subscriptions,
         loading,
         error,
-        loadSubscriptions,
+        fetchSubscriptions,
         formatPrice,
         formatDuration
     };

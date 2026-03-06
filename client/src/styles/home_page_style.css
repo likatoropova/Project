@@ -8,6 +8,10 @@
 .main_home {
     max-width: 1920px;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .nebo-custom {

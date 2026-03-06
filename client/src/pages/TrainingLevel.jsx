@@ -67,7 +67,7 @@ const TrainingLevel = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='pers_param_main'>
         <section className="hero">
           <button 
             className="back_btn" 
@@ -81,7 +81,7 @@ const TrainingLevel = () => {
         
         <section className="content-section">
           <h1>Ваш фитнес старт</h1>
-          <form className="form_container" onSubmit={handleSubmit} noValidate>
+          <form className="form_container_level" onSubmit={handleSubmit} noValidate>
             <h2>Выберите Ваш уровень подготовки</h2>
             
             {error && (
@@ -123,8 +123,8 @@ const TrainingLevel = () => {
               style={{
                 opacity: (loading || !selectedLevel) ? 0.6 : 1,
                 cursor: (loading || !selectedLevel) ? 'not-allowed' : 'pointer',
-                backgroundColor: (selectedLevel && !loading) ? '#D4AAF8' : '#e2e2e2',
-                color: (selectedLevel && !loading) ? 'white' : '#333'
+                backgroundColor: (selectedLevel && !loading) ? '#FC7D47' : '#FF9B65',
+                color: (selectedLevel && !loading) ? '#FFFFFF' : '#FFFFFF'
               }}
             >
               {loading ? 'Сохранение...' : 'Завершить'}

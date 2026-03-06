@@ -86,7 +86,7 @@ const TrainingGoal = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='pers_param_main'>
         <div className="hero">
           <img src="/img/personal-param-girl.png" alt="girl" />
           
@@ -101,7 +101,7 @@ const TrainingGoal = () => {
 
         <section className="form-section">
           <h1>Ваш фитнес старт</h1>
-          <form className="form_container" onSubmit={handleSubmit}>
+          <form className="form_container_goal" onSubmit={handleSubmit}>
             <legend>Выберите Вашу цель тренировок</legend>
             
             {error && <div className="error_message">{error}</div>}

@@ -36,7 +36,7 @@
 
 .content-section h1 {
     font-size: 40px;
-    font-family: "Montserrat Alternates-Medium", sans-serif;
+    font-family: "Montserrat-Medium", sans-serif;
     text-align: left;
     margin-bottom: 40px;
     width: 100%;
@@ -57,13 +57,13 @@
 
 .title {
     font-size: 24px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     text-align: center;
 }
 
 .form_choice > label {
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .form_group_measurements {
@@ -126,7 +126,7 @@
     display: block;
     width: 100%;
     border: 1px solid #C6C6C6;
-    padding: 16px 24px;
+    padding: 16px 0;
     border-radius: 8px;
 }
 

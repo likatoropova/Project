@@ -6,32 +6,22 @@ export const saveGoal = async (goalId) => {
   try {
     console.log('📝 SAVING GOAL - Step 1:', { goal_id: goalId });
     
-    const token = localStorage.getItem('accessToken');
-    console.log('🔑 Token present:', !!token);
-    
+    // При первом запросе бэкенд создаст guest_id и сохранит в Redis
     const response = await axiosInstance.post(API_ENDPOINTS.SAVE_GOAL, {
       goal_id: parseInt(goalId)
     });
     
-    console.log('✅ GOAL SAVED - Full response:', response);
-    console.log('✅ GOAL SAVED - Response data:', response.data);
-    console.log('✅ GOAL SAVED - Response status:', response.status);
+    console.log('✅ GOAL SAVED - Response:', response.data);
     
-    // Сохраняем guest_id если он есть (для неавторизованного пользователя)
+    // Сохраняем guest_id из ответа API в localStorage
     if (response.data?.data?.guest_id) {
-      console.log('💾 Guest ID received from API:', response.data.data.guest_id);
       localStorage.setItem('guestId', response.data.data.guest_id);
-    } else {
-      console.log('⚠️ No guest_id in response');
+      console.log('💾 Guest ID saved to localStorage:', response.data.data.guest_id);
     }
     
     return { success: true, data: response.data };
   } catch (error) {
-    console.error('❌ ERROR SAVING GOAL - Full error:', error);
-    console.error('❌ ERROR SAVING GOAL - Response:', error.response);
-    console.error('❌ ERROR SAVING GOAL - Response data:', error.response?.data);
-    console.error('❌ ERROR SAVING GOAL - Status:', error.response?.status);
-    
+    console.error('❌ ERROR SAVING GOAL:', error.response?.data);
     return { 
       success: false, 
       error: error.response?.data || { message: 'Ошибка сохранения цели' } 
@@ -44,6 +34,7 @@ export const saveAnthropometry = async (data) => {
   try {
     console.log('📝 SAVING ANTHROPOMETRY - Step 2:', data);
     
+    // Берем guest_id из localStorage
     const guestId = localStorage.getItem('guestId');
     
     const payload = {
@@ -54,6 +45,7 @@ export const saveAnthropometry = async (data) => {
       equipment_id: parseInt(data.equipment_id)
     };
     
+    // Добавляем guest_id к запросу - бэкенд поймет, что это данные для этого гостя
     if (guestId) {
       payload.guest_id = guestId;
       console.log('➕ Adding guest_id to payload:', guestId);
@@ -96,53 +88,13 @@ export const saveLevel = async (levelId) => {
     
     console.log('✅ LEVEL SAVED - Response:', response.data);
     
-    // Не очищаем guestId, он может понадобиться при регистрации
+    // НЕ удаляем guest_id здесь! Он понадобится при регистрации
     return { success: true, data: response.data };
   } catch (error) {
     console.error('❌ ERROR SAVING LEVEL:', error.response?.data);
     return { 
       success: false, 
       error: error.response?.data || { message: 'Ошибка сохранения уровня' } 
-    };
-  }
-};
-
-// ПОЛУЧИТЬ ПАРАМЕТРЫ АВТОРИЗОВАННОГО ПОЛЬЗОВАТЕЛЯ
-export const getUserParams = async () => {
-  try {
-    console.log('📝 GETTING USER PARAMS');
-    
-    const token = localStorage.getItem('accessToken');
-    
-    if (!token) {
-      console.log('❌ No token, user not authenticated');
-      return { success: false, data: null };
-    }
-    
-    const response = await axiosInstance.get(API_ENDPOINTS.GET_USER_PARAMS);
-    
-    console.log('✅ USER PARAMS RECEIVED:', response.data);
-    
-    if (response.data?.data && Object.keys(response.data.data).length > 0) {
-      console.log('📊 User has parameters in DB');
-      return { success: true, data: response.data.data };
-    }
-    
-    console.log('❌ No parameters found for user');
-    return { success: false, data: null };
-    
-  } catch (error) {
-    console.error('❌ ERROR GETTING USER PARAMS:', error.response?.data);
-    
-    if (error.response?.status === 404) {
-      console.log('ℹ️ User has no parameters (404)');
-      return { success: false, data: null };
-    }
-    
-    return { 
-      success: false, 
-      error: error.response?.data || { message: 'Ошибка получения параметров' },
-      data: null 
     };
   }
 };

@@ -14,7 +14,8 @@ import TestsPage from './pages/TestsPage';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
+import Subscriptions from './pages/Subscriptions';
 
 function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
@@ -102,16 +103,10 @@ function App() {
             <Route path="/restore-password" element={<RestorePassword />} />
             <Route path="/confirm-password" element={<ConfirmPassword />} />
             <Route path="/tests" element={<TestsPage />} />
-            <Route path="/training-goal" element={
-              
-                <TrainingGoal />
-            } />
-            <Route path="/training-personal-param" element={
-                <TrainingPersonalParam />
-            } />
-            <Route path="/training-level" element={
-                <TrainingLevel />
-            } />
+            <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/training-goal" element={<TrainingGoal />} />
+            <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
+            <Route path="/training-level" element={<TrainingLevel />} />
           </Routes>
         </FirstTestProvider>
       </AuthProvider>

@@ -141,7 +141,7 @@ const TrainingPersonalParam = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='pers_param_main'>
         <section className="hero">
           <button 
             className="back_btn" 
@@ -155,7 +155,7 @@ const TrainingPersonalParam = () => {
         
         <section className="content-section">
           <h1>Ваш фитнес старт</h1>
-          <form className="form_container" onSubmit={handleSubmit} noValidate>
+          <form className="form_container_param" onSubmit={handleSubmit} noValidate>
             <legend className="title">Введите Ваши параметры</legend>
             
             {submitError && (
@@ -164,7 +164,7 @@ const TrainingPersonalParam = () => {
               </div>
             )}
             
-            <div className="form_group">
+            <div className="form_group_param">
               <label>Пол</label>
               <div className="form_choice">
                 <div 
@@ -204,11 +204,11 @@ const TrainingPersonalParam = () => {
               )}
             </div>
             
-            <div className="form_group measurements">
+            <div className="form_group_measurements">
               <div>
                 <label htmlFor="age">Возраст (лет):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="age"
                   name="age"
                   min="1"
@@ -227,7 +227,7 @@ const TrainingPersonalParam = () => {
               <div>
                 <label htmlFor="weight">Вес (кг):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="weight"
                   name="weight"
                   min="1"
@@ -247,7 +247,7 @@ const TrainingPersonalParam = () => {
               <div>
                 <label htmlFor="height">Рост (см):</label>
                 <input
-                  type="number"
+                  type="text"
                   id="height"
                   name="height"
                   min="50"
@@ -264,7 +264,7 @@ const TrainingPersonalParam = () => {
               </div>
             </div>
             
-            <div className="form_group">
+            <div className="form_group_param">
               <label>Оборудование</label>
               <div className="form_choice">
                 {equipmentOptions.map(equip => (

@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import Notification from '../components/NotificationReg';
 import { useApi } from '../hooks/useApi';
-import { register } from '../api/authApi';
+import { register } from '../api/authAPI';
+import { useFirstTest } from '../context/FirstTestContext';
 import '../styles/register_style.css';
 import '../styles/form.css';
 import '../styles/fonts.css';
 
 const Register = () => {
   const navigate = useNavigate();
+  const { resetGuest } = useFirstTest();
   const { execute: executeRegister, loading, error } = useApi(register);
 
   const [formData, setFormData] = useState({
@@ -23,6 +25,20 @@ const Register = () => {
 
   const [validationErrors, setValidationErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
+  const [notification, setNotification] = useState({
+    show: false,
+    message: ''
+  });
+
+  useEffect(() => {
+    document.title = 'Регистрация';
+    // Проверяем, есть ли guest_id перед регистрацией
+    const guestId = localStorage.getItem('guestId');
+    if (guestId) {
+      console.log('🆔 Guest ID present before registration:', guestId);
+      // Данные в Redis будут автоматически привязаны при регистрации
+    }
+  }, []);
 
   const validateEmail = (email) => {
     if (!email) return 'Email обязателен';
@@ -41,7 +57,6 @@ const Register = () => {
   const validatePassword = (password) => {
     if (!password) return 'Пароль обязателен';
     if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
-    if (password.length > 12) return 'Пароль должен содержать не больше 12 символов';
     return '';
   };
 
@@ -61,7 +76,7 @@ const Register = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     setTouchedFields(prev => ({ ...prev, [name]: true }));
-
+    
     const error = validateField(name, value);
     setValidationErrors(prev => ({
       ...prev,
@@ -69,18 +84,13 @@ const Register = () => {
     }));
   };
 
-  const [notification, setNotification] = useState({
-    show: false,
-    message: ''
-  });
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-
+    
     if (touchedFields[name]) {
       const error = validateField(name, value);
       setValidationErrors(prev => ({
@@ -110,14 +120,14 @@ const Register = () => {
       name: validateName(formData.name),
       password: validatePassword(formData.password)
     };
-
+    
     setValidationErrors(errors);
     setTouchedFields({
       email: true,
       name: true,
       password: true
     });
-
+    
     return !errors.email && !errors.name && !errors.password;
   };
 
@@ -133,29 +143,33 @@ const Register = () => {
       return;
     }
 
-    const registrationData = {
-      email: formData.email.trim(),
-      name: formData.name.trim(),
-      password: formData.password,
-    };
-
-    console.log('Sending registration data:', registrationData);
-    if (!registrationData.name) {
-      showNotification('Имя не может быть пустым');
-      return;
-    }
-
+    // Проверяем наличие guest_id перед регистрацией
+    const guestId = localStorage.getItem('guestId');
+    console.log('📦 Guest ID before registration:', guestId);
+    
+    // Бэкенд автоматически привяжет данные из Redis по guest_id
     const result = await executeRegister(
-        formData.email.trim(),
-        formData.name.trim(),
-        formData.password
+      formData.email.trim(),
+      formData.name.trim(),
+      formData.password
     );
 
-    if (result.success) {
+    if (result?.success) {
+      console.log('✅ Registration successful, guest data should be attached in Redis');
+      
+      // После успешной регистрации очищаем гостевые данные
+      resetGuest(); // Очищаем guestId и флаги в контексте
+      localStorage.removeItem('guestId');
+      localStorage.removeItem('guestParamsCompleted');
+      
       localStorage.setItem('registrationEmail', formData.email);
-      navigate('/register-code');
+      
+      setTimeout(() => {
+        navigate('/register-code');
+      }, 200);
     }
   };
+  
   return (
       <>
         <Header />
