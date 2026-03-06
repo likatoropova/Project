@@ -4,7 +4,6 @@ import { requestForToken, onMessageListener } from './firebase';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { FirstTestProvider } from './context/FirstTestContext';
-import GuestRoute from './components/GuestTestGuard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterCode from './pages/RegisterCode';
@@ -14,7 +13,7 @@ import ConfirmPassword from './pages/ConfirmPassword';
 import TestsPage from './pages/TestsPage';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
-import TrainingLevel from './pages/TrainingLevel';
+import TrainingLevel from './pages/TrainingLevel'
 import Home from './pages/Home';
 
 function App() {
@@ -103,19 +102,14 @@ function App() {
             <Route path="/confirm-password" element={<ConfirmPassword />} />
             <Route path="/tests" element={<TestsPage />} />
             <Route path="/training-goal" element={
-              <GuestRoute>
+              
                 <TrainingGoal />
-              </GuestRoute>
             } />
             <Route path="/training-personal-param" element={
-              <GuestRoute>
                 <TrainingPersonalParam />
-              </GuestRoute>
             } />
             <Route path="/training-level" element={
-              <GuestRoute>
                 <TrainingLevel />
-              </GuestRoute>
             } />
             <Route path="/" element={<Home />} />
           </Routes>

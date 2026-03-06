@@ -24,9 +24,10 @@
 }
 
 .modal-content h3 {
-  margin: 0 0 20px 0;
-  color: #333;
-  font-size: 18px;
+  color: black;
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 32px;
+  margin-bottom: 52px;
 }
 
 .modal-buttons {
@@ -38,10 +39,11 @@
 .modal-buttons button {
   padding: 12px 32px;
   border-radius: 12px;
-  font-size: 14px;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 16px;
   cursor: pointer;
   transition: all 0.3s;
-  min-width: 100px;
+  min-width: 50%;
 }
 
 .btn-confirm {

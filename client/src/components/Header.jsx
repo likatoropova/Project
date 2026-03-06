@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import LogoutModal from '../components/LogoutModal';
 import '../styles/header_footer.css';
+import '../styles/fonts.css'
 
 const Header = () => {
   const location = useLocation();

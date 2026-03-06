@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useGuestTest } from '../context/FirstTestContext';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { useFirstTest } from '../context/FirstTestContext';
+import { saveLevel } from '../api/userParamsAPI';
 import '../styles/lavel_of_training_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const TrainingLevel = () => {
   const navigate = useNavigate();
-  const { guestId, saveGuestLevel, guestData } = useGuestTest();
-  const [selectedLevel, setSelectedLevel] = useState(guestData?.level?.level_id || null);
+  const { completeGuestTest } = useFirstTest();
+  const [selectedLevel, setSelectedLevel] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const levels = [
     { id: 1, label: 'Новичок' },
@@ -19,18 +21,16 @@ const TrainingLevel = () => {
     { id: 3, label: 'Продвинутый' }
   ];
 
-  useEffect(() => {
-    if (!guestId) {
-      console.log('⏳ Waiting for guest ID...');
-    }
-  }, [guestId]);
-
   const handleLevelSelect = (levelId) => {
-    setSelectedLevel(levelId);
+    if (selectedLevel === levelId) {
+      setSelectedLevel(null);
+    } else {
+      setSelectedLevel(levelId);
+    }
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!selectedLevel) {
@@ -38,11 +38,30 @@ const TrainingLevel = () => {
       return;
     }
 
-    saveGuestLevel(selectedLevel);
-    
-    // После сохранения всех данных показываем сообщение
-    alert('Данные сохранены! Теперь вы можете зарегистрироваться или войти.');
-    navigate('/');
+    setLoading(true);
+    setError('');
+
+    try {
+      console.log('📤 Saving level:', selectedLevel);
+      const result = await saveLevel(selectedLevel);
+      console.log('📥 Save result:', result);
+
+      if (result?.success) {
+        // Отмечаем, что гость прошел тест
+        completeGuestTest();
+        console.log('✅ Guest test completed, redirecting to home');
+        
+        // Перенаправляем на главную
+        navigate('/');
+      } else {
+        setError(result?.error?.message || 'Ошибка сохранения');
+      }
+    } catch (err) {
+      console.error('❌ Error:', err);
+      setError('Произошла ошибка при сохранении');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -50,7 +69,11 @@ const TrainingLevel = () => {
       <Header />
       <main>
         <section className="hero">
-          <button className="back_btn" onClick={() => navigate('/training-personal-param')}>
+          <button 
+            className="back_btn" 
+            onClick={() => navigate('/training-personal-param')}
+            disabled={loading}
+          >
             &lt;
           </button>
           <img src="/img/personal-param-girl.png" alt="girl" />
@@ -58,16 +81,27 @@ const TrainingLevel = () => {
         
         <section className="content-section">
           <h1>Ваш фитнес старт</h1>
-          <form className="form_container" onSubmit={handleSubmit}>
+          <form className="form_container" onSubmit={handleSubmit} noValidate>
             <h2>Выберите Ваш уровень подготовки</h2>
             
-            {error && <div className="error_message">{error}</div>}
+            {error && (
+              <div className="error_message" style={{
+                color: '#721c24',
+                padding: '10px',
+                marginBottom: '15px',
+                backgroundColor: '#f8d7da',
+                border: '1px solid #f5c6cb',
+                borderRadius: '4px'
+              }}>
+                {error}
+              </div>
+            )}
             
             {levels.map(level => (
               <div 
                 key={level.id}
                 className={`radio_choice ${selectedLevel === level.id ? 'active' : ''}`}
-                onClick={() => handleLevelSelect(level.id)}
+                onClick={() => !loading && handleLevelSelect(level.id)}
               >
                 <input
                   type="radio"
@@ -76,13 +110,24 @@ const TrainingLevel = () => {
                   value={level.id}
                   checked={selectedLevel === level.id}
                   onChange={() => {}}
+                  disabled={loading}
                 />
                 <label htmlFor={`level_${level.id}`}>{level.label}</label>
               </div>
             ))}
             
-            <button type="submit" className="butn">
-              Завершить
+            <button
+              type="submit"
+              className="butn"
+              disabled={loading || !selectedLevel}
+              style={{
+                opacity: (loading || !selectedLevel) ? 0.6 : 1,
+                cursor: (loading || !selectedLevel) ? 'not-allowed' : 'pointer',
+                backgroundColor: (selectedLevel && !loading) ? '#D4AAF8' : '#e2e2e2',
+                color: (selectedLevel && !loading) ? 'white' : '#333'
+              }}
+            >
+              {loading ? 'Сохранение...' : 'Завершить'}
             </button>
           </form>
         </section>
