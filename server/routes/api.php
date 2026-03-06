@@ -11,7 +11,9 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\SavedCardController;
 use App\Http\Controllers\PhaseController;
+use App\Http\Controllers\TestAttemptController;
 use App\Http\Controllers\UserParameterController;
+use App\Http\Controllers\UserProgressController;
 use App\Http\Controllers\WorkoutGeneratorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExerciseController;
@@ -39,8 +41,18 @@ Route::post('/user-parameters/anthropometry', [UserParameterController::class, '
 Route::post('/user-parameters/level', [UserParameterController::class, 'saveLevel']);
 Route::delete('/user-parameters/guest', [UserParameterController::class, 'clearGuestData']);
 
+Route::get('/avatars/{userId}', [App\Http\Controllers\ProfileController::class, 'getAvatar']);
+Route::middleware(['jwt.custom', 'track.activity'])->prefix('profile')->group(function () {
+    Route::get('/', [App\Http\Controllers\ProfileController::class, 'show']);
+    Route::put('/', [App\Http\Controllers\ProfileController::class, 'update']);
+    Route::post('/avatar', [App\Http\Controllers\ProfileController::class, 'updateAvatar']);
+    Route::delete('/avatar', [App\Http\Controllers\ProfileController::class, 'deleteAvatar']);
+    Route::post('/change-password', [App\Http\Controllers\ProfileController::class, 'changePassword']);
+    Route::delete('/', [App\Http\Controllers\ProfileController::class, 'destroy']);
+    Route::get('/statistics', [App\Http\Controllers\ProfileController::class, 'statistics']);
+});
 
-Route::middleware(['auth:api', 'track.activity'])->group(function () {
+Route::middleware(['jwt.custom', 'track.activity'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
 
@@ -49,8 +61,13 @@ Route::middleware(['auth:api', 'track.activity'])->group(function () {
     Route::get('/my-test-history', [App\Http\Controllers\TestingController::class, 'myTestHistory']);
     Route::get('/my-workout-history', [App\Http\Controllers\WorkoutController::class, 'myWorkoutHistory']);
 
+    Route::post('/tests/{testing}/start', [TestAttemptController::class, 'start']);
+    Route::post('/test-attempts/{attempt}/result', [TestAttemptController::class, 'storeResult']);
+    Route::post('/test-attempts/{attempt}/complete', [TestAttemptController::class, 'complete']);
+
     Route::get('/user-parameters/me', [UserParameterController::class, 'getMyParameters']);
     Route::put('/user-parameters', [UserParameterController::class, 'update']);
+    Route::post('/user/weekly-goal', [UserProgressController::class, 'updateWeeklyGoal']);
 
     Route::post('/fcm/token', [FcmTokenController::class, 'update']);
     Route::delete('/fcm/token', [FcmTokenController::class, 'destroy']);
@@ -58,8 +75,6 @@ Route::middleware(['auth:api', 'track.activity'])->group(function () {
     Route::get('/user/current-phase', [PhaseController::class, 'getCurrentPhase']);
     Route::get('/phases', [PhaseController::class, 'getAllPhases']);
     Route::get('/phases/{phase}', [PhaseController::class, 'getPhaseDetails']);
-
-//    Route::post('/workouts/generate-for-user/{userId}', [WorkoutGeneratorController::class, 'generateForUser']);
 
     Route::post('/exercise/reaction', [App\Http\Controllers\ExerciseReactionController::class, 'react']);
     Route::get('/exercise/{exerciseId}/reactions/history', [App\Http\Controllers\ExerciseReactionController::class, 'history']);
@@ -69,7 +84,7 @@ Route::middleware(['auth:api', 'track.activity'])->group(function () {
     Route::post('/workouts/start', [App\Http\Controllers\WorkoutStartController::class, 'start']);
 });
 
-Route::middleware(['auth:api', 'track.activity'])->prefix('payment')->group(function () {
+Route::middleware(['jwt.custom', 'track.activity'])->prefix('payment')->group(function () {
     Route::post('subscription', [PaymentController::class, 'processPayment']);
     Route::get('cards', [SavedCardController::class, 'getSavedCards']);
     Route::post('cards/save', [SavedCardController::class, 'simpleSaveCard']);
@@ -77,11 +92,12 @@ Route::middleware(['auth:api', 'track.activity'])->prefix('payment')->group(func
     Route::post('cards/{cardId}/default', [SavedCardController::class, 'setDefaultCard']);
 });
 
-Route::middleware(['auth:api', 'admin', 'track.activity'])->prefix('admin')->group(function () {
+Route::middleware(['jwt.custom', 'admin', 'track.activity'])->prefix('admin')->group(function () {
     Route::get('/subscriptions', [SubscriptionController::class, 'index']);
     Route::post('/subscriptions', [SubscriptionController::class, 'store']);
     Route::get('/subscriptions/{id}', [SubscriptionController::class, 'show']);
     Route::put('/subscriptions/{id}', [SubscriptionController::class, 'update']);
+    Route::post('/subscriptions/{id}/image', [SubscriptionController::class, 'updateImage'])->name('admin.subscriptions.updateImage');
     Route::delete('/subscriptions/{id}', [SubscriptionController::class, 'destroy']);
 
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -108,18 +124,24 @@ Route::middleware(['auth:api', 'admin', 'track.activity'])->prefix('admin')->gro
     Route::get('/exercises/{id}', [ExerciseController::class, 'show']);
     Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
+    Route::post('/exercises/{id}/image', [App\Http\Controllers\Admin\ExerciseController::class, 'uploadImage']);
+    Route::get('/exercises/{id}/image', [App\Http\Controllers\Admin\ExerciseController::class, 'getImage']);
 
     Route::get('/warmups', [WarmupController::class, 'index']);
     Route::post('/warmups', [WarmupController::class, 'store']);
     Route::get('/warmups/{id}', [WarmupController::class, 'show']);
     Route::put('/warmups/{id}', [WarmupController::class, 'update']);
     Route::delete('/warmups/{id}', [WarmupController::class, 'destroy']);
+    Route::post('/warmups/{id}/image', [App\Http\Controllers\Admin\WarmupController::class, 'uploadImage']);
+    Route::get('/warmups/{id}/image', [App\Http\Controllers\Admin\WarmupController::class, 'getImage']);
 
     Route::get('/workouts', [WorkoutController::class, 'index']);
-    Route::post('/workouts', [WorkoutController::class, 'store']);
+    #Route::post('/workouts', [WorkoutController::class, 'store']);
     Route::get('/workouts/{id}', [WorkoutController::class, 'show']);
     Route::put('/workouts/{id}', [WorkoutController::class, 'update']);
     Route::delete('/workouts/{id}', [WorkoutController::class, 'destroy']);
+    Route::post('/workouts/{id}/image', [App\Http\Controllers\Admin\WorkoutController::class, 'uploadImage']);
+    Route::get('/workouts/{id}/image', [App\Http\Controllers\Admin\WorkoutController::class, 'getImage']);
 
     Route::post('/workouts/generate-for-user/{userId}', [WorkoutGeneratorController::class, 'generateForUser']);
     Route::post('/workouts/regenerate-for-user/{userId}', [WorkoutGeneratorController::class, 'regenerateForUser']);

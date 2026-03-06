@@ -114,7 +114,7 @@
 
 .radio_choice > label {
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .radio_choice:hover {
@@ -138,5 +138,5 @@
     border: none;
     font-size: 16px;
     line-height: 24px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }

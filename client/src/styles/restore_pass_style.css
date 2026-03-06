@@ -7,7 +7,7 @@
 .main_auth {
     display: flex;
     justify-content: center;
-    height: 77vh;
+    height: 74vh;
 }
 
 #code_input {
@@ -16,7 +16,7 @@
     padding: 12px 24px;
     border-radius: 7px;
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     color: black;
 }
 
@@ -27,7 +27,7 @@
 .description{
     color: rgba(22, 22, 22, 1);
     font-size: 16px;
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     margin-top: 16px;
     width: 516px;
     text-align: center;
@@ -44,7 +44,7 @@
     line-height: 24px;
     color: #FFF;
     background-color: #FC7D47;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
 }
 
 .back {

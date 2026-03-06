@@ -1,24 +1,4 @@
 @font-face {
-    font-family: "Montserrat Alternates-Regular";
-    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf);
-}
-
-@font-face {
-    font-family: "Montserrat Alternates-Medium";
-    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf);
-}
-
-@font-face {
-    font-family: "Montserrat Alternates-SemiBold";
-    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf);
-}
-
-@font-face {
-    font-family: "Montserrat Alternates-Bold";
-    src: url(../../public/fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf);
-}
-
-@font-face {
     font-family: "Montserrat-Regular";
     src: url(../../public/fonts/Montserrat/Montserrat-Regular.ttf);
 }
@@ -51,9 +31,4 @@
 @font-face {
     font-family: "Montserrat-Light";
     src: url(../../public/fonts/Montserrat/Montserrat-Light.ttf);
-}
-
-@font-face {
-    font-family: "Roboto";
-    src: url(../../public/fonts/Roboto/Roboto.ttf);
 }
