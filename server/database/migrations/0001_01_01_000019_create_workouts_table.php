@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_progress', function (Blueprint $table) {
+        Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('phase_id')->constrained()->onDelete('cascade');
-            $table->integer('streak_days')->default(0);
-            $table->integer('completed_workouts')->default(0);
+            $table->string('title');
+            $table->text('description');
+            $table->string('duration_minutes');
+            $table->string('type')->nullable();
+            $table->string('image')->nullable();
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_progress');
+        Schema::dropIfExists('workouts');
     }
 };

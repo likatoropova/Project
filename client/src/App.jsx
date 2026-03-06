@@ -13,7 +13,7 @@ import ConfirmPassword from './pages/ConfirmPassword';
 import TestsPage from './pages/TestsPage';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
-import TrainingLevel from './pages/TrainingLevel'
+import TrainingLevel from './pages/TrainingLevel';
 import Home from './pages/Home';
 
 function App() {
@@ -94,6 +94,7 @@ function App() {
         <FirstTestProvider>
           <NotificationPopup title={notification.title} body={notification.body} />
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/register-code" element={<RegisterCode />} />
@@ -111,7 +112,6 @@ function App() {
             <Route path="/training-level" element={
                 <TrainingLevel />
             } />
-            <Route path="/" element={<Home />} />
           </Routes>
         </FirstTestProvider>
       </AuthProvider>

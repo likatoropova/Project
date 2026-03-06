@@ -11,7 +11,9 @@ use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\SavedCardController;
 use App\Http\Controllers\PhaseController;
+use App\Http\Controllers\TestAttemptController;
 use App\Http\Controllers\UserParameterController;
+use App\Http\Controllers\UserProgressController;
 use App\Http\Controllers\WorkoutGeneratorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExerciseController;
@@ -59,8 +61,13 @@ Route::middleware(['jwt.custom', 'track.activity'])->group(function () {
     Route::get('/my-test-history', [App\Http\Controllers\TestingController::class, 'myTestHistory']);
     Route::get('/my-workout-history', [App\Http\Controllers\WorkoutController::class, 'myWorkoutHistory']);
 
+    Route::post('/tests/{testing}/start', [TestAttemptController::class, 'start']);
+    Route::post('/test-attempts/{attempt}/result', [TestAttemptController::class, 'storeResult']);
+    Route::post('/test-attempts/{attempt}/complete', [TestAttemptController::class, 'complete']);
+
     Route::get('/user-parameters/me', [UserParameterController::class, 'getMyParameters']);
     Route::put('/user-parameters', [UserParameterController::class, 'update']);
+    Route::post('/user/weekly-goal', [UserProgressController::class, 'updateWeeklyGoal']);
 
     Route::post('/fcm/token', [FcmTokenController::class, 'update']);
     Route::delete('/fcm/token', [FcmTokenController::class, 'destroy']);
@@ -90,6 +97,7 @@ Route::middleware(['jwt.custom', 'admin', 'track.activity'])->prefix('admin')->g
     Route::post('/subscriptions', [SubscriptionController::class, 'store']);
     Route::get('/subscriptions/{id}', [SubscriptionController::class, 'show']);
     Route::put('/subscriptions/{id}', [SubscriptionController::class, 'update']);
+    Route::post('/subscriptions/{id}/image', [SubscriptionController::class, 'updateImage'])->name('admin.subscriptions.updateImage');
     Route::delete('/subscriptions/{id}', [SubscriptionController::class, 'destroy']);
 
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -116,18 +124,24 @@ Route::middleware(['jwt.custom', 'admin', 'track.activity'])->prefix('admin')->g
     Route::get('/exercises/{id}', [ExerciseController::class, 'show']);
     Route::put('/exercises/{id}', [ExerciseController::class, 'update']);
     Route::delete('/exercises/{id}', [ExerciseController::class, 'destroy']);
+    Route::post('/exercises/{id}/image', [App\Http\Controllers\Admin\ExerciseController::class, 'uploadImage']);
+    Route::get('/exercises/{id}/image', [App\Http\Controllers\Admin\ExerciseController::class, 'getImage']);
 
     Route::get('/warmups', [WarmupController::class, 'index']);
     Route::post('/warmups', [WarmupController::class, 'store']);
     Route::get('/warmups/{id}', [WarmupController::class, 'show']);
     Route::put('/warmups/{id}', [WarmupController::class, 'update']);
     Route::delete('/warmups/{id}', [WarmupController::class, 'destroy']);
+    Route::post('/warmups/{id}/image', [App\Http\Controllers\Admin\WarmupController::class, 'uploadImage']);
+    Route::get('/warmups/{id}/image', [App\Http\Controllers\Admin\WarmupController::class, 'getImage']);
 
     Route::get('/workouts', [WorkoutController::class, 'index']);
-    Route::post('/workouts', [WorkoutController::class, 'store']);
+    #Route::post('/workouts', [WorkoutController::class, 'store']);
     Route::get('/workouts/{id}', [WorkoutController::class, 'show']);
     Route::put('/workouts/{id}', [WorkoutController::class, 'update']);
     Route::delete('/workouts/{id}', [WorkoutController::class, 'destroy']);
+    Route::post('/workouts/{id}/image', [App\Http\Controllers\Admin\WorkoutController::class, 'uploadImage']);
+    Route::get('/workouts/{id}/image', [App\Http\Controllers\Admin\WorkoutController::class, 'getImage']);
 
     Route::post('/workouts/generate-for-user/{userId}', [WorkoutGeneratorController::class, 'generateForUser']);
     Route::post('/workouts/regenerate-for-user/{userId}', [WorkoutGeneratorController::class, 'regenerateForUser']);
