@@ -142,13 +142,12 @@ const TrainingPersonalParam = () => {
     <>
       <Header />
       <main className='pers_param_main'>
-        <section className="hero">
-          <button 
-            className="back_btn" 
+        <section className="hero-pers-param">
+          <button
             onClick={() => navigate('/training-goal')}
             disabled={loading}
           >
-            &lt;
+            <img src="/img/back.svg" alt="back" />
           </button>
           <img src="/img/personal-param-girl.png" alt="girl" />
         </section>
@@ -156,7 +155,7 @@ const TrainingPersonalParam = () => {
         <section className="content-section">
           <h1>Ваш фитнес старт</h1>
           <form className="form_container_param" onSubmit={handleSubmit} noValidate>
-            <legend className="title">Введите Ваши параметры</legend>
+            <legend className="title-param">Введите Ваши параметры</legend>
             
             {submitError && (
               <div className="error_message">
@@ -206,7 +205,7 @@ const TrainingPersonalParam = () => {
             
             <div className="form_group_measurements">
               <div>
-                <label htmlFor="age">Возраст (лет):</label>
+                <label htmlFor="age">Возраст:</label>
                 <input
                   type="text"
                   id="age"
@@ -218,6 +217,7 @@ const TrainingPersonalParam = () => {
                   onBlur={handleBlur}
                   disabled={loading}
                   className={errors.age && touched.age ? 'error' : ''}
+                  placeholder='лет'
                 />
                 {errors.age && touched.age && (
                   <span className="field_error">{errors.age}</span>
@@ -225,7 +225,7 @@ const TrainingPersonalParam = () => {
               </div>
               
               <div>
-                <label htmlFor="weight">Вес (кг):</label>
+                <label htmlFor="weight">Вес:</label>
                 <input
                   type="text"
                   id="weight"
@@ -238,6 +238,7 @@ const TrainingPersonalParam = () => {
                   onBlur={handleBlur}
                   disabled={loading}
                   className={errors.weight && touched.weight ? 'error' : ''}
+                  placeholder='кг'
                 />
                 {errors.weight && touched.weight && (
                   <span className="field_error">{errors.weight}</span>
@@ -245,7 +246,7 @@ const TrainingPersonalParam = () => {
               </div>
               
               <div>
-                <label htmlFor="height">Рост (см):</label>
+                <label htmlFor="height">Рост:</label>
                 <input
                   type="text"
                   id="height"
@@ -257,6 +258,7 @@ const TrainingPersonalParam = () => {
                   onBlur={handleBlur}
                   disabled={loading}
                   className={errors.height && touched.height ? 'error' : ''}
+                  placeholder='см'
                 />
                 {errors.height && touched.height && (
                   <span className="field_error">{errors.height}</span>

@@ -87,7 +87,7 @@ const TrainingGoal = () => {
     <>
       <Header />
       <main className='pers_param_main'>
-        <div className="hero">
+        <div className="hero-pers-goal">
           <img src="/img/personal-param-girl.png" alt="girl" />
           
           {goals.map(goal => (

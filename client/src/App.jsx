@@ -16,6 +16,7 @@ import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
 import HomePage from './pages/HomePage';
 import Subscriptions from './pages/Subscriptions';
+import SubscriptionDetails from './pages/SubscriptionDetails';
 
 function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
@@ -104,6 +105,7 @@ function App() {
             <Route path="/confirm-password" element={<ConfirmPassword />} />
             <Route path="/tests" element={<TestsPage />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
+            <Route path="/subscriptions/:id" element={<SubscriptionDetails />} />
             <Route path="/training-goal" element={<TrainingGoal />} />
             <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
             <Route path="/training-level" element={<TrainingLevel />} />

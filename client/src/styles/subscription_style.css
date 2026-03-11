@@ -3,11 +3,11 @@
     padding: 0;
 }
 
-.main {
+.main-subbscriptions {
     position: relative;
 }
 
-.title {
+.title-sub {
     display: flex;
     justify-content: space-evenly;
     gap: 10%;
@@ -15,12 +15,14 @@
     margin-bottom: 32px;
 }
 
-.title h1 {
+.title-sub h1 {
     width: 27%;
-    margin-right: 18%;
+    margin-right: 25%;
+    font-family: "Montserrat-SemiBold";
+    font-size: 40px;
 }
 
-.title a {
+.title-sub a {
     border: 1px solid black;
     border-radius: 6px;
     padding: 8px;
@@ -49,7 +51,12 @@
 
 .subscription-card:hover {
     cursor: pointer;
-    transform: translateY(-5px);
+    border: 1px solid #89C8C8;
+}
+
+.subscription-card:active {
+    border: 1px solid #36898A;
+    box-shadow: none;
 }
 
 .info {
@@ -67,7 +74,7 @@
 }
 
 .info  div h2 {
-    font-family: "Montserrat Alternates-Thin", sans-serif;
+    font-family: "Montserrat-Thin", sans-serif;
     font-size: 160pt;
     font-weight: 250;
     width: 190px;
@@ -75,18 +82,18 @@
 }
 
 .info div h2 span {
-    font-family: "Montserrat Alternates-Light", sans-serif;
+    font-family: "Montserrat-Light", sans-serif;
     font-size: 36px;
 }
 
 .info p {
     margin-top: 160px;
-    font-family: "Montserrat Alternates-SemiBold", sans-serif;
+    font-family: "Montserrat-SemiBold", sans-serif;
     font-size: 32px;
 }
 
 .info ul li {
-    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
     font-size: 16px;
 }
 
@@ -99,14 +106,14 @@
     height: 375px;
 }
 
-article > div:nth-of-type(2) {
+.subscription-card > div:nth-of-type(2) {
     position: absolute;
     top: -30px;
     right: -50px;
 }
 
 .bg-l, .bg-r {
-    width: 25%;
+    width: 22%;
     position: absolute;
 }
 

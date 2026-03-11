@@ -6,6 +6,7 @@ import { useSubscriptions } from '../hooks/useSubscriptions';
 import '../styles/subscription_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
+import { Link } from 'react-router-dom';
 
 const Subscriptions = () => {
   const navigate = useNavigate();
@@ -63,8 +64,8 @@ const Subscriptions = () => {
   return (
     <>
       <Header />
-      <main className="main">
-        <div className="title">
+      <main className="main-subbscriptions">
+        <div className="title-sub">
           <button className="back_btn" onClick={() => navigate(-1)}>
             &lt;
           </button>
@@ -76,7 +77,7 @@ const Subscriptions = () => {
             {error}
           </div>
         )}
-
+        <img src="/img/bg-left.svg" alt="background" className="bg-l" />
         {subscriptions.length === 0 ? (
           <div style={{
             textAlign: 'center',
@@ -88,10 +89,8 @@ const Subscriptions = () => {
           </div>
         ) : (
           <section className="subscriptions-catalog">
-            <img src="/img/bg-left.svg" alt="background" className="bg-l" />
-            
             {subscriptions.map((sub) => (
-              <article key={sub.id} className="subscription-card">
+              <article key={sub.id} className="subscription-card" onClick={() => navigate(`/subscriptions/${sub.id}`)}>
                 <div className="info">
                   <div className="title-wrapper">
                     <h2>

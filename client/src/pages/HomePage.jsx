@@ -8,8 +8,8 @@ import { useSubscriptions } from '../hooks/useSubscriptions';
 import '../styles/home_page_style.css'; // Изменен импорт стилей
 
 const HomePage = () => {
-  const { tests, loading: testsLoading, error: testsError, loadTests } = useTests(10); // Загружаем больше тестов для слайдера
-  const { subscriptions, loading: subsLoading, error: subsError, loadSubscriptions, formatPrice, formatDuration } = useSubscriptions();
+   const { tests, loading: testsLoading, error: testsError, loadTests } = useTests(10);
+  const { subscriptions, loading: subsLoading, error: subsError, fetchSubscriptions, formatPrice, formatDuration } = useSubscriptions();
 
   const [pageLoading, setPageLoading] = useState(true);
   const [pageError, setPageError] = useState(null);
@@ -19,7 +19,7 @@ const HomePage = () => {
     const loadData = async () => {
       setPageLoading(true);
       try {
-        await Promise.all([loadTests(), loadSubscriptions()]);
+        await Promise.all([loadTests(), fetchSubscriptions()]);
         setPageError(null);
       } catch (err) {
         setPageError('Ошибка загрузки данных');
@@ -30,7 +30,7 @@ const HomePage = () => {
     };
 
     loadData();
-  }, []);
+  }, [loadTests, fetchSubscriptions]);
 
   // Состояние загрузки
   if (pageLoading || testsLoading || subsLoading) {
@@ -127,8 +127,6 @@ const HomePage = () => {
                             <p className="count">{formatPrice(sub.price)}/мес</p>
                             <ul>
                               <li>{sub.description || 'Расширенный набор тестов для качественной адаптации'}</li>
-                              <li>Расширенный набор упражнений</li>
-                              <li>Персональные рекомендации</li>
                             </ul>
                           </div>
                           <img
@@ -154,8 +152,6 @@ const HomePage = () => {
                             <p className="count">{formatPrice(sub.price)}/мес</p>
                             <ul>
                               <li>{sub.description || 'Расширенный набор тестов для качественной адаптации'}</li>
-                              <li>Расширенный набор упражнений</li>
-                              <li>Персональные рекомендации</li>
                             </ul>
                           </div>
                           <img
