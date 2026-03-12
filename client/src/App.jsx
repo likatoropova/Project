@@ -11,6 +11,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import RestorePassword from './pages/RestorePassword';
 import ConfirmPassword from './pages/ConfirmPassword';
 import TestsPage from './pages/TestsPage';
+import TestChoice from './pages/TestChoicePage';
+import TestPlan from './pages/TestPlanPage';
+import TestExercisePage from './pages/TestExercisePage';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
@@ -103,6 +106,9 @@ function App() {
             <Route path="/restore-password" element={<RestorePassword />} />
             <Route path="/confirm-password" element={<ConfirmPassword />} />
             <Route path="/tests" element={<TestsPage />} />
+            <Route path="/test/:id" element={<TestChoice />} />
+            <Route path="/test-plan" element={<TestPlan />} />
+            <Route path="/test-exercise/:testId/:exerciseId" element={<TestExercisePage />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
             <Route path="/training-goal" element={<TrainingGoal />} />
             <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
