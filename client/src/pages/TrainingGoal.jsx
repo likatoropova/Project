@@ -23,12 +23,6 @@ const TrainingGoal = () => {
     { id: 4, label: 'Общее укрепление организма', hotspotClass: 'general' }
   ];
 
-  useEffect(() => {
-    // Очищаем только флаг завершения теста, но НЕ удаляем guestId
-    localStorage.removeItem('guestParamsCompleted');
-    console.log('🧹 Cleared guestParamsCompleted flag');
-  }, []);
-
   const handleGoalSelect = (goalId) => {
     if (selectedGoal === goalId) {
       setSelectedGoal(null);

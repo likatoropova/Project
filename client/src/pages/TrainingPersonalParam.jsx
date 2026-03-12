@@ -210,8 +210,8 @@ const TrainingPersonalParam = () => {
                   type="text"
                   id="age"
                   name="age"
-                  min="1"
-                  max="120"
+                  min="14"
+                  max="90"
                   value={formData.age}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -230,8 +230,8 @@ const TrainingPersonalParam = () => {
                   type="text"
                   id="weight"
                   name="weight"
-                  min="1"
-                  max="300"
+                  min="40"
+                  max="130"
                   step="0.1"
                   value={formData.weight}
                   onChange={handleChange}
@@ -251,8 +251,8 @@ const TrainingPersonalParam = () => {
                   type="text"
                   id="height"
                   name="height"
-                  min="50"
-                  max="250"
+                  min="140"
+                  max="210"
                   value={formData.height}
                   onChange={handleChange}
                   onBlur={handleBlur}

@@ -9,12 +9,10 @@ export const login = async (email, password) => {
       password
     });
     
-    // Сохраняем токены и данные пользователя
-    const { accessToken, refreshToken, user } = response.data;
-    localStorage.setItem('accessToken', accessToken);
-    localStorage.setItem('refreshToken', refreshToken);
+    const { access_token, user } = response.data;
+    localStorage.setItem('accessToken', access_token);
     localStorage.setItem('user', JSON.stringify(user));
-    
+        
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Ошибка авторизации' };
