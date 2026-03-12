@@ -68,13 +68,12 @@ const TrainingLevel = () => {
     <>
       <Header />
       <main className='pers_param_main'>
-        <section className="hero">
-          <button 
-            className="back_btn" 
+        <section className="hero-pers-param">
+          <button
             onClick={() => navigate('/training-personal-param')}
             disabled={loading}
           >
-            &lt;
+            <img src="/img/back.svg" alt="back" />
           </button>
           <img src="/img/personal-param-girl.png" alt="girl" />
         </section>

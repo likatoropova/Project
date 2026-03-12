@@ -10,12 +10,8 @@ export const useSubscriptions = () => {
         try {
             setLoading(true);
             setError(null);
-            
-            console.log('📥 Fetching subscriptions...');
             const response = await axiosInstance.get('/subscriptions');
-            console.log('✅ Subscriptions received:', response.data);
             
-            // Извлекаем данные из ответа API
             if (response.data?.success && Array.isArray(response.data?.data)) {
                 setSubscriptions(response.data.data);
             } else if (Array.isArray(response.data)) {
@@ -26,7 +22,7 @@ export const useSubscriptions = () => {
                 setError('Неверный формат данных от сервера');
             }
         } catch (err) {
-            console.error('❌ Error fetching subscriptions:', err);
+            console.error('Error fetching subscriptions:', err);
             setError(err.response?.data?.message || 'Не удалось загрузить подписки');
             setSubscriptions([]);
         } finally {

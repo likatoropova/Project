@@ -34,9 +34,6 @@ export const saveAnthropometry = async (data) => {
   try {
     console.log('📝 SAVING ANTHROPOMETRY - Step 2:', data);
     
-    // Берем guest_id из localStorage
-    const guestId = localStorage.getItem('guestId');
-    
     const payload = {
       gender: data.gender,
       age: parseInt(data.age),
@@ -44,12 +41,6 @@ export const saveAnthropometry = async (data) => {
       height: parseInt(data.height),
       equipment_id: parseInt(data.equipment_id)
     };
-    
-    // Добавляем guest_id к запросу - бэкенд поймет, что это данные для этого гостя
-    if (guestId) {
-      payload.guest_id = guestId;
-      console.log('➕ Adding guest_id to payload:', guestId);
-    }
     
     console.log('📦 Payload:', payload);
     
@@ -71,16 +62,10 @@ export const saveLevel = async (levelId) => {
   try {
     console.log('📝 SAVING LEVEL - Step 3:', { level_id: levelId });
     
-    const guestId = localStorage.getItem('guestId');
-    
     const payload = {
       level_id: parseInt(levelId)
     };
-    
-    if (guestId) {
-      payload.guest_id = guestId;
-      console.log('➕ Adding guest_id to payload:', guestId);
-    }
+
     
     console.log('📦 Payload:', payload);
     

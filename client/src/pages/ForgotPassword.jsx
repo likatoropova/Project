@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       <Header />
       <main className="main_auth">
         <div className="form_container">
-          <form className="form_group" onSubmit={handleSubmit}>
+          <form className="form_group_forgotpas" onSubmit={handleSubmit}>
             <legend>Забыли пароль?</legend>
             
             <p className="description">

@@ -7,8 +7,9 @@ header {
     margin: 24px 236px;
     background: #FFFAF8;
     align-items: center;
-    justify-content: space-evenly;
-    border-radius: 60px;
+    justify-content: space-between;
+    border-radius: 34px;
+    gap: 140px;
 }
 
 header > div {
@@ -19,6 +20,7 @@ header > div {
     display: flex;
     align-items: center;
     gap: 7px;
+    margin-left: 3%;
 }
 
 .logo > span {
@@ -50,7 +52,8 @@ header > div {
 .nav_buttons {
     display: flex;
     gap: 24px;
-
+    margin-right: 3%;
+    align-items: center;
 }
 
 .nav_buttons > a:not(.notifications, .second_button) {

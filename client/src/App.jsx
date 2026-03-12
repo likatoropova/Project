@@ -16,9 +16,6 @@ import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
 import HomePage from './pages/HomePage';
 import Subscriptions from './pages/Subscriptions';
-import TestPlanPage from './pages/TestPlanPage';
-import TestChoicePage from './pages/TestChoicePage';
-import TestExercisePage from './pages/TestExercisePage';
 
 function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
@@ -106,9 +103,6 @@ function App() {
             <Route path="/restore-password" element={<RestorePassword />} />
             <Route path="/confirm-password" element={<ConfirmPassword />} />
             <Route path="/tests" element={<TestsPage />} />
-            <Route path="/test-plan" element={<TestPlanPage />} />
-            <Route path="/test/:id" element={<TestChoicePage />} />
-            <Route path="/test-exercise/:testId/:exerciseId" element={<TestExercisePage />} />
             <Route path="/subscriptions" element={<Subscriptions />} />
             <Route path="/training-goal" element={<TrainingGoal />} />
             <Route path="/training-personal-param" element={<TrainingPersonalParam />} />

@@ -17,5 +17,6 @@ export const API_ENDPOINTS = {
   SAVE_ANTHROPOMETRY: '/user-parameters/anthropometry',
   SAVE_LEVEL: '/user-parameters/level',
   GET_USER_PARAMS: '/user-parameters/me',
-  SUBSCRIPTIONS: '/subscriptions'
+  SUBSCRIPTIONS: '/subscriptions',
+  SUBSCRIPTION_DETAILS: (id) => `/subscriptions/${id}`,
 };

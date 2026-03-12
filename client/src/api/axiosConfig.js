@@ -12,11 +12,14 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log('🔵 Request:', {
-      url: config.url,
-      method: config.method,
-      data: config.data
-    });
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    const guestId = localStorage.getItem('guestId');
+    if (guestId) {
+      config.headers['X-Guest-ID'] = guestId;
+    }
     return config;
   },
   (error) => Promise.reject(error)

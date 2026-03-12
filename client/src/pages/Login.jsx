@@ -9,11 +9,13 @@ import '../styles/auth_style.css';
 import '../styles/form.css';
 import '../styles/fonts.css';
 import { useAuth } from '../hooks/useAuth';
+import { useFirstTest } from '../context/FirstTestContext';
 
 const Login = () => {
   const navigate = useNavigate();
   const { execute: executeLogin, loading, error } = useApi(login);
   const { login: authLogin } = useAuth();
+  const { resetGuest } = useFirstTest();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -76,13 +78,9 @@ const Login = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const result = await executeLogin(
-      formData.email.trim(),
-      formData.password
-    );
-    
+    const result = await authLogin(formData.email.trim(), formData.password);
     if (result.success) {
-      await authLogin(formData.email.trim(), formData.password);
+      resetGuest();
       navigate('/');
     }
   };
