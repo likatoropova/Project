@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.main_exercise {
+    max-width: 1448px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: calc(100vh - 200px);
+}
+
+.back_btn_exercise {
+    background: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border: 1px solid rgba(112, 107, 107, 0.3);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.back_btn_exercise:hover {
+    background-color: rgba(252, 125, 71, 0.1);
+    border-color: rgba(252, 125, 71, 1);
+}
+
+.hero_exercise {
+    margin: 100px 0 56px 0;
+}
+
+.flex_for_btn_exercise {
+    display: flex;
+    gap: 523px;
+    height: 48px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+.flex_for_btn_exercise h1 {
+    font-size: 40px;
+    text-align: center;
+    font-family: "Montserrat-Medium", sans-serif;
+    color: #333;
+}
+
+.hero_exercise p {
+    color: rgba(112, 107, 107, 1);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Montserrat-Regular", sans-serif;
+    line-height: 1.5;
+}
+
+.test_container_exercise {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 100px;
+    width: 100%;
+    max-width: 1448px;
+}
+
+.test_container_exercise img {
+    width: 334px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.butn_exercise {
+    text-align: center;
+    width: 344px;
+    height: 48px;
+    border: 1px solid rgba(121, 121, 121, 1);
+    border-radius: 12px;
+    background-color: rgba(252, 125, 71, 1);
+    font-family: "Montserrat-Regular", sans-serif;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.butn_exercise:hover:not(:disabled) {
+    background-color: rgba(252, 125, 71, 0.8);
+}
+
+.butn_exercise:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Стили для состояний загрузки и ошибок */
+.loading_container,
+.error_container,
+.empty_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    font-family: "Montserrat-Regular", sans-serif;
+}
+
+.loading_container {
+    color: #666;
+}
+
+.error_container {
+    color: #ff4444;
+}
+
+.empty_container {
+    color: #666;
+}
+
+.error_container button,
+.empty_container button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(252, 125, 71, 1);
+    color: white;
+    cursor: pointer;
+    font-family: "Montserrat-Regular", sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.error_container button:hover,
+.empty_container button:hover {
+    background-color: rgba(252, 125, 71, 0.8);
+}
+

@@ -5,9 +5,6 @@
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 #root {
@@ -178,7 +175,7 @@ h1 {
 .search_group {
     position: relative;
     flex: 1;
-    max-width: 37.5vw;
+    max-width: 30.5vw;
     width: 100%;
 }
 
