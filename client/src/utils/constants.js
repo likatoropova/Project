@@ -19,4 +19,5 @@ export const API_ENDPOINTS = {
   GET_USER_PARAMS: '/user-parameters/me',
   SUBSCRIPTIONS: '/subscriptions',
   SUBSCRIPTION_DETAILS: (id) => `/subscriptions/${id}`,
+  PAYMENT_SUBSCRIPTION: '/payment/subscription',
 };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import PaymentModal from '../components/PaymentModal';
 import { useSubscriptionDetails } from '../hooks/useSubscriptionDetails';
 import '../styles/subscription_details_style.css';
 import '../styles/header_footer.css';
@@ -10,6 +11,7 @@ import '../styles/fonts.css';
 const SubscriptionDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const {
     subscription,
     loading,
@@ -18,6 +20,10 @@ const SubscriptionDetails = () => {
     getDurationText,
     getNumberPart
   } = useSubscriptionDetails(id);
+
+  const handlePaymentSuccess = (paymentData) => {
+    console.log('Платеж успешен:', paymentData);
+  };
 
   if (loading) {
     return (
@@ -108,7 +114,7 @@ const SubscriptionDetails = () => {
               <h2 className="price-tag">{formatPrice(subscription.price)}/мес</h2>
               <button 
                 className="subscribe-btn"
-                onClick={() => alert(`Оформление подписки "${subscription.name}"`)}
+                onClick={() => setIsModalOpen(true)}
               >
                 Оформить подписку
               </button>
@@ -156,6 +162,12 @@ const SubscriptionDetails = () => {
             </article>
           </div>
         </section>
+        <PaymentModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          subscription={subscription}
+          onPaymentSuccess={handlePaymentSuccess}
+        />
       </main>
       <Footer />
     </>
