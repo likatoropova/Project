@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
-import { saveGoal } from '../api/userParamsAPI';
+import { getGoals, saveGoal } from '../api/userParamsAPI';
 import '../styles/training_goal_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
@@ -11,19 +11,27 @@ import Header from '../components/Header';
 const TrainingGoal = () => {
   const navigate = useNavigate();
   const { setGuestIdFromApi } = useFirstTest();
+  const [goals, setGoals] = useState([]);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [hotspotsActive, setHotspotsActive] = useState({});
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
 
-  const goals = [
-    { id: 1, label: 'Рост силовых показателей', hotspotClass: 'power' },
-    { id: 2, label: 'Рост мышечной массы', hotspotClass: 'muscle' },
-    { id: 3, label: 'Жиросжигание', hotspotClass: 'fat' },
-    { id: 4, label: 'Общее укрепление организма', hotspotClass: 'general' }
-  ];
+  useEffect(() => {
+    const loadGoals = async () => {
+      const result = await getGoals();
+      if (result.success) {
+        setGoals(result.data);
+      } else {
+        setError('Не удалось загрузить список целей');
+      }
+      setDataLoading(false);
+    };
+    loadGoals();
+  }, []);
 
-  const handleGoalSelect = (goalId) => {
+   const handleGoalSelect = (goalId) => {
     if (selectedGoal === goalId) {
       setSelectedGoal(null);
       setHotspotsActive({});
@@ -32,9 +40,14 @@ const TrainingGoal = () => {
       
       const goal = goals.find(g => g.id === goalId);
       if (goal) {
+        let hotspotClass = 'general';
+        if (goal.name.includes('силовых')) hotspotClass = 'power';
+        else if (goal.name.includes('мышечной')) hotspotClass = 'muscle';
+        else if (goal.name.includes('Жиросжигание')) hotspotClass = 'fat';
+        
         const newHotspots = {};
-        document.querySelectorAll(`.hotspot.${goal.hotspotClass}`).forEach((_, index) => {
-          newHotspots[`${goal.hotspotClass}-${index}`] = true;
+        document.querySelectorAll(`.hotspot.${hotspotClass}`).forEach((_, index) => {
+          newHotspots[`${hotspotClass}-${index}`] = true;
         });
         setHotspotsActive(newHotspots);
       }
@@ -42,7 +55,7 @@ const TrainingGoal = () => {
     setError('');
   };
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!selectedGoal) {
@@ -54,17 +67,11 @@ const TrainingGoal = () => {
     setError('');
 
     try {
-      console.log('📤 Saving goal:', selectedGoal);
       const result = await saveGoal(selectedGoal);
-      console.log('📥 Save result:', result);
-
       if (result?.success) {
-        // Сохраняем guest_id из ответа API
         if (result.data?.data?.guest_id) {
           setGuestIdFromApi(result.data.data.guest_id);
         }
-        
-        // Переходим на следующий шаг без проверки контекста
         navigate('/training-personal-param');
       } else {
         setError(result?.error?.message || 'Ошибка сохранения');
@@ -83,14 +90,13 @@ const TrainingGoal = () => {
       <main className='pers_param_main'>
         <div className="hero-pers-goal">
           <img src="/img/personal-param-girl.png" alt="girl" />
-          
-          {goals.map(goal => (
-            <div
-              key={goal.id}
-              className={`hotspot ${goal.hotspotClass} ${selectedGoal === goal.id ? 'active' : ''}`}
-              onClick={() => !loading && handleGoalSelect(goal.id)}
-            />
-          ))}
+          <div className={`hotspot power ${hotspotsActive['power-0'] ? 'active' : ''}`} />
+          <div className={`hotspot muscle ${hotspotsActive['muscle-0'] ? 'active' : ''}`} id="muscle1" />
+          <div className={`hotspot muscle ${hotspotsActive['muscle-1'] ? 'active' : ''}`} id="muscle2" />
+          <div className={`hotspot fat ${hotspotsActive['fat-0'] ? 'active' : ''}`} />
+          <div className={`hotspot general ${hotspotsActive['general-0'] ? 'active' : ''}`} id="general1" />
+          <div className={`hotspot general ${hotspotsActive['general-1'] ? 'active' : ''}`} id="general2" />
+          <div className={`hotspot general ${hotspotsActive['general-2'] ? 'active' : ''}`} id="general3" />
         </div>
 
         <section className="form-section">
@@ -101,7 +107,7 @@ const TrainingGoal = () => {
             {error && <div className="error_message">{error}</div>}
             
             {goals.map(goal => (
-              <div 
+              <div
                 key={goal.id}
                 className={`radio_choice ${selectedGoal === goal.id ? 'active' : ''}`}
                 onClick={() => !loading && handleGoalSelect(goal.id)}
@@ -115,7 +121,7 @@ const TrainingGoal = () => {
                   onChange={() => {}}
                   disabled={loading}
                 />
-                <label htmlFor={`goal_${goal.id}`}>{goal.label}</label>
+                <label htmlFor={`goal_${goal.id}`}>{goal.name}</label>
               </div>
             ))}
             

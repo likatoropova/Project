@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
-import { saveAnthropometry } from '../api/userParamsAPI';
+import { getEquipment, saveAnthropometry } from '../api/userParamsAPI';
 import '../styles/training_personal_param_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
@@ -11,6 +11,7 @@ import Header from '../components/Header';
 const TrainingPersonalParam = () => {
   const navigate = useNavigate();
   const { guestId, setGuestIdFromApi } = useFirstTest();
+  const [equipmentOptions, setEquipmentOptions] = useState([]);
   const [formData, setFormData] = useState({
     gender: '',
     age: '',
@@ -21,12 +22,22 @@ const TrainingPersonalParam = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
   const [submitError, setSubmitError] = useState('');
 
-  const equipmentOptions = [
-    { id: 1, label: 'Зал' },
-    { id: 2, label: 'Смешанный' }
-  ];
+  // Загружаем список оборудования при монтировании
+  useEffect(() => {
+    const loadEquipment = async () => {
+      const result = await getEquipment();
+      if (result.success) {
+        setEquipmentOptions(result.data);
+      } else {
+        setSubmitError('Не удалось загрузить список оборудования');
+      }
+      setDataLoading(false);
+    };
+    loadEquipment();
+  }, []);
 
   const validateField = (name, value) => {
     switch (name) {
@@ -34,15 +45,15 @@ const TrainingPersonalParam = () => {
         return !value ? 'Выберите пол' : '';
       case 'age':
         if (!value) return 'Введите возраст';
-        if (value < 1 || value > 120) return 'Возраст от 1 до 120 лет';
+        if (value < 14 || value > 90) return 'Возраст от 14 до 90 лет';
         return '';
       case 'weight':
         if (!value) return 'Введите вес';
-        if (value < 20 || value > 300) return 'Вес от 20 до 300 кг';
+        if (value < 40 || value > 130) return 'Вес от 40 до 130 кг';
         return '';
       case 'height':
         if (!value) return 'Введите рост';
-        if (value < 50 || value > 250) return 'Рост от 50 до 250 см';
+        if (value < 140 || value > 210) return 'Рост от 140 до 210 см';
         return '';
       case 'equipment_id':
         return !value ? 'Выберите оборудование' : '';
@@ -113,13 +124,8 @@ const TrainingPersonalParam = () => {
     setSubmitError('');
 
     try {
-      console.log('📤 Saving anthropometry with guest ID:', guestId);
-      
       const result = await saveAnthropometry(formData);
-      console.log('📥 Save result:', result);
-
       if (result.success) {
-        // Если в ответе есть новый guest_id, сохраняем его
         if (result.data?.data?.guest_id) {
           setGuestIdFromApi(result.data.data.guest_id);
         }
@@ -128,15 +134,14 @@ const TrainingPersonalParam = () => {
         setSubmitError(result?.error?.message || 'Ошибка сохранения данных');
       }
     } catch (err) {
-      console.error('❌ Error:', err);
       setSubmitError('Произошла ошибка при сохранении');
     } finally {
       setLoading(false);
     }
   };
 
-  const isFormValid = formData.gender && formData.age && formData.weight && 
-  formData.height && formData.equipment_id;
+  const isFormValid = formData.gender && formData.age && formData.weight &&
+    formData.height && formData.equipment_id;
 
   return (
     <>
@@ -270,7 +275,7 @@ const TrainingPersonalParam = () => {
               <label>Оборудование</label>
               <div className="form_choice">
                 {equipmentOptions.map(equip => (
-                  <div 
+                  <div
                     key={equip.id}
                     className={`choice-item ${formData.equipment_id === equip.id ? 'active' : ''}`}
                     onClick={() => !loading && handleEquipmentSelect(equip.id)}
@@ -284,7 +289,7 @@ const TrainingPersonalParam = () => {
                       onChange={() => {}}
                       disabled={loading}
                     />
-                    <label htmlFor={`equip_${equip.id}`}>{equip.label}</label>
+                    <label htmlFor={`equip_${equip.id}`}>{equip.name || `Оборудование ${equip.id}`}</label>
                   </div>
                 ))}
               </div>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
-import { saveLevel } from '../api/userParamsAPI';
+import { getLevels, saveLevel } from '../api/userParamsAPI';
 import '../styles/lavel_of_training_style.css';
 import '../styles/header_footer.css';
 import '../styles/fonts.css';
@@ -11,15 +11,24 @@ import Header from '../components/Header';
 const TrainingLevel = () => {
   const navigate = useNavigate();
   const { completeGuestTest } = useFirstTest();
+  const [levels, setLevels] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
 
-  const levels = [
-    { id: 1, label: 'Новичок' },
-    { id: 2, label: 'Опытный' },
-    { id: 3, label: 'Продвинутый' }
-  ];
+  useEffect(() => {
+    const loadLevels = async () => {
+      const result = await getLevels();
+      if (result.success) {
+        setLevels(result.data);
+      } else {
+        setError('Не удалось загрузить список уровней');
+      }
+      setDataLoading(false);
+    };
+    loadLevels();
+  }, []);
 
   const handleLevelSelect = (levelId) => {
     if (selectedLevel === levelId) {
@@ -30,7 +39,7 @@ const TrainingLevel = () => {
     setError('');
   };
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!selectedLevel) {
@@ -42,22 +51,14 @@ const TrainingLevel = () => {
     setError('');
 
     try {
-      console.log('📤 Saving level:', selectedLevel);
       const result = await saveLevel(selectedLevel);
-      console.log('📥 Save result:', result);
-
       if (result?.success) {
-        // Отмечаем, что гость прошел тест
         completeGuestTest();
-        console.log('✅ Guest test completed, redirecting to home');
-        
-        // Перенаправляем на главную
         navigate('/');
       } else {
         setError(result?.error?.message || 'Ошибка сохранения');
       }
     } catch (err) {
-      console.error('❌ Error:', err);
       setError('Произошла ошибка при сохранении');
     } finally {
       setLoading(false);
@@ -84,20 +85,13 @@ const TrainingLevel = () => {
             <h2>Выберите Ваш уровень подготовки</h2>
             
             {error && (
-              <div className="error_message" style={{
-                color: '#721c24',
-                padding: '10px',
-                marginBottom: '15px',
-                backgroundColor: '#f8d7da',
-                border: '1px solid #f5c6cb',
-                borderRadius: '4px'
-              }}>
+              <div className="error_message">
                 {error}
               </div>
             )}
             
             {levels.map(level => (
-              <div 
+              <div
                 key={level.id}
                 className={`radio_choice ${selectedLevel === level.id ? 'active' : ''}`}
                 onClick={() => !loading && handleLevelSelect(level.id)}
@@ -111,7 +105,7 @@ const TrainingLevel = () => {
                   onChange={() => {}}
                   disabled={loading}
                 />
-                <label htmlFor={`level_${level.id}`}>{level.label}</label>
+                <label htmlFor={`level_${level.id}`}>{level.name}</label>
               </div>
             ))}
             
