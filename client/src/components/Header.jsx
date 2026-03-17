@@ -37,7 +37,6 @@ const Header = () => {
         <Link to="/">Главная</Link>
         <Link to="/tests">Тесты</Link>
         <Link to="/subscriptions">Подписки</Link>
-          <Link to="/test-plan">test-plan</Link>
         {isAuthenticated && (
           <>
             <Link to="/trainings">Тренировки</Link>

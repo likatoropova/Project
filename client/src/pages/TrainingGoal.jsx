@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getGoals, saveGoal } from '../api/userParamsAPI';
+import { validators } from '../utils/validators';
 import '../styles/training_goal_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
@@ -17,6 +18,7 @@ const TrainingGoal = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(true);
+  const [touched, setTouched] = useState(false);
 
   useEffect(() => {
     const loadGoals = async () => {
@@ -31,7 +33,8 @@ const TrainingGoal = () => {
     loadGoals();
   }, []);
 
-   const handleGoalSelect = (goalId) => {
+  const handleGoalSelect = (goalId) => {
+    setTouched(true);
     if (selectedGoal === goalId) {
       setSelectedGoal(null);
       setHotspotsActive({});
@@ -55,11 +58,17 @@ const TrainingGoal = () => {
     setError('');
   };
 
-   const handleSubmit = async (e) => {
+  const validateForm = () => {
+    const error = validators.goal(selectedGoal);
+    setError(error);
+    return !error;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!selectedGoal) {
-      setError('Выберите цель тренировок');
+    setTouched(true);
+    if (!validateForm()) {
       return;
     }
 
@@ -77,7 +86,7 @@ const TrainingGoal = () => {
         setError(result?.error?.message || 'Ошибка сохранения');
       }
     } catch (err) {
-      console.error('❌ Error:', err);
+      console.error('Error:', err);
       setError('Произошла ошибка');
     } finally {
       setLoading(false);
@@ -104,7 +113,7 @@ const TrainingGoal = () => {
           <form className="form_container_goal" onSubmit={handleSubmit}>
             <legend>Выберите Вашу цель тренировок</legend>
             
-            {error && <div className="error_message">{error}</div>}
+            {error && touched && <div className="error_message">{error}</div>}
             
             {goals.map(goal => (
               <div

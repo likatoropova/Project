@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { login } from '../api/authAPI';
+import { validators } from '../utils/validators';
 import '../styles/auth_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
 import { useAuth } from '../hooks/useAuth';
-import { useFirstTest } from '../context/FirstTestContext';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { execute: executeLogin, loading, error } = useApi(login);
-  const { login: authLogin } = useAuth();
-  const { resetGuest } = useFirstTest();
+  const { execute: executeLogin, loading, error: apiError } = useApi(login);
+  const { login: authLogin, hasUserParams } = useAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -24,26 +23,32 @@ const Login = () => {
 
   const [validationErrors, setValidationErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
+  const [fieldErrors, setFieldErrors] = useState({});
 
-  const validateEmail = (email) => {
-    if (!email) return 'Email обязателен';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return 'Введите корректный email';
+  useEffect(() => {
+    if (apiError) {
+      console.log('API Error:', apiError);
+      
+      if (apiError.errors) {
+        setFieldErrors(apiError.errors);
+      } else if (typeof apiError === 'object') {
+        const fieldSpecificErrors = {};
+        if (apiError.email) fieldSpecificErrors.email = apiError.email;
+        if (apiError.password) fieldSpecificErrors.password = apiError.password;
+        
+        if (Object.keys(fieldSpecificErrors).length > 0) {
+          setFieldErrors(fieldSpecificErrors);
+        }
+      }
     }
-    return '';
-  };
-
-  const validatePassword = (password) => {
-    if (!password) return 'Пароль обязателен';
-    return '';
-  };
+  }, [apiError]);
 
   const validateField = (name, value) => {
     switch (name) {
       case 'email':
-        return validateEmail(value);
+        return validators.email(value);
       case 'password':
-        return validatePassword(value);
+        return validators.password(value);
       default:
         return '';
     }
@@ -52,37 +57,97 @@ const Login = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     setTouchedFields(prev => ({ ...prev, [name]: true }));
+    
     const error = validateField(name, value);
-    setValidationErrors(prev => ({ ...prev, [name]: error }));
+    setValidationErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+    
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (validationErrors[name]) {
-      setValidationErrors(prev => ({ ...prev, [name]: null }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    if (touchedFields[name]) {
+      const error = validateField(name, value);
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
+    
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
   };
 
   const validateForm = () => {
     const errors = {
-      email: validateEmail(formData.email),
-      password: validatePassword(formData.password)
+      email: validators.email(formData.email),
+      password: validators.password(formData.password)
     };
+    
     setValidationErrors(errors);
-    setTouchedFields({ email: true, password: true });
+    setTouchedFields({
+      email: true,
+      password: true
+    });
+    
     return !errors.email && !errors.password;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
 
-    const result = await authLogin(formData.email.trim(), formData.password);
-    if (result.success) {
-      resetGuest();
-      navigate('/');
+    if (!validateForm()) {
+      return;
     }
+
+    const result = await executeLogin(
+      formData.email.trim(),
+      formData.password
+    );
+
+    if (result.success) {
+      await authLogin(formData.email.trim(), formData.password);
+      
+      setTimeout(() => {
+        if (!hasUserParams) {
+          navigate('/training-goal');
+        } else {
+          navigate('/');
+        }
+      }, 500);
+    }
+  };
+
+  const getFieldErrorMessage = (fieldName) => {
+    if (validationErrors[fieldName] && touchedFields[fieldName]) {
+      return validationErrors[fieldName];
+    }
+    if (fieldErrors[fieldName]) {
+      if (Array.isArray(fieldErrors[fieldName])) {
+        return fieldErrors[fieldName][0];
+      }
+      return fieldErrors[fieldName];
+    }
+    return null;
   };
 
   return (
@@ -92,10 +157,8 @@ const Login = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Авторизация</legend>
-            {error && (
-              <div className="error_message">
-                {error}
-              </div>
+            {apiError && !Object.keys(fieldErrors).length && (
+              <div className="error_message">{apiError}</div>
             )}
             <input
               type="text"
@@ -107,11 +170,11 @@ const Login = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               disabled={loading}
-              className={validationErrors.email && touchedFields.email ? 'error' : ''}
-            />
-            {validationErrors.email && (
-              <span className="field_error">{validationErrors.email}</span>
-            )}
+              className={(validationErrors.email && touchedFields.email) || fieldErrors.email ? 'error' : ''}
+              />
+              {getFieldErrorMessage('email') && (
+                <span className="field_error">{getFieldErrorMessage('email')}</span>
+              )}
             
             <PasswordInput
               id="password"
@@ -120,11 +183,11 @@ const Login = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               disabled={loading}
-              error={validationErrors.password && touchedFields.password}
-            />
-            {validationErrors.password && touchedFields.password && (
-              <span className="field_error">{validationErrors.password}</span>
-            )}
+               error={(validationErrors.password && touchedFields.password) || fieldErrors.password}
+              />
+              {getFieldErrorMessage('password') && (
+                <span className="field_error">{getFieldErrorMessage('password')}</span>
+              )}
             
             <Link to="/forgot-password" className="forgot_pass">
               Забыли пароль?

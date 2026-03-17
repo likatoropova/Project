@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import Timer from '../components/Timer';
 import { useApi } from '../hooks/useApi';
 import { verifyResetCode, forgotPassword } from '../api/authAPI';
+import { validators } from '../utils/validators';
 import '../styles/restore_pass_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
@@ -15,7 +16,7 @@ const RestorePassword = () => {
   const [email, setEmail] = useState('');
   const [validationError, setValidationError] = useState('');
   const [touched, setTouched] = useState(false);
-  
+
   const { execute: executeVerify, loading: verifyLoading, error: verifyError } = useApi(verifyResetCode);
   const { execute: executeResend, loading: resendLoading } = useApi(forgotPassword);
 
@@ -29,9 +30,7 @@ const RestorePassword = () => {
   }, [navigate]);
 
   const validateCode = (value) => {
-    if (!value) return 'Введите код подтверждения';
-    if (value.length !== 6) return 'Код должен содержать 6 символов';
-    return '';
+    return validators.verificationCode(value);
   };
 
   const handleBlur = (e) => {
@@ -41,12 +40,11 @@ const RestorePassword = () => {
   };
 
   const handleChange = (e) => {
-    const value = e.target.value.toUpperCase();
-    const filtered = value.replace(/[^A-Z0-9]/g, '');
-    if (filtered.length <= 6) {
-      setCode(filtered);
+    const value = e.target.value.replace(/\D/g, ''); // Только цифры
+    if (value.length <= 6) {
+      setCode(value);
       if (touched) {
-        const error = validateCode(filtered);
+        const error = validateCode(value);
         setValidationError(error);
       }
     }
@@ -78,6 +76,7 @@ const RestorePassword = () => {
   };
 
   const errorMessage = verifyError || validationError;
+
 
   return (
     <>

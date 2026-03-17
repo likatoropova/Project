@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { processSubscriptionPayment } from '../api/paymentAPI';
+import { validators } from '../utils/validators';
 import '../styles/modal-payment.scss';
 
 const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
@@ -60,6 +61,7 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
   };
 
   if (!isOpen) return null;
+
   const formatCardNumber = (value) => {
     const numbers = value.replace(/\D/g, '');
     const trimmed = numbers.slice(0, 16);
@@ -69,6 +71,7 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
     }
     return parts.join(' ');
   };
+
   const handleCardHolderChange = (e) => {
     let value = e.target.value;
     value = value.replace(/[^a-zA-Z\s]/g, '');
@@ -129,43 +132,16 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
   };
 
   const validateForm = () => {
-    const newErrors = {};
-    const cardNumberClean = formData.cardNumber.replace(/\s/g, '');
-    if (!cardNumberClean) {
-      newErrors.cardNumber = 'Введите номер карты';
-    } else if (!/^\d{16}$/.test(cardNumberClean)) {
-      newErrors.cardNumber = 'Номер карты должен содержать 16 цифр';
-    }
-    if (!formData.cardHolder) {
-      newErrors.cardHolder = 'Введите держателя карты';
-    } else if (!/^[A-Z\s]+$/.test(formData.cardHolder)) {
-      newErrors.cardHolder = 'Используйте только латинские буквы';
-    }
-    if (!formData.expiryMonth) {
-      newErrors.expiryMonth = 'Введите месяц';
-    } else {
-      const month = parseInt(formData.expiryMonth);
-      if (month < 1 || month > 12) {
-        newErrors.expiryMonth = 'Месяц от 01 до 12';
-      }
-    }
-    const currentYear = new Date().getFullYear() % 100;
-    if (!formData.expiryYear) {
-      newErrors.expiryYear = 'Введите год';
-    } else {
-      const year = parseInt(formData.expiryYear);
-      if (year < currentYear || year > currentYear + 10) {
-        newErrors.expiryYear = 'Неверный год';
-      }
-    }
-    if (!formData.cvv) {
-      newErrors.cvv = 'Введите CVV';
-    } else if (!/^\d{3}$/.test(formData.cvv)) {
-      newErrors.cvv = 'CVV должен содержать 3 цифры';
-    }
-
+    const newErrors = {
+      cardNumber: validators.cardNumber(formData.cardNumber),
+      cardHolder: validators.cardHolder(formData.cardHolder),
+      expiryMonth: validators.expiryMonth(formData.expiryMonth),
+      expiryYear: validators.expiryYear(formData.expiryYear),
+      cvv: validators.cvv(formData.cvv)
+    };
+    
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = async (e) => {
@@ -188,6 +164,7 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
       expiry_year: `20${formData.expiryYear}`,
       cvv: formData.cvv
     };
+
     if (formData.saveCard) {
       const savedCardData = {
         cardNumber: formData.cardNumber,
@@ -209,7 +186,7 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
 
     setLoading(false);
   };
-  
+
   const previewCardNumber = formData.cardNumber || '#### #### #### ####';
   const previewHolder = formData.cardHolder || 'IVAN IVANOV';
   const previewMonth = formData.expiryMonth ? formData.expiryMonth.padStart(2, '0') : 'MM';
@@ -238,16 +215,8 @@ const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
         </form>
 
         <form className="card-cont" onSubmit={handleSubmit}>
-          {paymentError && (
-            <div className="error_message" style={{
-              color: '#721c24',
-              padding: '10px',
-              marginBottom: '15px',
-              backgroundColor: '#f8d7da',
-              border: '1px solid #f5c6cb',
-              borderRadius: '4px',
-              textAlign: 'center'
-            }}>
+           {paymentError && (
+            <div className="error_message">
               {paymentError}
             </div>
           )}
