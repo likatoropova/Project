@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main_sub_details {
+  background-image: url(../img/bg-pers-param.png);
+  @apply bg-no-repeat bg-center bg-contain;
+  margin-top: 9.26vh;
+  margin-bottom: 9.26vh;
+}
+
+.title {
+  @apply flex justify-evenly;
+  gap: 10vw;
+  margin-bottom: 5.93vh;
+
+  h1 {
+    width: 27vw;
+    margin-right: 18vw;
+  }
+
+  a {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 0.74vh 0.42vw;
+    width: 1.04vw;
+    @apply bg-white;
+  }
+}
+
+.sub-info {
+  @apply flex justify-center;
+  margin-bottom: 4.81vh;
+  gap: 1.25vw;
+
+  > article {
+    @apply flex relative bg-white;
+    width: 35vw;
+    height: 34.17vh;
+    border-radius: 16px;
+    box-shadow: 0 0 4px 0 rgba(59, 163, 164, 0.6);
+    padding: 0 1.04vw 3.33vh;
+  }
+}
+
+.sub-details {
+  width: 35vw;
+
+  article {
+    h2 {
+      font-family: "Montserrat-SemiBold", sans-serif;
+      font-size: 32px;
+    }
+
+    p {
+      margin-top: 1.3vh;
+      font-family: "Montserrat-Regular", sans-serif;
+      font-size: 24px;
+      line-height: 36px;
+      font-weight: 400;
+      margin-bottom: 2.22vh;
+    }
+
+    ul {
+      @apply list-none;
+      margin-bottom: 4.63vh;
+
+      li {
+        @apply flex;
+        gap: 0.52vw;
+        font-family: "Montserrat-Regular", sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 0.74vh;
+
+        &::before {
+          content: "•";
+          color: #3BA3A480;
+          @apply font-bold block;
+          width: 1.04vw;
+          height: 1.85vh;
+          font-size: 6em;
+        }
+      }
+    }
+  }
+}
+
+.info {
+  margin-left: 1.04vw;
+  @apply flex flex-col justify-evenly relative;
+  width: 50vw;
+
+  div {
+    @apply absolute;
+    top: -9.26vh;
+
+    h2 {
+      font-family: "Montserrat-Thin", sans-serif;
+      font-size: 160pt;
+      font-weight: 250;
+      width: 9.9vw;
+      height: 15.83vh;
+
+      span {
+        font-family: "Montserrat-Light", sans-serif;
+        font-size: 36px;
+      }
+    }
+  }
+
+  p {
+    margin-top: 14.81vh;
+    margin-bottom: 2.78vh;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 32px;
+  }
+
+  .features {
+    width: 17.66vw;
+
+    li {
+      font-family: "Montserrat-Regular", sans-serif;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+}
+
+.image-wrapper {
+  @apply absolute;
+  top: -30px;
+  right: 20px;
+}
+
+.subscription-card-detail {
+  @apply flex flex-col bg-white;
+  width: 100vw;
+  height: 34.17vh;
+  border-radius: 16px;
+  padding: 0 1.04vw 3.33vh;
+  margin-left: 1.25vw;
+}
+
+.price-tag {
+  @apply flex justify-end;
+}
+
+.subscribe-btn {
+  width: 100%;
+  background-color: #FC7D47;
+  margin-top: 2.78vh;
+  padding: 1.11vh 1.67vw;
+  border-radius: 12px;
+  @apply border-none text-white;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 16px;
+}
+
+.sub-advantages {
+  @apply bg-white;
+  border: 2px solid #3BA3A480;
+  width: 75.42vw;
+  border-radius: 18px;
+  padding: 2.50vw;
+  margin-left: 14vw;
+}
+
+.advantages {
+  @apply flex flex-wrap justify-center;
+  width: 70.42vw;
+  gap: 1.25vw;
+
+  article {
+    width: 34.58vw;
+    box-shadow: 0 0 6px 1px #3BA3A466;
+    border-radius: 14px;
+    padding: 4.07vh 2.08vw 7.13vh;
+
+    div:nth-of-type(1) {
+      margin-bottom: 1.48vh;
+    }
+
+    div:nth-of-type(2) {
+      h3 {
+        font-family: "Montserrat-SemiBold", sans-serif;
+        font-size: 24px;
+        line-height: 28px;
+        margin-bottom: 1.48vh;
+        color: #2A2A2A;
+      }
+
+      p {
+        width: 30.42vw;
+        font-family: "Montserrat-Regular", sans-serif;
+        font-size: 16px;
+        line-height: 24px;
+        color: #2A2A2A;
+      }
+    }
+  }
+}
+
+.description {
+  @apply flex flex-col items-start;
+  width: 62vw;
+  gap: 1.57vh;
+  margin-bottom: 2.96vh;
+
+  h2 {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 32px;
+    line-height: 48px;
+    color: #2A2A2A;
+  }
+
+  p {
+    width: 65vw;
+    @apply text-left;
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #2A2A2A;
+
+    span {
+      font-family: "Montserrat-SemiBold", sans-serif;
+    }
+  }
+}

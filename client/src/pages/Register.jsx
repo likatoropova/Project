@@ -7,9 +7,9 @@ import Notification from '../components/NotificationReg';
 import { useApi } from '../hooks/useApi';
 import { register } from '../api/authAPI';
 import { useFirstTest } from '../context/FirstTestContext';
-import '../styles/register_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/register_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -179,21 +179,6 @@ const Register = () => {
               <legend>Регистрация</legend>
               <input
                   type="text"
-                  name="email"
-                  id="email"
-                  placeholder="Введите email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  disabled={loading}
-                  className={validationErrors.email && touchedFields.email ? 'error' : ''}
-              />
-              {validationErrors.email && touchedFields.email && (
-                  <span className="field_error">{validationErrors.email}</span>
-              )}
-              <input
-                  type="text"
                   name="name"
                   id="name"
                   placeholder="Введите имя"
@@ -207,6 +192,21 @@ const Register = () => {
               {validationErrors.name && touchedFields.name && (
                   <span className="field_error">{validationErrors.name}</span>
               )}
+              <input
+                  type="text"
+                  name="email"
+                  id="email-reg"
+                  placeholder="Введите email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={loading}
+                  className={validationErrors.email && touchedFields.email ? 'error' : ''}
+              />
+              {validationErrors.email && touchedFields.email && (
+                  <span className="field_error">{validationErrors.email}</span>
+              )}
               <PasswordInput
                   id="password"
                   placeholder="Введите пароль"
@@ -219,12 +219,6 @@ const Register = () => {
               {validationErrors.password && touchedFields.password && (
                   <span className="field_error">{validationErrors.password}</span>
               )}
-              <p className="politic">
-                Нажимая на кнопку "Зарегистрироваться", вы соглашаетесь с условиями
-                <Link to="#" className="politic_link">
-                  Политики конфиденциальности
-                </Link>
-              </p>
               <div className="personal_data">
                 <input
                     type="checkbox"
@@ -236,9 +230,12 @@ const Register = () => {
                 />
                 <label htmlFor="agree">
                   Я согласен с{' '}
-                  <Link to="#">
-                    условиями обработки персональных данных
-                  </Link>
+                    <Link to="#" className="politic_link">
+                      Политикой конфиденциальности
+                    </Link> и даю{' '}
+                    <Link to="#">
+                      Соглисие на обработку персональных данных
+                    </Link>
                 </label>
               </div>
 

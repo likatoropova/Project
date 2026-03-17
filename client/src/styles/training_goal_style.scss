@@ -1,0 +1,142 @@
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(212, 170, 248, 0.4);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 0 0 10px rgba(212, 170, 248, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0 rgba(212, 170, 248, 0);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.pers_param_main {
+  @apply flex justify-center bg-no-repeat bg-center;
+  background-image: url(../img/bg-pers-param.png);
+  background-size: 100vw 80vh;
+  width: 85vw;
+  height: 78vh;
+}
+
+.hero-pers-param img {
+  @apply block;
+}
+
+.hero-pers-goal {
+  @apply flex relative;
+  margin-right: 10vw;
+  margin-bottom: 2vh;
+}
+
+.hotspot {
+  @apply absolute pointer-events-none opacity-0;
+  width: 1.67vw;
+  height: 2.96vh;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  z-index: 10;
+  color: rgba(194, 194, 194, 0.6);
+
+  &.active {
+    @apply opacity-100;
+    background-color: rgba(194, 194, 194, 0.6);
+    animation: pulse 1.5s infinite;
+  }
+}
+
+.power,
+#muscle1,
+#general1 {
+  top: 22vh;
+  left: 3vw;
+}
+
+.fat,
+#general2 {
+  top: 26vh;
+  left: 8vw;
+}
+
+#muscle2,
+#general3 {
+  top: 40vh;
+  left: 9vw;
+}
+
+.form-section {
+  @apply flex flex-col justify-center;
+  width: 35vw;
+
+  h1 {
+    font-size: 40px;
+    font-family: "Montserrat-Medium", sans-serif;
+    @apply text-left;
+    width: 20.36vw;
+  }
+}
+
+.form_container_goal {
+  padding: 4.44vh 2.5vw;
+  width: 45vw;
+  margin-top: 5.19vh;
+  margin-left: 5.21vw;
+  box-shadow: 0 0 4px 0px rgba(59, 163, 164, 0.6);
+  @apply bg-white;
+  border-radius: 20px;
+
+  > legend {
+    font-size: 24px;
+    font-family: "Montserrat-Regular", sans-serif;
+    @apply text-center;
+    margin-bottom: 2.22vh;
+  }
+}
+
+.radio_choice {
+  @apply flex justify-center cursor-pointer;
+  transition: all 0.3s ease;
+  padding: 1.48vh 1.25vw;
+  border: 1px solid #E4E4E4;
+  border-radius: 12px;
+
+  > label {
+    font-size: 16px;
+    font-family: "Montserrat-Regular", sans-serif;
+    line-height: 24px;
+  }
+
+  &:hover {
+    border: 1px solid rgba(252, 125, 71, 0.4);
+  }
+
+  &.active {
+    border: 1px solid rgba(252, 125, 71, 0.8);
+  }
+
+  > input {
+    appearance: none;
+  }
+}
+
+.butn-param {
+  width: 40vw;
+  margin-top: 3.33vh;
+  margin-bottom: 6.3vh;
+  padding: 1.11vh 0;
+  border-radius: 12px;
+  @apply border-none;
+  font-size: 16px;
+  line-height: 24px;
+  @apply text-white;
+  background-color: #FC7D47;
+  font-family: "Montserrat-SemiBold", sans-serif;
+}

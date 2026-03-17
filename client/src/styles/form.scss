@@ -1,0 +1,58 @@
+.form_container {
+  @apply flex flex-col justify-center items-center;
+  width: 35.42vw;
+  padding: 6.3vh 3.54vw;
+  margin-top: 12.5vh;
+  margin-bottom: 11.57vh;
+  border-block-start: 0.5px solid #3BA3A4;
+  border-block-end: 0.5px solid #3BA3A4;
+  border-radius: 20px;
+}
+
+.form_group {
+  @apply flex flex-col;
+
+  > legend {
+    font-size: 48px;
+    font-family: "Montserrat-Regular", sans-serif;
+    width: 28.75vw;
+    margin: 0 auto;
+    @apply text-center;
+  }
+
+  > input {
+    border: 1px solid #FF9B65;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: black;
+}
+
+.form_group > input:focus,
+.password_group > input:focus {
+  @apply outline-none;
+}
+
+.error_message {
+  color: #721c24;
+  padding: 1.11vh 0.63vw;
+  margin-bottom: 1.85vh;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  @apply text-center;
+}
+
+input.error,
+.password_group > input.error {
+  border-color: #dc3545 !important;
+}
+
+.field_error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 0.46vh;
+  @apply block;
+}

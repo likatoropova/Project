@@ -6,9 +6,9 @@ import Footer from '../components/Footer';
 import Timer from '../components/Timer';
 import { useApi } from '../hooks/useApi';
 import { verifyEmail, resendVerificationCode } from '../api/authAPI';
-import '../styles/register_code_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/register_code_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 
 const RegisterCode = () => {
   const navigate = useNavigate();
@@ -84,7 +84,7 @@ const RegisterCode = () => {
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Регистрация</legend>
 
-            <p className="description">
+            <p className="description-text">
               Введите код из письма, чтобы подтвердить вашу почту<br />
               и завершить регистрацию
             </p>

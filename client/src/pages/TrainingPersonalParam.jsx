@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getEquipment, saveAnthropometry } from '../api/userParamsAPI';
-import '../styles/training_personal_param_style.css';
-import '../styles/header_footer.css';
-import '../styles/fonts.css';
+import '../styles/training_personal_param_style.scss';
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -300,7 +300,7 @@ const TrainingPersonalParam = () => {
             
             <button
               type="submit"
-              className="butn"
+              className="butn-param"
               disabled={loading || !isFormValid}
             >
               {loading ? 'Сохранение...' : 'Далее'}

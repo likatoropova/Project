@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { resetPassword } from '../api/authAPI';
-import '../styles/confirmation_pass_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/confirmation_pass_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 
 const ConfirmPassword = () => {
   const navigate = useNavigate();

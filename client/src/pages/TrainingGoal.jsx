@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getGoals, saveGoal } from '../api/userParamsAPI';
-import '../styles/training_goal_style.css';
-import '../styles/header_footer.css';
-import '../styles/fonts.css';
+import '../styles/training_goal_style.scss';
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -127,7 +127,7 @@ const TrainingGoal = () => {
             
             <button
               type="submit"
-              className="butn"
+              className="butn-param"
               disabled={loading || !selectedGoal}
               style={{
                 opacity: (loading || !selectedGoal) ? 0.6 : 1,

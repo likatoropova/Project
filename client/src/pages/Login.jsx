@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { login } from '../api/authAPI';
-import '../styles/auth_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/auth_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 import { useAuth } from '../hooks/useAuth';
 import { useFirstTest } from '../context/FirstTestContext';
 

@@ -1,0 +1,139 @@
+a {
+  @apply no-underline;
+}
+
+header {
+  @apply flex items-center justify-between;
+  margin: 2.22vh 12.29vw;
+  background: #FFFAF8;
+  border-radius: 34px;
+  gap: 7.29vw;
+
+  > div {
+    padding: 1.48vh 0.83vw;
+  }
+}
+
+.logo {
+  @apply flex items-center;
+  gap: 0.36vw;
+  margin-left: 3vw;
+
+  > span {
+    font-weight: 400;
+    font-size: 24px;
+    color: #484646;
+  }
+}
+
+.nav_links {
+  @apply flex;
+  gap: 1.25vw;
+
+  > a {
+    color: #484646;
+    @apply no-underline;
+    font-size: 16px;
+    font-family: "Montserrat-Bold", sans-serif;
+  }
+
+  a:hover {
+    color: #FC7D47;
+  }
+
+  a:active {
+    color: #FF9B65;
+  }
+}
+
+.nav_buttons {
+  @apply flex items-center;
+  gap: 1.25vw;
+  margin-right: 3vw;
+
+  > a:not(.notifications, .second_button) {
+    background-color: #FC7D47;
+    line-height: 24px;
+    padding: 1.11vh 1.67vw;
+    color: #FEFEFE;
+    font-size: 16px;
+    @apply border-none;
+    border-radius: 12px;
+    font-family: "Montserrat-SemiBold", sans-serif;
+
+    &:hover {
+      background-color: #FF9B65;
+      color: #FFFFFF;
+    }
+
+    &:active {
+      border: 1px solid #FC7D47;
+      background-color: rgba(252, 125, 71, 0.1);
+      color: #FC7D47;
+    }
+  }
+}
+
+.second_button {
+  line-height: 24px;
+  padding: 1.11vh 1.67vw;
+  background-color: #FC7D471A;
+  border: 1px solid #FC7D47CC;
+  color: #FC7D47CC;
+  border-radius: 12px;
+  font-family: "Montserrat-SemiBold", sans-serif;
+
+  &:hover {
+    background-color: #FC7D474D;
+    color: #FC7D4799;
+  }
+
+  &:active {
+    background-color: #FC7D4714;
+    border: 1px solid #FC7D4799;
+    color: #FC7D4799;
+  }
+}
+
+footer {
+  padding: 3.33vh 0;
+  @apply flex justify-around items-center;
+  height: 9.35vh;
+  border: 3px solid rgba(252, 125, 71, 0.1);
+  background-color: #FFFFFF;
+  z-index: 1;
+}
+
+.footer_links {
+  @apply flex flex-col;
+  gap: 1rem;
+  width: 16vw;
+  font-family: "Montserrat-Regular", sans-serif;
+
+  a {
+    @apply no-underline text-black;
+
+    &:hover {
+      color: #FC7D47;
+    }
+
+    &:active {
+      color: #FF9B65;
+    }
+  }
+}
+
+.social_icons {
+  @apply flex flex-col;
+  gap: 1rem;
+
+  > div {
+    @apply flex flex-row items-center;
+    gap: 0.42vw;
+
+    > p {
+      font-family: "Montserrat-Regular", sans-serif;
+      font-size: 18px;
+    }
+  }
+}

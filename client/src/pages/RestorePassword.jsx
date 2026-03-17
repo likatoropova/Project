@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 import Timer from '../components/Timer';
 import { useApi } from '../hooks/useApi';
 import { verifyResetCode, forgotPassword } from '../api/authAPI';
-import '../styles/restore_pass_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/restore_pass_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 
 const RestorePassword = () => {
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ const RestorePassword = () => {
         <div className="form_container">
           <form className="form_group" onSubmit={handleSubmit}>
             <legend>Восстановление пароля</legend>
-            <p className="description" style={{ textAlign: 'center', marginBottom: '10px' }}>
+            <p className="description-text">
               Введите код, отправленный на почту
             </p>
             <input

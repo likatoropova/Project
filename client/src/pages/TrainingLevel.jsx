@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getLevels, saveLevel } from '../api/userParamsAPI';
-import '../styles/lavel_of_training_style.css';
-import '../styles/header_footer.css';
-import '../styles/fonts.css';
+import '../styles/lavel_of_training_style.scss';
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -111,7 +111,7 @@ const TrainingLevel = () => {
             
             <button
               type="submit"
-              className="butn"
+              className="butn-param"
               disabled={loading || !selectedLevel}
               style={{
                 opacity: (loading || !selectedLevel) ? 0.6 : 1,

@@ -1,89 +1,83 @@
 .modal-overlay {
-  position: fixed;
+  @apply fixed flex justify-center items-center;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
-  background-color: white;
-  padding: 64px;
+  @apply bg-white text-center;
+  padding: 5.93vh 3.33vw;
   border-radius: 16px;
-  max-width: 486px;
-  width: 100%;
-  text-align: center;
+  max-width: 31.98vw;
+  width: 100vw;
   animation: slideIn 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
 
-.modal-content h3 {
-  color: black;
-  font-family: "Montserrat-Medium", sans-serif;
-  font-weight: 500;
-  font-size: 32px;
-  margin-bottom: 52px;
+  h3 {
+    color: black;
+    font-family: "Montserrat-Medium", sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    margin-bottom: 4.81vh;
+  }
 }
 
 .modal-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-}
+  @apply flex justify-center;
+  gap: 0.78vw;
 
-.modal-buttons button {
-  padding: 12px 32px;
-  border-radius: 12px;
-  font-family: "Montserrat-SemiBold", sans-serif;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s;
-  min-width: 50%;
+  button {
+    padding: 1.11vh 1.67vw;
+    border-radius: 12px;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 16px;
+    @apply cursor-pointer;
+    transition: all 0.3s;
+    min-width: 12.29vw;
+  }
 }
 
 .btn-confirm {
   background-color: #FC7D47;
-  color: white;
-  border: none;
-}
+  @apply text-white border-none;
 
-.btn-confirm:hover {
-  background-color: #FF9B65;
-}
+  &:hover {
+    background-color: #FF9B65;
+  }
 
-.btn-confirm:active {
+  &:active {
     border: 1px solid rgba(252, 125, 71, 0.8);
     color: #FC7D47;
     background-color: rgba(252, 125, 71, 0.4);
+  }
 }
 
 .btn-cancel {
   background-color: rgba(252, 125, 71, 0.1);
   color: rgba(252, 125, 71, 0.8);
   border: 1px solid rgba(252, 125, 71, 0.8);
-}
 
-.btn-cancel:hover {
-  background-color: #FC7D474D;
-  color: #FC7D4799;
-  border: 1px solid #FC7D47;
-}
+  &:hover {
+    background-color: #FC7D474D;
+    color: #FC7D4799;
+    border: 1px solid #FC7D47;
+  }
 
-.btn-cancel:active {
+  &:active {
     background-color: #FC7D4714;
     color: #FC7D4799;
     border: 1px solid #FC7D4799;
+  }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes slideIn {

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useSubscriptions } from '../hooks/useSubscriptions';
-import '../styles/subscription_style.css';
-import '../styles/header_footer.css';
-import '../styles/fonts.css';
+import '../styles/subscription_style.scss';
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss';
 import { Link } from 'react-router-dom';
 
 const Subscriptions = () => {
@@ -99,7 +99,7 @@ const Subscriptions = () => {
                     </h2>
                   </div>
                   <p className="price">{formatPrice(sub.price)}/мес</p>
-                  <ul className="features">
+                  <ul>
                     {sub.description && <li>{sub.description}</li>}
                   </ul>
                 </div>

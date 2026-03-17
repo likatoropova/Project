@@ -1,0 +1,50 @@
+* {
+  margin: 0;
+  padding: 0;
+  @apply no-underline;
+}
+
+.main_auth {
+  @apply flex justify-center;
+  height: 74vh;
+}
+
+#code {
+  width: 26.25vw;
+  height: 2.59vh;
+  padding: 1.11vh 1.25vw;
+  border-radius: 7px;
+  font-size: 16px;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: black;
+  margin-top: 4.07vh;
+}
+
+.description-text {
+  color: rgba(22, 22, 22, 1);
+  font-size: 16px;
+  font-family: "Montserrat-Regular", sans-serif;
+  margin-top: 1.48vh;
+  width: 24.01vw;
+  @apply text-center;
+}
+
+.butn {
+  width: 100%;
+  margin-top: 3.33vh;
+  margin-bottom: 5.93vh;
+  padding: 1.11vh 0;
+  border-radius: 12px;
+  @apply border-none;
+  font-size: 16px;
+  line-height: 24px;
+  @apply text-white;
+  background-color: #FC7D47;
+  font-family: "Montserrat-SemiBold", sans-serif;
+}
+
+.back {
+  @apply absolute;
+  right: 0;
+  bottom: 4.63vh;
+}

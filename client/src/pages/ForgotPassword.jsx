@@ -4,9 +4,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useApi } from '../hooks/useApi';
 import { forgotPassword } from '../api/authAPI';
-import '../styles/forgot_password_style.css';
-import '../styles/form.css';
-import '../styles/fonts.css';
+import '../styles/forgot_password_style.scss';
+import '../styles/form.scss';
+import '../styles/fonts.scss';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
           <form className="form_group_forgotpas" onSubmit={handleSubmit}>
             <legend>Забыли пароль?</legend>
             
-            <p className="description">
+            <p className="description-text">
               Введите email, который вы использовали при регистрации, 
               мы отправим вам код для сброса пароля
             </p>
@@ -73,7 +73,7 @@ const ForgotPassword = () => {
             <input
               type="email"
               name="email"
-              id="email"
+              id="email-forgot"
               placeholder="Введите email"
               required
               value={email}
@@ -88,7 +88,7 @@ const ForgotPassword = () => {
             
             <button
               type="submit"
-              className="butn"
+              className="butn-forgot"
               disabled={loading}
               style={{
                 opacity: loading ? 0.65 : 1,

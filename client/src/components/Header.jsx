@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import LogoutModal from '../components/LogoutModal';
-import '../styles/header_footer.css';
-import '../styles/fonts.css'
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss'
 
 const Header = () => {
   const location = useLocation();

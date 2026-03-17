@@ -4,9 +4,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PaymentModal from '../components/PaymentModal';
 import { useSubscriptionDetails } from '../hooks/useSubscriptionDetails';
-import '../styles/subscription_details_style.css';
-import '../styles/header_footer.css';
-import '../styles/fonts.css';
+import '../styles/subscription_details_style.scss';
+import '../styles/header_footer.scss';
+import '../styles/fonts.scss';
 
 const SubscriptionDetails = () => {
   const navigate = useNavigate();
@@ -88,8 +88,8 @@ const SubscriptionDetails = () => {
               </div>
               <p className="price">{formatPrice(subscription.price)}/мес</p>
               <ul className="features">
-                    {subscription.description && <li>{subscription.description}</li>}
-                  </ul>
+                {subscription.description && <li>{subscription.description}</li>}
+              </ul>
             </div>
             <div className="image-wrapper">
               <img 

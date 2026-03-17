@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { processSubscriptionPayment } from '../api/paymentAPI';
-import '../styles/modal-payment.css';
+import '../styles/modal-payment.scss';
 
 const PaymentModal = ({ isOpen, onClose, subscription, onPaymentSuccess }) => {
   const [formData, setFormData] = useState({
