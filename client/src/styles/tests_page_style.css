@@ -4,9 +4,6 @@
     text-decoration: none;
 }
 
-body {
-}
-
 #root {
     display: flex;
     flex-direction: column;

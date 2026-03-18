@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.main_pulse {
+    max-width: 1448px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.back_btn_pulse {
+    background: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hero_pulse {
+    margin: 100px 0 56px 0;
+}
+
+.flex_for_btn_pulse {
+    display: flex;
+    gap: 523px;
+    height: 48px;
+    margin-bottom: 16px;
+}
+
+.flex_for_btn_pulse h1 {
+    font-size: 40px;
+    text-align: center;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    color: rgba(42, 42, 42, 1);
+}
+.hero_pulse p {
+    color: rgba(76, 80, 80, 1);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Montserrat-Medium", sans-serif;
+}
+
+.test_container_pulse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 100px;
+    width: 1448px;
+}
+
+.test_container_pulse img {
+    width: 334px;
+}
+
+.butn_pulse {
+    text-align: center;
+    width: 155px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background-color: rgba(252, 125, 71, 1);
+    font-family: "Montserrat-SemiBold", sans-serif;
+    color: white;
+    cursor: pointer;
+}
+
+.image_radio_group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 44px;
+}
+
+.image_option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.image_option {
+    display: inline-block;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Стили для самой картинки */
+.image_option img {
+    display: block;
+    width: 344px;
+    height: 344px;
+    border-radius: 12px;
+}
+
+.circle {
+    font-size: 36px;
+    font-family: "Montserrat-Regular", sans-serif;
+    height: 46px;
+    width: 46px;
+    border: rgba(42, 42, 42, 1) 1px solid;
+    border-radius: 23px;
+    margin-left: 10px;
+    margin-top: -60px;
+}
+
+.circle:hover {
+    border: rgba(59, 163, 164, 1) 1px solid;
+}
+
+.nebo {
+    --nb-r: 12px;
+    --nb-w: 53px;
+    --nb-h: 53px;
+
+    /* Fine-tuned radiuses */
+    --nb-cor1-rw: var(--nb-r);
+    --nb-cor1-rh: var(--nb-r);
+    --nb-cor2-rw: var(--nb-r);
+    --nb-cor2-rh: var(--nb-r);
+    --nb-curve-rw: var(--nb-r);
+    --nb-curve-rh: var(--nb-r);
+
+    --_nb-smooth: 98%;
+
+    /* Curve positions list */
+    --_nb-curve-pos-tl: 0 0;
+    --_nb-curve-pos-tr: 100% 0;
+    --_nb-curve-pos-bl: 0 100%;
+    --_nb-curve-pos-br: 100% 100%;
+
+    /* Setting default curve position (bottom right corner) */
+    --_nb-curve-pos: var(--_nb-curve-pos-br);
+
+    --_nb-mask-image:
+            linear-gradient(to bottom, #000, #000),
+            linear-gradient(to bottom, #000, #000),
+            linear-gradient(to bottom, #000, #000),
+            linear-gradient(to bottom, #000, #000),
+            radial-gradient(closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+            radial-gradient(closest-side at center, #000 var(--_nb-smooth), transparent 100%),
+            radial-gradient(farthest-side at var(--_nb-curve-pos), transparent var(--_nb-smooth), #000 100%);
+
+    --_nb-mask-size:
+            100% calc(100% - var(--nb-h) - var(--nb-cor1-rh) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+            calc(100% - var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+            calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) calc(100% - var(--nb-cor2-rh)),
+            calc(100% - var(--nb-w) - var(--nb-cor1-rw) - var(--nb-curve-rw) - var(--nb-cor2-rw)) 100%,
+            calc(var(--nb-cor1-rw) * 2) calc(var(--nb-cor1-rh) * 2),
+            calc(var(--nb-cor2-rw) * 2) calc(var(--nb-cor2-rh) * 2),
+            calc(var(--nb-curve-rw) + 0.5px) calc(var(--nb-curve-rh) + 0.5px);
+
+    /* Masks positions list */
+    --_nb-mask-position-tl:
+            100% 100%,
+            100% 100%,
+            100% 100%,
+            100% 100%,
+            0 calc(var(--nb-h) + var(--nb-curve-rh) + var(--nb-cor2-rh)),
+            calc(var(--nb-w) + var(--nb-cor1-rw) + var(--nb-curve-rw)) 0,
+            calc(var(--nb-w) + var(--nb-cor1-rw)) calc(var(--nb-h) + var(--nb-cor2-rh));
+
+    --_nb-mask-position-tr:
+            0 100%,
+            0 100%,
+            0 100%,
+            0 100%,
+            100% calc(var(--nb-h) + var(--nb-curve-rh) + var(--nb-cor2-rh)),
+            calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) 0,
+            calc(100% - var(--nb-w) - var(--nb-cor1-rw)) calc(var(--nb-h) + var(--nb-cor2-rh));
+
+    --_nb-mask-position-bl:
+            100% 0,
+            100% 0,
+            100% 0,
+            100% 0,
+            0 calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+            calc(var(--nb-w) + var(--nb-curve-rw) + var(--nb-cor1-rw)) 100%,
+            calc(var(--nb-w) + var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-cor2-rh));
+
+    --_nb-mask-position-br:
+            0 0,
+            0 0,
+            0 0,
+            0 0,
+            100% calc(100% - var(--nb-h) - var(--nb-curve-rh) - var(--nb-cor2-rh)),
+            calc(100% - var(--nb-w) - var(--nb-curve-rw) - var(--nb-cor1-rw)) 100%,
+            calc(100% - var(--nb-w) - var(--nb-cor1-rw)) calc(100% - var(--nb-h) - var(--nb-cor2-rh));
+
+    /* Setting default mask position (bottom right corner) */
+    --_nb-mask-position: var(--_nb-mask-position-br);
+
+    mask-image: var(--_nb-mask-image);
+    mask-size: var(--_nb-mask-size);
+    mask-position: var(--_nb-mask-position);
+    mask-repeat: no-repeat;
+}
+
+.nebo--tl {
+    --_nb-curve-pos: var(--_nb-curve-pos-tl);
+    --_nb-mask-position: var(--_nb-mask-position-tl);
+}
+
+.nebo--tr {
+    --_nb-curve-pos: var(--_nb-curve-pos-tr);
+    --_nb-mask-position: var(--_nb-mask-position-tr);
+}
+
+.nebo--bl {
+    --_nb-curve-pos: var(--_nb-curve-pos-bl);
+    --_nb-mask-position: var(--_nb-mask-position-bl);
+}
+
+.nebo--br {
+    --_nb-curve-pos: var(--_nb-curve-pos-br);
+    --_nb-mask-position: var(--_nb-mask-position-br);
+}

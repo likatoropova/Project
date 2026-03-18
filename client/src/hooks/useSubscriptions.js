@@ -50,10 +50,10 @@ export const useSubscriptions = () => {
     // Форматирование длительности
     const formatDuration = (days) => {
         const numDays = parseInt(days);
-        if (numDays === 30) return '1 месяц';
-        if (numDays === 90) return '3 месяца';
-        if (numDays === 180) return '6 месяцев';
-        if (numDays === 365) return '12 месяцев';
+        if (numDays === 30) return 'месяц';
+        if (numDays === 90) return 'месяца';
+        if (numDays === 180) return 'месяцев';
+        if (numDays === 365) return 'месяцев';
         return `${numDays} дней`;
     };
 

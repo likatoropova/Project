@@ -4,6 +4,7 @@ import { requestForToken, onMessageListener } from './firebase';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { FirstTestProvider } from './context/FirstTestContext';
+import { GuestTestProvider } from './context/GuestTestContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterCode from './pages/RegisterCode';
@@ -11,16 +12,17 @@ import ForgotPassword from './pages/ForgotPassword';
 import RestorePassword from './pages/RestorePassword';
 import ConfirmPassword from './pages/ConfirmPassword';
 import TestsPage from './pages/TestsPage';
+import TestPage from './pages/TestPage';
 import TestChoice from './pages/TestChoicePage';
 import TestPlan from './pages/TestPlanPage';
 import TestExercisePage from './pages/TestExercisePage';
+import TestCompletedPage from './pages/TestCompletedPage';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
 import HomePage from './pages/HomePage';
 import Subscriptions from './pages/Subscriptions';
 import SubscriptionDetails from './pages/SubscriptionDetails';
-
 
 function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
@@ -29,12 +31,11 @@ function App() {
     // Настраиваем FCM только если пользователь авторизован
     const setupFCM = async () => {
       const token = localStorage.getItem('token');
-      if (!token) return; // Не отправляем токен, если пользователь не авторизован
+      if (!token) return;
 
       try {
         const fcmToken = await requestForToken();
         if (fcmToken) {
-          // Отправляем токен на Laravel API
           await axios.post('/api/save-token', {
             fcm_token: fcmToken,
             device_type: 'web',
@@ -50,7 +51,6 @@ function App() {
 
     setupFCM();
 
-    // Слушаем уведомления, когда приложение активно
     const messageListener = onMessageListener();
 
     messageListener.then((payload) => {
@@ -60,17 +60,10 @@ function App() {
       });
       console.log('Foreground message received:', payload);
 
-      // Автоматически скрываем уведомление через 5 секунд
       setTimeout(() => {
         setNotification({ title: '', body: '' });
       }, 5000);
     }).catch(err => console.log('FCM listening failed: ', err));
-
-    // Очищаем слушатель при размонтировании компонента
-    return () => {
-      // Здесь можно добавить логику для отписки, если это необходимо
-      // В текущей реализации onMessageListener не возвращает функцию отписки
-    };
   }, []);
 
   const NotificationPopup = ({ title, body }) => {
@@ -95,31 +88,35 @@ function App() {
   };
 
   return (
-    <Router>
-      <AuthProvider>
-        <FirstTestProvider>
-          <NotificationPopup title={notification.title} body={notification.body} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/register-code" element={<RegisterCode />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/restore-password" element={<RestorePassword />} />
-            <Route path="/confirm-password" element={<ConfirmPassword />} />
-            <Route path="/tests" element={<TestsPage />} />
-            <Route path="/test/:id" element={<TestChoice />} />
-            <Route path="/test-plan" element={<TestPlan />} />
-            <Route path="/test-exercise/:testId/:exerciseId" element={<TestExercisePage />} />
-            <Route path="/subscriptions" element={<Subscriptions />} />
-            <Route path="/subscriptions/:id" element={<SubscriptionDetails />} />
-            <Route path="/training-goal" element={<TrainingGoal />} />
-            <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
-            <Route path="/training-level" element={<TrainingLevel />} />
-          </Routes>
-        </FirstTestProvider>
-      </AuthProvider>
-    </Router>
+      <Router>
+        <AuthProvider>
+          <FirstTestProvider>
+            <GuestTestProvider>
+              <NotificationPopup title={notification.title} body={notification.body} />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/register-code" element={<RegisterCode />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/restore-password" element={<RestorePassword />} />
+                <Route path="/confirm-password" element={<ConfirmPassword />} />
+                <Route path="/tests" element={<TestsPage />} />
+                <Route path="/test-choice/:attemptId" element={<TestPage />} />
+                <Route path="/test/:id" element={<TestChoice />} />
+                <Route path="/test-plan" element={<TestPlan />} />
+                <Route path="/test-exercise/:testId/:exerciseId" element={<TestExercisePage />} />
+                <Route path="/test-completed/:attemptId" element={<TestCompletedPage />} />
+                <Route path="/subscriptions" element={<Subscriptions />} />
+                <Route path="/subscriptions/:id" element={<SubscriptionDetails />} />
+                <Route path="/training-goal" element={<TrainingGoal />} />
+                <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
+                <Route path="/training-level" element={<TrainingLevel />} />
+              </Routes>
+            </GuestTestProvider>
+          </FirstTestProvider>
+        </AuthProvider>
+      </Router>
   );
 }
 

@@ -1,5 +1,3 @@
-// client/src/pages/TestPlanPage.jsx (обновляем ссылки)
-
 import React, { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
