@@ -261,10 +261,10 @@ const Register = () => {
                 />
                 <label htmlFor="agree">
                   Я согласен с{' '}
-                    <Link to="#" className="politic_link">
+                    <Link to="/privacy" className="politic_link">
                       Политикой конфиденциальности
                     </Link> и даю{' '}
-                    <Link to="#">
+                    <Link to="/consent">
                       Соглисие на обработку персональных данных
                     </Link>
                 </label>

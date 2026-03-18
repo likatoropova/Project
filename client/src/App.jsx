@@ -20,6 +20,9 @@ import TrainingLevel from './pages/TrainingLevel';
 import HomePage from './pages/HomePage';
 import Subscriptions from './pages/Subscriptions';
 import SubscriptionDetails from './pages/SubscriptionDetails';
+import ConsentPage from './pages/ConsentPage';
+import PrivacyPage from './pages/PrivacyPage';
+import OfferPage from './pages/OfferPage';
 
 
 function App() {
@@ -116,6 +119,9 @@ function App() {
             <Route path="/training-goal" element={<TrainingGoal />} />
             <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
             <Route path="/training-level" element={<TrainingLevel />} />
+            <Route path="/consent" element={<ConsentPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/offer" element={<OfferPage />} />
           </Routes>
         </FirstTestProvider>
       </AuthProvider>
