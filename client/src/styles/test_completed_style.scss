@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+main {
+
+}
+
+.back_btn_completed {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  height: 40px;
+  width: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.hero_completed {
+  margin: 100px 0 56px 0;
+}
+
+.flex_for_btn_completed {
+  display: flex;
+  gap: 523px;
+  height: 48px;
+  margin-bottom: 16px;
+  align-items: center;
+
+  h1 {
+    font-size: 40px;
+    text-align: center;
+    font-family: "Montserrat Alternates-Medium", sans-serif;
+    margin: 0;
+  }
+}
+
+.hero_completed p {
+  color: rgba(112, 107, 107, 1);
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Montserrat Alternates-Regular", sans-serif;
+  line-height: 1.5;
+}
+
+.test_container_completed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 100px;
+  width: 100%;
+  max-width: 1448px;
+  margin-left: auto;
+  margin-right: auto;
+
+  img {
+    width: 334px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+.test_result_completed {
+  padding: 12px 24px;
+  width: 296px;
+  height: 24px;
+  border: 1px solid rgba(121, 121, 121, 1);
+  border-radius: 10px;
+  font-family: "Montserrat Alternates-Regular", sans-serif;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+
+  &:focus {
+    border-color: #333;
+  }
+
+  &::placeholder {
+    color: rgba(121, 121, 121, 0.6);
+  }
+}
+
+.butn_completed {
+  text-align: center;
+  width: 344px;
+  height: 48px;
+  border: 1px solid rgba(121, 121, 121, 1);
+  border-radius: 12px;
+  background-color: rgba(226, 226, 226, 1);
+  font-family: "Montserrat Alternates-Regular", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover:not(:disabled) {
+    background-color: #d0d0d0;
+    border-color: #666;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Стили для состояний загрузки и ошибок
+.loading_container,
+.error_container,
+.empty_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: 20px;
+
+  p {
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 18px;
+    color: rgba(112, 107, 107, 1);
+    margin-bottom: 20px;
+  }
+}
+
+.error_container {
+  .retry_btn {
+    padding: 10px 30px;
+    border: 1px solid rgba(121, 121, 121, 1);
+    border-radius: 12px;
+    background-color: rgba(226, 226, 226, 1);
+    font-family: "Montserrat Alternates-Regular", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: #d0d0d0;
+      border-color: #666;
+    }
+  }
+}

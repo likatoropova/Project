@@ -2,94 +2,79 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import axiosInstance from '../api/axiosConfig';
+import { useGuestTest } from '../context/GuestTestContext';
 import '../styles/test_exercise_style.css';
 
 const TestExercisePage = () => {
-    const { testId, exerciseId } = useParams(); // Получаем оба параметра
+    const { testId } = useParams(); // Получаем только testId из URL
     const navigate = useNavigate();
 
-    const [attemptData, setAttemptData] = useState(null);
-    const [exerciseData, setExerciseData] = useState(null);
-    const [testInfo, setTestInfo] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const {
+        startGuestTest,
+        currentExercise,
+        testInfo,
+        loading,
+        error,
+        allExercisesCompleted
+    } = useGuestTest();
+
+    const [localLoading, setLocalLoading] = useState(true);
+    const [localError, setLocalError] = useState(null);
 
     // Загрузка данных при монтировании
     useEffect(() => {
-        const loadTestData = async () => {
+        const initTest = async () => {
             if (!testId) {
-                setError('ID теста не указан');
-                setLoading(false);
+                setLocalError('ID теста не указан');
+                setLocalLoading(false);
                 return;
             }
 
             try {
-                setLoading(true);
-                setError(null);
+                setLocalLoading(true);
+                console.log(`Начинаем тест с ID: ${testId}`);
 
-                console.log(`Начинаем тест с ID: ${testId}, упражнение: ${exerciseId}`);
-                const response = await axiosInstance.post(`/tests/${testId}/start`);
+                const result = await startGuestTest(testId);
 
-                console.log('Ответ от сервера:', response);
-                console.log('Данные ответа:', response.data);
-
-                if (response.data && response.data.success) {
-                    setAttemptData(response.data);
-
-                    // Данные приходят в response.data.data (согласно Swagger)
-                    if (response.data.data) {
-                        setExerciseData(response.data.data.current_exercise);
-                        setTestInfo(response.data.data.testing);
-                    } else {
-                        setError('Неверная структура данных от сервера');
-                    }
-                } else {
-                    setError(response.data?.message || 'Не удалось начать тест');
+                if (!result.success) {
+                    setLocalError(result.error || 'Не удалось начать тест');
                 }
             } catch (err) {
                 console.error('Ошибка при загрузке теста:', err);
-                setError(err.response?.data?.message || err.message || 'Произошла ошибка при загрузке');
+                setLocalError(err.message || 'Произошла ошибка при загрузке');
             } finally {
-                setLoading(false);
+                setLocalLoading(false);
             }
         };
 
-        loadTestData();
-    }, [testId, exerciseId]);
-
-    // Для отладки - выводим текущее состояние
-    useEffect(() => {
-        console.log('Текущее состояние:', {
-            testId,
-            exerciseId,
-            loading,
-            error,
-            attemptData,
-            exerciseData,
-            testInfo
-        });
-    }, [testId, exerciseId, loading, error, attemptData, exerciseData, testInfo]);
+        initTest();
+    }, [testId, startGuestTest]);
 
     // Обработчик кнопки "Назад"
     const handleBack = useCallback(() => {
-        navigate(`/test-choice/${testId}`);
-    }, [navigate, testId]);
+        navigate('/tests');
+    }, [navigate]);
 
     // Обработчик кнопки "Далее"
     const handleNext = useCallback(() => {
-        console.log('Переход к следующему этапу');
-        // Здесь будет логика для перехода к следующему упражнению
-        navigate(`/test-choice/${testId}`);
-    }, [navigate, testId]);
+        if (allExercisesCompleted) {
+            // Если все упражнения выполнены, переходим на страницу завершения
+            navigate(`/test-completed/${testId}`);
+        } else {
+            // Иначе переходим к выбору результата для следующего упражнения
+            navigate(`/test-choice/${testId}`);
+        }
+    }, [navigate, testId, allExercisesCompleted]);
 
     // Повторная попытка загрузки
     const handleRetry = useCallback(() => {
-        window.location.reload();
-    }, []);
+        setLocalError(null);
+        setLocalLoading(true);
+        startGuestTest(testId).finally(() => setLocalLoading(false));
+    }, [testId, startGuestTest]);
 
     // Состояние загрузки
-    if (loading) {
+    if (localLoading || loading) {
         return (
             <>
                 <Header />
@@ -105,13 +90,13 @@ const TestExercisePage = () => {
     }
 
     // Состояние ошибки
-    if (error) {
+    if (localError || error) {
         return (
             <>
                 <Header />
                 <main className="main_exercise">
                     <div className="error_container_exercise">
-                        <p>Ошибка загрузки: {error}</p>
+                        <p>Ошибка загрузки: {localError || error}</p>
                         <p style={{ marginTop: '10px', fontSize: '14px' }}>
                             Не удалось начать тест. Пожалуйста, попробуйте снова.
                         </p>
@@ -127,16 +112,13 @@ const TestExercisePage = () => {
     }
 
     // Состояние пустого результата
-    if (!exerciseData) {
+    if (!currentExercise) {
         return (
             <>
                 <Header />
                 <main className="main_exercise">
                     <div className="empty_container_exercise">
                         <p>Упражнение не найдено</p>
-                        <p style={{ marginTop: '10px', fontSize: '14px' }}>
-                            Данные с сервера: {JSON.stringify(attemptData)}
-                        </p>
                         <button onClick={handleRetry}>Повторить попытку</button>
                         <button onClick={() => navigate('/tests')}>
                             Вернуться к списку тестов
@@ -149,8 +131,8 @@ const TestExercisePage = () => {
     }
 
     // Формируем путь к изображению
-    const imageUrl = exerciseData.image
-        ? `http://localhost:8000/storage/${exerciseData.image}${exerciseData.image.endsWith('/') ? '' : '/'}${exerciseData.id}.jpg`
+    const imageUrl = currentExercise.image
+        ? `http://localhost:8000/storage/${currentExercise.image}${currentExercise.image.endsWith('/') ? '' : '/'}${currentExercise.id}.jpg`
         : '/img/IMG.png';
 
     return (
@@ -166,9 +148,9 @@ const TestExercisePage = () => {
                         >
                             &lt;
                         </button>
-                        <h1>Тестирование</h1>
+                        <h1>{testInfo?.title || 'Тестирование'}</h1>
                     </div>
-                    <p>{exerciseData.description || 'Описание упражнения отсутствует'}</p>
+                    <p>{currentExercise.description || 'Описание упражнения отсутствует'}</p>
                 </section>
 
                 <section className="test_container_exercise">
@@ -181,13 +163,12 @@ const TestExercisePage = () => {
                         }}
                     />
 
-                    <input
-                        type="submit"
-                        name="button"
-                        value="Далее"
+                    <button
                         className="butn_exercise"
                         onClick={handleNext}
-                    />
+                    >
+                        {allExercisesCompleted ? 'Завершить тест' : 'Далее'}
+                    </button>
                 </section>
             </main>
             <Footer />
