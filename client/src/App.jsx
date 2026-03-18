@@ -4,6 +4,7 @@ import { requestForToken, onMessageListener } from './firebase';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { FirstTestProvider } from './context/FirstTestContext';
+import { GuestTestProvider } from './context/GuestTestContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterCode from './pages/RegisterCode';
@@ -23,6 +24,7 @@ import SubscriptionDetails from './pages/SubscriptionDetails';
 import ConsentPage from './pages/ConsentPage';
 import PrivacyPage from './pages/PrivacyPage';
 import OfferPage from './pages/OfferPage';
+import TrainingsPage from './pages/TrainingsPage';
 
 
 function App() {
@@ -101,6 +103,7 @@ function App() {
     <Router>
       <AuthProvider>
         <FirstTestProvider>
+          <GuestTestProvider>
           <NotificationPopup title={notification.title} body={notification.body} />
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -122,7 +125,9 @@ function App() {
             <Route path="/consent" element={<ConsentPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/offer" element={<OfferPage />} />
+            <Route path="/trainings" element={<TrainingsPage />} />
           </Routes>
+          </GuestTestProvider>
         </FirstTestProvider>
       </AuthProvider>
     </Router>
