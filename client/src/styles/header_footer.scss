@@ -16,8 +16,10 @@ header {
 
 .logo {
   @apply flex items-center;
+  width: 9.79vw;
   gap: 0.36vw;
   margin-left: 3vw;
+  margin-right: 3vw;
 
   > span {
     font-weight: 400;

@@ -11,8 +11,7 @@ const Footer = () => {
         <Link to="/offer">Публичная оферта</Link>
       </div>
       <div className="logo">
-        <img src="/img/logo.svg" alt="Logo" />
-        <span>LOGOTYPE</span>
+        <img src="/img/Logo.png" alt="Logo" />
       </div>
       <div className="social_icons">
         <div>

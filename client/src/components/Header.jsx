@@ -30,8 +30,7 @@ const Header = () => {
   return (
     <header>
       <div className="logo">
-        <img src="/img/logo.svg" alt="Logo" />
-        <span>LOGOTYPE</span>
+        <img src="/img/Logo.png" alt="Logo" />
       </div>
       <div className="nav_links">
         <Link to="/">Главная</Link>
