@@ -10,16 +10,18 @@ import { useFirstTest } from '../context/FirstTestContext';
 import '../styles/register_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
+import { validators } from '../utils/validators';
 
 const Register = () => {
   const navigate = useNavigate();
   const { resetGuest } = useFirstTest();
-  const { execute: executeRegister, loading, error } = useApi(register);
+  const { execute: executeRegister, loading, error: apiError } = useApi(register);
 
   const [formData, setFormData] = useState({
     email: '',
     name: '',
     password: '',
+    password_confirmation: '',
     agree: false
   });
 
@@ -29,76 +31,97 @@ const Register = () => {
     show: false,
     message: ''
   });
+  const [fieldErrors, setFieldErrors] = useState({});
 
   useEffect(() => {
     document.title = 'Регистрация';
-    // Проверяем, есть ли guest_id перед регистрацией
     const guestId = localStorage.getItem('guestId');
     if (guestId) {
       console.log('🆔 Guest ID present before registration:', guestId);
-      // Данные в Redis будут автоматически привязаны при регистрации
     }
   }, []);
 
-  const validateEmail = (email) => {
-    if (!email) return 'Email обязателен';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return 'Введите корректный email';
+  // Обработка ошибок от API
+  useEffect(() => {
+    if (apiError) {
+      console.log('API Error:', apiError);
+      
+      if (apiError.errors) {
+        setFieldErrors(apiError.errors);
+      } else if (typeof apiError === 'object') {
+        const fieldSpecificErrors = {};
+        if (apiError.email) fieldSpecificErrors.email = apiError.email;
+        if (apiError.name) fieldSpecificErrors.name = apiError.name;
+        if (apiError.password) fieldSpecificErrors.password = apiError.password;
+        
+        if (Object.keys(fieldSpecificErrors).length > 0) {
+          setFieldErrors(fieldSpecificErrors);
+        }
+      }
     }
-    return '';
-  };
-
-  const validateName = (name) => {
-    if (!name) return 'Имя обязательно';
-    if (name.trim().length < 2) return 'Имя должно содержать минимум 2 символа';
-    return '';
-  };
-
-  const validatePassword = (password) => {
-    if (!password) return 'Пароль обязателен';
-    if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
-    return '';
-  };
+  }, [apiError]);
 
   const validateField = (name, value) => {
     switch (name) {
       case 'email':
-        return validateEmail(value);
+        return validators.email(value);
       case 'name':
-        return validateName(value);
+        return validators.name(value);
       case 'password':
-        return validatePassword(value);
+        return validators.password(value);
+      case 'agree':
+        return validators.agreement(value);
       default:
         return '';
     }
   };
 
   const handleBlur = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    const fieldValue = type === 'checkbox' ? checked : value;
+    
     setTouchedFields(prev => ({ ...prev, [name]: true }));
     
-    const error = validateField(name, value);
+    const error = validateField(name, fieldValue);
     setValidationErrors(prev => ({
       ...prev,
       [name]: error
     }));
+    
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    const fieldValue = type === 'checkbox' ? checked : value;
+    
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: fieldValue
     }));
     
     if (touchedFields[name]) {
-      const error = validateField(name, value);
+      const error = validateField(name, fieldValue);
       setValidationErrors(prev => ({
         ...prev,
         [name]: error
       }));
     }
-  };
+    
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  }
 
   const showNotification = (message) => {
     setNotification({
@@ -116,38 +139,33 @@ const Register = () => {
 
   const validateForm = () => {
     const errors = {
-      email: validateEmail(formData.email),
-      name: validateName(formData.name),
-      password: validatePassword(formData.password)
+      email: validators.email(formData.email),
+      name: validators.name(formData.name),
+      password: validators.password(formData.password),
+      agree: validators.agreement(formData.agree)
     };
     
     setValidationErrors(errors);
     setTouchedFields({
       email: true,
       name: true,
-      password: true
+      password: true,
+      agree: true
     });
     
-    return !errors.email && !errors.name && !errors.password;
+    return !Object.values(errors).some(error => error);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.agree) {
-      showNotification('Необходимо согласие на обработку персональных данных');
-      return;
-    }
-
     if (!validateForm()) {
       return;
     }
 
-    // Проверяем наличие guest_id перед регистрацией
     const guestId = localStorage.getItem('guestId');
-    console.log('📦 Guest ID before registration:', guestId);
+    console.log('Guest ID before registration:', guestId);
     
-    // Бэкенд автоматически привяжет данные из Redis по guest_id
     const result = await executeRegister(
       formData.email.trim(),
       formData.name.trim(),
@@ -155,19 +173,29 @@ const Register = () => {
     );
 
     if (result?.success) {
-      console.log('✅ Registration successful, guest data should be attached in Redis');
-      
-      // После успешной регистрации очищаем гостевые данные
-      resetGuest(); // Очищаем guestId и флаги в контексте
+      console.log('Registration successful');
+      resetGuest();
       localStorage.removeItem('guestId');
       localStorage.removeItem('guestParamsCompleted');
-      
       localStorage.setItem('registrationEmail', formData.email);
       
       setTimeout(() => {
         navigate('/register-code');
       }, 200);
     }
+  };
+
+  const getFieldErrorMessage = (fieldName) => {
+    if (validationErrors[fieldName] && touchedFields[fieldName]) {
+      return validationErrors[fieldName];
+    }
+    if (fieldErrors[fieldName]) {
+      if (Array.isArray(fieldErrors[fieldName])) {
+        return fieldErrors[fieldName][0];
+      }
+      return fieldErrors[fieldName];
+    }
+    return null;
   };
   
   return (
@@ -177,6 +205,9 @@ const Register = () => {
           <div className="form_container">
             <form className="form_group" onSubmit={handleSubmit}>
               <legend>Регистрация</legend>
+              {apiError && !Object.keys(fieldErrors).length && typeof apiError === 'string' && (
+                <div className="error_message">{apiError}</div>
+              )}
               <input
                   type="text"
                   name="name"
@@ -187,10 +218,10 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   disabled={loading}
-                  className={validationErrors.name && touchedFields.name ? 'error' : ''}
+                  className={(validationErrors.email && touchedFields.email) || fieldErrors.email ? 'error' : ''}
               />
-              {validationErrors.name && touchedFields.name && (
-                  <span className="field_error">{validationErrors.name}</span>
+              {getFieldErrorMessage('name') && (
+                <span className="field_error">{getFieldErrorMessage('name')}</span>
               )}
               <input
                   type="text"
@@ -202,10 +233,10 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   disabled={loading}
-                  className={validationErrors.email && touchedFields.email ? 'error' : ''}
+                  className={(validationErrors.name && touchedFields.name) || fieldErrors.name ? 'error' : ''}
               />
-              {validationErrors.email && touchedFields.email && (
-                  <span className="field_error">{validationErrors.email}</span>
+              {getFieldErrorMessage('email') && (
+                <span className="field_error">{getFieldErrorMessage('email')}</span>
               )}
               <PasswordInput
                   id="password"
@@ -214,10 +245,10 @@ const Register = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   disabled={loading}
-                  error={validationErrors.password && touchedFields.password}
+                  error={(validationErrors.password && touchedFields.password) || fieldErrors.password}
               />
-              {validationErrors.password && touchedFields.password && (
-                  <span className="field_error">{validationErrors.password}</span>
+              {getFieldErrorMessage('password') && (
+                <span className="field_error">{getFieldErrorMessage('password')}</span>
               )}
               <div className="personal_data">
                 <input
@@ -230,14 +261,17 @@ const Register = () => {
                 />
                 <label htmlFor="agree">
                   Я согласен с{' '}
-                    <Link to="#" className="politic_link">
+                    <Link to="/privacy" className="politic_link">
                       Политикой конфиденциальности
                     </Link> и даю{' '}
-                    <Link to="#">
+                    <Link to="/consent">
                       Соглисие на обработку персональных данных
                     </Link>
                 </label>
               </div>
+              {getFieldErrorMessage('agree') && (
+                <span className="field_error">{getFieldErrorMessage('agree')}</span>
+              )}
 
               <input
                   type="submit"

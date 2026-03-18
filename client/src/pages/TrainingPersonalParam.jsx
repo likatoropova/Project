@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getEquipment, saveAnthropometry } from '../api/userParamsAPI';
+import { validators } from '../utils/validators';
 import '../styles/training_personal_param_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
@@ -25,7 +26,6 @@ const TrainingPersonalParam = () => {
   const [dataLoading, setDataLoading] = useState(true);
   const [submitError, setSubmitError] = useState('');
 
-  // Загружаем список оборудования при монтировании
   useEffect(() => {
     const loadEquipment = async () => {
       const result = await getEquipment();
@@ -42,21 +42,15 @@ const TrainingPersonalParam = () => {
   const validateField = (name, value) => {
     switch (name) {
       case 'gender':
-        return !value ? 'Выберите пол' : '';
+        return validators.gender(value);
       case 'age':
-        if (!value) return 'Введите возраст';
-        if (value < 14 || value > 90) return 'Возраст от 14 до 90 лет';
-        return '';
+        return validators.age(value);
       case 'weight':
-        if (!value) return 'Введите вес';
-        if (value < 40 || value > 130) return 'Вес от 40 до 130 кг';
-        return '';
+        return validators.weight(value);
       case 'height':
-        if (!value) return 'Введите рост';
-        if (value < 140 || value > 210) return 'Рост от 140 до 210 см';
-        return '';
+        return validators.height(value);
       case 'equipment_id':
-        return !value ? 'Выберите оборудование' : '';
+        return validators.equipment(value);
       default:
         return '';
     }
@@ -83,13 +77,15 @@ const TrainingPersonalParam = () => {
   const handleGenderSelect = (gender) => {
     setFormData(prev => ({ ...prev, gender }));
     setTouched(prev => ({ ...prev, gender: true }));
-    setErrors(prev => ({ ...prev, gender: '' }));
+    const error = validateField('gender', gender);
+    setErrors(prev => ({ ...prev, gender: error }));
   };
 
   const handleEquipmentSelect = (equipmentId) => {
     setFormData(prev => ({ ...prev, equipment_id: equipmentId }));
     setTouched(prev => ({ ...prev, equipment_id: true }));
-    setErrors(prev => ({ ...prev, equipment_id: '' }));
+    const error = validateField('equipment_id', equipmentId);
+    setErrors(prev => ({ ...prev, equipment_id: error }));
   };
 
   const validateForm = () => {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirstTest } from '../context/FirstTestContext';
 import { getLevels, saveLevel } from '../api/userParamsAPI';
+import { validators } from '../utils/validators';
 import '../styles/lavel_of_training_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
@@ -16,6 +17,7 @@ const TrainingLevel = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(true);
+  const [touched, setTouched] = useState(false);
 
   useEffect(() => {
     const loadLevels = async () => {
@@ -31,6 +33,7 @@ const TrainingLevel = () => {
   }, []);
 
   const handleLevelSelect = (levelId) => {
+    setTouched(true);
     if (selectedLevel === levelId) {
       setSelectedLevel(null);
     } else {
@@ -39,11 +42,17 @@ const TrainingLevel = () => {
     setError('');
   };
 
-   const handleSubmit = async (e) => {
+  const validateForm = () => {
+    const error = validators.level(selectedLevel);
+    setError(error);
+    return !error;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!selectedLevel) {
-      setError('Выберите уровень подготовки');
+    setTouched(true);
+    if (!validateForm()) {
       return;
     }
 
@@ -54,7 +63,7 @@ const TrainingLevel = () => {
       const result = await saveLevel(selectedLevel);
       if (result?.success) {
         completeGuestTest();
-        navigate('/');
+        navigate('/test-plan');
       } else {
         setError(result?.error?.message || 'Ошибка сохранения');
       }
@@ -84,7 +93,7 @@ const TrainingLevel = () => {
           <form className="form_container_level" onSubmit={handleSubmit} noValidate>
             <h2>Выберите Ваш уровень подготовки</h2>
             
-            {error && (
+            {error && touched && (
               <div className="error_message">
                 {error}
               </div>

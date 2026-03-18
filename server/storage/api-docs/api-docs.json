@@ -1542,6 +1542,267 @@
                 ]
             }
         },
+        "/api/admin/overview": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Получить общую статистику",
+                "description": "Возвращает общую статистику по выручке и подпискам",
+                "operationId": "getStatisticsOverview",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatisticsOverviewResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неавторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ запрещен (только для администраторов)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/revenue": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Получить статистику выручки по месяцам",
+                "description": "Возвращает выручку по месяцам за указанный год. Значения в тысячах рублей.",
+                "operationId": "getRevenueStatistics",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Год для статистики (по умолчанию текущий)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2026
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RevenueResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неавторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ запрещен (только для администраторов)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации параметров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/subscriptions/count": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Получить статистику количества подписок по месяцам",
+                "description": "Возвращает количество купленных подписок по месяцам за указанный год",
+                "operationId": "getSubscriptionsCountStatistics",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Год для статистики (по умолчанию текущий)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2026
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubscriptionsCountResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неавторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ запрещен (только для администраторов)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации параметров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/subscriptions/period": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Получить статистику подписок за период",
+                "description": "Возвращает количество подписок по месяцам за указанный период (1, 3, 6 или 12 месяцев)",
+                "operationId": "getSubscriptionsByPeriod",
+                "parameters": [
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "description": "Период в месяцах",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "enum": [
+                                1,
+                                3,
+                                6,
+                                12
+                            ],
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubscriptionsByPeriodResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Неавторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Доступ запрещен (только для администраторов)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ForbiddenResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации параметров (период должен быть 1, 3, 6 или 12)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/subscriptions": {
             "get": {
                 "tags": [
@@ -12133,6 +12394,66 @@
                     }
                 ]
             }
+        },
+        "/api/my-workout-history": {
+            "get": {
+                "tags": [
+                    "Workouts"
+                ],
+                "summary": "Получить историю тренировок пользователя",
+                "description": "Возвращает историю тренировок пользователя с детальной информацией о прогрессе",
+                "operationId": "042d3497801521be772a874adfc8b298",
+                "responses": {
+                    "200": {
+                        "description": "Успешный ответ",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/WorkoutHistoryResponse"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Не авторизован",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -14882,21 +15203,21 @@
                 "properties": {
                     "id": {
                         "type": "integer",
-                        "example": 21
+                        "example": 1
                     },
                     "subscription": {
                         "properties": {
                             "id": {
                                 "type": "integer",
-                                "example": 2
+                                "example": 1
                             },
                             "name": {
                                 "type": "string",
-                                "example": "3 месяца"
+                                "example": "1 месяц"
                             },
                             "price": {
                                 "type": "string",
-                                "example": "1400.00"
+                                "example": "500.00"
                             }
                         },
                         "type": "object"
@@ -14904,16 +15225,16 @@
                     "start_date": {
                         "type": "string",
                         "format": "date",
-                        "example": "2026-03-15"
+                        "example": "2026-01-15"
                     },
                     "end_date": {
                         "type": "string",
                         "format": "date",
-                        "example": "2026-06-13"
+                        "example": "2026-02-15"
                     },
                     "is_active": {
                         "type": "boolean",
-                        "example": true
+                        "example": false
                     },
                     "status": {
                         "type": "string",
@@ -14923,7 +15244,7 @@
                             "cancelled",
                             "inactive"
                         ],
-                        "example": "active"
+                        "example": "expired"
                     }
                 },
                 "type": "object"
@@ -14970,6 +15291,95 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SubscriptionHistoryItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileWorkoutHistoryItem": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "workout": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 5
+                            },
+                            "title": {
+                                "type": "string",
+                                "example": "Утренняя зарядка"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-15 10:30:00"
+                    },
+                    "duration_minutes": {
+                        "type": "integer",
+                        "example": 45,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileWorkouts": {
+                "properties": {
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileWorkoutHistoryItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileTestHistoryItem": {
+                "properties": {
+                    "attempt_id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "testing": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "title": {
+                                "type": "string",
+                                "example": "Базовый тест"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-14 15:20:00"
+                    },
+                    "pulse": {
+                        "type": "integer",
+                        "example": 120
+                    },
+                    "exercises_count": {
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "type": "object"
+            },
+            "ProfileTests": {
+                "properties": {
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProfileTestHistoryItem"
                         }
                     }
                 },
@@ -15170,6 +15580,12 @@
                             "subscriptions": {
                                 "$ref": "#/components/schemas/ProfileSubscriptions"
                             },
+                            "workouts": {
+                                "$ref": "#/components/schemas/ProfileWorkouts"
+                            },
+                            "tests": {
+                                "$ref": "#/components/schemas/ProfileTests"
+                            },
                             "phase": {
                                 "$ref": "#/components/schemas/ProfilePhase"
                             },
@@ -15277,6 +15693,220 @@
                             },
                             "message": {
                                 "example": "Неверный текущий пароль"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "StatisticsOverview": {
+                "title": "Общая статистика",
+                "properties": {
+                    "total_revenue": {
+                        "description": "Общая выручка в тысячах рублей",
+                        "type": "number",
+                        "format": "float",
+                        "example": 125.5
+                    },
+                    "total_subscriptions": {
+                        "description": "Всего подписок",
+                        "type": "integer",
+                        "example": 234
+                    },
+                    "active_subscriptions": {
+                        "description": "Активных подписок",
+                        "type": "integer",
+                        "example": 89
+                    },
+                    "current_month_revenue": {
+                        "description": "Выручка за текущий месяц в тысячах рублей",
+                        "type": "number",
+                        "format": "float",
+                        "example": 25.3
+                    },
+                    "revenue_growth": {
+                        "description": "Рост выручки относительно прошлого месяца в процентах",
+                        "type": "number",
+                        "format": "float",
+                        "example": 12.5
+                    }
+                },
+                "type": "object"
+            },
+            "StatisticsOverviewResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/StatisticsOverview"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "MonthlyStatItem": {
+                "title": "Элемент месячной статистики",
+                "properties": {
+                    "month": {
+                        "description": "Номер месяца (1-12)",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "month_name": {
+                        "description": "Название месяца",
+                        "type": "string",
+                        "example": "мар"
+                    },
+                    "value": {
+                        "description": "Значение (выручка в тыс. руб или количество подписок)",
+                        "type": "number",
+                        "format": "float",
+                        "example": 25.5
+                    }
+                },
+                "type": "object"
+            },
+            "RevenueData": {
+                "title": "Данные по выручке",
+                "properties": {
+                    "year": {
+                        "description": "Год",
+                        "type": "integer",
+                        "example": 2026
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MonthlyStatItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "RevenueResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/RevenueData"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "SubscriptionsCountData": {
+                "title": "Данные по количеству подписок",
+                "properties": {
+                    "year": {
+                        "description": "Год",
+                        "type": "integer",
+                        "example": 2026
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MonthlyStatItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "SubscriptionsCountResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/SubscriptionsCountData"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "PeriodStatItem": {
+                "title": "Элемент статистики за период",
+                "properties": {
+                    "month": {
+                        "description": "Номер месяца (1-12)",
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "month_name": {
+                        "description": "Название месяца",
+                        "type": "string",
+                        "example": "мар"
+                    },
+                    "year": {
+                        "description": "Год",
+                        "type": "integer",
+                        "example": 2026
+                    },
+                    "label": {
+                        "description": "Подпись для графика",
+                        "type": "string",
+                        "example": "мар 2026"
+                    },
+                    "value": {
+                        "description": "Количество подписок",
+                        "type": "integer",
+                        "example": 25
+                    }
+                },
+                "type": "object"
+            },
+            "SubscriptionsByPeriodData": {
+                "title": "Данные по подпискам за период",
+                "properties": {
+                    "period": {
+                        "description": "Период в месяцах (1, 3, 6, 12)",
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "start_date": {
+                        "description": "Начальная дата периода",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2025-03-17"
+                    },
+                    "end_date": {
+                        "description": "Конечная дата периода",
+                        "type": "string",
+                        "format": "date",
+                        "example": "2026-03-17"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PeriodStatItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "SubscriptionsByPeriodResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SuccessResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "$ref": "#/components/schemas/SubscriptionsByPeriodData"
                             }
                         },
                         "type": "object"
@@ -16696,6 +17326,156 @@
                     }
                 },
                 "type": "object"
+            },
+            "ActiveWorkoutInfo": {
+                "title": "Информация об активной тренировке",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 926
+                    },
+                    "workout_id": {
+                        "type": "integer",
+                        "example": 76
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Базовая силовая тренировка"
+                    },
+                    "started_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-16T05:13:25.000000Z"
+                    },
+                    "duration_minutes": {
+                        "type": "integer",
+                        "example": 45
+                    }
+                },
+                "type": "object"
+            },
+            "WorkoutHistoryStatistics": {
+                "title": "Статистика тренировок",
+                "properties": {
+                    "total_workouts_assigned": {
+                        "type": "integer",
+                        "example": 25
+                    },
+                    "total_workouts_completed": {
+                        "type": "integer",
+                        "example": 18
+                    },
+                    "total_workouts_in_progress": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "total_workouts_pending": {
+                        "type": "integer",
+                        "example": 6
+                    },
+                    "last_workout_date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-15T10:30:00.000000Z",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "WorkoutProgress": {
+                "title": "Прогресс тренировки",
+                "properties": {
+                    "exercises_completed": {
+                        "type": "integer",
+                        "example": 8
+                    },
+                    "exercises_total": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "warmups_completed": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "warmups_total": {
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "type": "object"
+            },
+            "WorkoutHistoryItem": {
+                "title": "Элемент истории тренировок",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 925
+                    },
+                    "workout": {
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": 75
+                            },
+                            "title": {
+                                "type": "string",
+                                "example": "Кардио тренировка"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "started_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-14T08:20:00.000000Z"
+                    },
+                    "completed_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2026-03-14T09:05:00.000000Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "assigned",
+                            "started",
+                            "completed"
+                        ],
+                        "example": "completed"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "example": 45,
+                        "nullable": true
+                    },
+                    "progress": {
+                        "$ref": "#/components/schemas/WorkoutProgress"
+                    }
+                },
+                "type": "object"
+            },
+            "WorkoutHistoryResponse": {
+                "title": "Ответ с историей тренировок",
+                "properties": {
+                    "active": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/components/schemas/ActiveWorkoutInfo"
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "statistics": {
+                        "$ref": "#/components/schemas/WorkoutHistoryStatistics"
+                    },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/WorkoutHistoryItem"
+                        }
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {
@@ -16715,6 +17495,10 @@
         {
             "name": "Admin Exercises",
             "description": "Admin Exercises"
+        },
+        {
+            "name": "Admin Statistics",
+            "description": "Admin Statistics"
         },
         {
             "name": "Admin Subscriptions",

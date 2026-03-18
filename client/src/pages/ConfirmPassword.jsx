@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import PasswordInput from '../components/PasswordInput';
 import { useApi } from '../hooks/useApi';
 import { resetPassword } from '../api/authAPI';
+import { validators } from '../utils/validators';
 import '../styles/confirmation_pass_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
@@ -19,7 +20,8 @@ const ConfirmPassword = () => {
   const [code, setCode] = useState('');
   const [validationErrors, setValidationErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  
+  const [oldPasswordError, setOldPasswordError] = useState('');
+
   const { execute: executeReset, loading, error } = useApi(resetPassword);
 
   useEffect(() => {
@@ -34,24 +36,31 @@ const ConfirmPassword = () => {
     }
   }, [navigate]);
 
-   const validatePassword = (password) => {
-    if (!password) return 'Пароль обязателен';
-    if (password.length < 6) return 'Пароль должен содержать минимум 6 символов';
-    return '';
-  };
-
-  const validateConfirmPassword = (confirmPassword) => {
-    if (!confirmPassword) return 'Подтверждение пароля обязательно';
-    if (formData.password !== confirmPassword) return 'Пароли не совпадают';
-    return '';
-  };
+  useEffect(() => {
+    if (error) {
+      console.log('API Error in password reset:', error);
+      if (typeof error === 'object') {
+        if (error.message && error.message.includes('совпадает со старым')) {
+          setOldPasswordError('Новый пароль не должен совпадать со старым');
+        } else if (error.password) {
+          const passwordError = Array.isArray(error.password) ? error.password[0] : error.password;
+          setValidationErrors(prev => ({
+            ...prev,
+            password: passwordError
+          }));
+        }
+      } else if (typeof error === 'string' && error.includes('совпадает со старым')) {
+        setOldPasswordError('Новый пароль не должен совпадать со старым');
+      }
+    }
+  }, [error]);
 
   const validateField = (name, value) => {
     switch (name) {
       case 'password':
-        return validatePassword(value);
+        return validators.password(value);
       case 'confirmPassword':
-        return validateConfirmPassword(value);
+        return validators.passwordConfirmation(formData.password, value);
       default:
         return '';
     }
@@ -66,6 +75,9 @@ const ConfirmPassword = () => {
       ...prev,
       [name]: error
     }));
+    if (oldPasswordError) {
+      setOldPasswordError('');
+    }
   };
 
   const handleChange = (e) => {
@@ -81,22 +93,23 @@ const ConfirmPassword = () => {
         ...prev,
         [name]: error
       }));
-      
-      // При изменении пароля, проверяем и подтверждение если оно было заполнено
       if (name === 'password' && touchedFields.confirmPassword && formData.confirmPassword) {
-        const confirmError = validateConfirmPassword(formData.confirmPassword);
+        const confirmError = validators.passwordConfirmation(value, formData.confirmPassword);
         setValidationErrors(prev => ({
           ...prev,
           confirmPassword: confirmError
         }));
       }
     }
+    if (oldPasswordError) {
+      setOldPasswordError('');
+    }
   };
 
   const validateForm = () => {
     const errors = {
-      password: validatePassword(formData.password),
-      confirmPassword: validateConfirmPassword(formData.confirmPassword)
+      password: validators.password(formData.password),
+      confirmPassword: validators.passwordConfirmation(formData.password, formData.confirmPassword)
     };
     
     setValidationErrors(errors);
@@ -114,6 +127,8 @@ const ConfirmPassword = () => {
     if (!validateForm()) {
       return;
     }
+
+    setOldPasswordError('');
 
     const result = await executeReset(
       email,
@@ -146,6 +161,11 @@ const ConfirmPassword = () => {
             <p className="politic">
               Придумайте новый пароль для вашего аккаунта
             </p>
+            {error && !oldPasswordError && !validationErrors.password && (
+              <div className="error_message">
+                {getErrorMessage()}
+              </div>
+            )}
             
             <PasswordInput
               id="password"

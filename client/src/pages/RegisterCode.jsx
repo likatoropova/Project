@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Timer from '../components/Timer';
 import { useApi } from '../hooks/useApi';
 import { verifyEmail, resendVerificationCode } from '../api/authAPI';
+import { validators } from '../utils/validators';
 import '../styles/register_code_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
@@ -16,13 +17,13 @@ const RegisterCode = () => {
   const [email, setEmail] = useState('');
   const [validationError, setValidationError] = useState('');
   const [touched, setTouched] = useState(false);
-  
+  const [fieldError, setFieldError] = useState('');
+
   const { execute: executeVerify, loading: verifyLoading, error: verifyError } = useApi(verifyEmail);
-  const { execute: executeResend, loading: resendLoading, error: resendError } = useApi(resendVerificationCode);
+  const { execute: executeResend, loading: resendLoading } = useApi(resendVerificationCode);
 
   useEffect(() => {
     const savedEmail = localStorage.getItem('registrationEmail');
-    
     if (!savedEmail) {
       navigate('/register');
     } else {
@@ -30,34 +31,40 @@ const RegisterCode = () => {
     }
   }, [navigate]);
 
-  const validateCode = (value) => {
-    if (!value) return 'Введите код подтверждения';
-    if (value.length !== 6) return 'Код должен содержать 6 символов';
-    return '';
-  };
+  useEffect(() => {
+    if (verifyError) {
+      if (verifyError.errors?.code) {
+        setFieldError(verifyError.errors.code[0]);
+      } else if (verifyError.message) {
+        setFieldError(verifyError.message);
+      }
+    }
+  }, [verifyError]);
 
-  const handleBlur = (e) => {
+  const handleBlur = () => {
     setTouched(true);
-    const error = validateCode(code);
+    const error = validators.verificationCode(code);
     setValidationError(error);
+    if (fieldError) setFieldError('');
   };
 
   const handleChange = (e) => {
-    const value = e.target.value.toUpperCase();
+    const value = e.target.value.replace(/\D/g, ''); // Только цифры
     if (value.length <= 6) {
       setCode(value);
       if (touched) {
-        const error = validateCode(value);
+        const error = validators.verificationCode(value);
         setValidationError(error);
       }
     }
+    if (fieldError) setFieldError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     setTouched(true);
-    const error = validateCode(code);
+    const error = validators.verificationCode(code);
     setValidationError(error);
     
     if (error) return;
@@ -71,10 +78,16 @@ const RegisterCode = () => {
   };
 
   const handleResendCode = async () => {
-    await executeResend(email);
+    const result = await executeResend(email);
+    if (result.success) {
+      setCode('');
+      setTouched(false);
+      setValidationError('');
+      setFieldError('');
+    }
   };
 
-  const errorMessage = verifyError || resendError || validationError;
+  const displayError = validationError || fieldError;
 
   return (
     <>
@@ -88,7 +101,9 @@ const RegisterCode = () => {
               Введите код из письма, чтобы подтвердить вашу почту<br />
               и завершить регистрацию
             </p>
-            
+            {displayError && (
+              <div className="error_message">{displayError}</div>
+            )}
             <input
               type="text"
               name="code"
@@ -99,7 +114,7 @@ const RegisterCode = () => {
               disabled={verifyLoading || resendLoading}
               maxLength={6}
               id='code'
-              className={validationError && touched ? 'error' : ''}
+             className={displayError ? 'error' : ''}
             />
             {validationError && touched && (
               <span className="field_error">{validationError}</span>

@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useApi } from '../hooks/useApi';
 import { forgotPassword } from '../api/authAPI';
+import { validators } from '../utils/validators';
 import '../styles/forgot_password_style.scss';
 import '../styles/form.scss';
 import '../styles/fonts.scss';
@@ -14,15 +15,10 @@ const ForgotPassword = () => {
   const [validationError, setValidationError] = useState('');
   const [touched, setTouched] = useState(false);
 
-  
   const { execute: executeForgot, loading, error } = useApi(forgotPassword);
 
   const validateEmail = (value) => {
-    if (!value) return 'Email обязателен';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return 'Введите корректный email';
-    }
-    return '';
+    return validators.email(value);
   };
 
   const handleBlur = (e) => {
@@ -55,7 +51,6 @@ const ForgotPassword = () => {
       navigate('/restore-password');
     }
   };
-
 
   return (
     <>
