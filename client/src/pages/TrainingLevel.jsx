@@ -6,6 +6,7 @@ import { validators } from '../utils/validators';
 import '../styles/lavel_of_training_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
+import '../styles/back_or_stop.css'
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -80,10 +81,13 @@ const TrainingLevel = () => {
       <main className='pers_param_main'>
         <section className="hero-pers-param">
           <button
+          className='back-button'
             onClick={() => navigate('/training-personal-param')}
             disabled={loading}
           >
-            <img src="/img/back.svg" alt="back" />
+            <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <img src="/img/personal-param-girl.png" alt="girl" />
         </section>

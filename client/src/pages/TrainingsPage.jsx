@@ -6,6 +6,7 @@ import { useWorkouts } from '../hooks/useWorkouts';
 import '../styles/trainings.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
+import '../styles/back_or_stop.css'
 
 const TrainingsPage = () => {
   const navigate = useNavigate();
@@ -113,8 +114,10 @@ const TrainingsPage = () => {
       <main className="main">
         <section className="head">
           <div className="title-work">
-            <button className="back-btn" onClick={handleBack}>
-              &lt;
+            <button className="back-button" onClick={() => navigate(-1)}>
+              <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </button>
             <h1>Тренировки</h1>
           </div>

@@ -29,15 +29,6 @@
   }
 }
 
-.back_btn {
-  background: none;
-  border-radius: 6px;
-  height: 3.7vh;
-  width: 2.08vw;
-  font-size: 24px;
-  @apply cursor-pointer;
-}
-
 .content-section {
   @apply flex flex-col justify-center;
   width: 35vw;

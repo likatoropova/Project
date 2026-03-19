@@ -7,6 +7,7 @@ import { useSubscriptionDetails } from '../hooks/useSubscriptionDetails';
 import '../styles/subscription_details_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
+import '../styles/back_or_stop.css'
 
 const SubscriptionDetails = () => {
   const navigate = useNavigate();
@@ -43,21 +44,14 @@ const SubscriptionDetails = () => {
         <Header />
         <main className="main_sub_details">
           <div className="title">
-            <button className="back_btn" onClick={() => navigate('/subscriptions')}>
-              &lt;
+            <button className="back-button" onClick={() => navigate('/subscriptions')}>
+              <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </button>
             <h1>Подписки</h1>
           </div>
-          <div className="error_message" style={{
-            color: '#721c24',
-            padding: '20px',
-            margin: '20px auto',
-            maxWidth: '600px',
-            backgroundColor: '#f8d7da',
-            border: '1px solid #f5c6cb',
-            borderRadius: '4px',
-            textAlign: 'center'
-          }}>
+          <div className="error_message">
             {error || 'Подписка не найдена'}
           </div>
         </main>
@@ -71,8 +65,10 @@ const SubscriptionDetails = () => {
       <Header />
       <main className="main_sub_details">
         <div className="title">
-          <button className="back_btn" onClick={() => navigate('/subscriptions')}>
-            &lt;
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
           <h1>Подписки</h1>
         </div>
