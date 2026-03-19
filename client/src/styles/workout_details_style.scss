@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  z-index: 0;
+}
+
+.main-workout {
+  position: relative;
+  margin: 100px auto;
+  max-width: 1400px;
+  padding: 0 20px;
+  min-height: calc(100vh - 300px);
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.workout-detail-cont {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 40px;
+  margin-bottom: 80px;
+}
+
+.title-section button {
+    margin-right: 25vw;
+}
+
+.workout-detail-cont h1 {
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  color: #2A2A2A;
+  margin-right: 30vw;
+}
+
+.workout-detail-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.workout-card {
+  display: flex;
+  width: 100%;
+  max-width: 712px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 0 3px 0px #3BA3A499;
+  padding: 28px 24px;
+
+  &:hover {
+    border: 1px solid #89C8C8;
+    box-shadow: 0 0 3px 0 #3BA3A499;
+  }
+  &:active {
+    border: 1px solid #36898A;
+  }
+}
+
+.workout-card img {
+  width: 256px;
+  height: 251px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 28px;
+}
+
+.workout-card > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.workout-card > div > h2 {
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #2A2A2A;
+}
+
+.time-workout {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  margin-bottom: 24px;
+  color: #666;
+}
+
+.description-workout {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  margin-bottom: 81px;
+  color: #4C5050;
+}
+
+.submit-workout {
+  width: fit-content;
+  align-self: flex-end;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 12px;
+  background-color: #FC7D47;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  color: #FFFFFF;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #FF9B65;
+  }
+
+  &:active {
+    background-color: #FC7D4766;
+    border: 1px solid #FC7D47CC;
+    color: #FC7D47;
+  }
+}
+
+.bg-reverse {
+  max-width: 725px;
+  width: 40%;
+  position: absolute;
+  top: 100px;
+  right: -10px;
+  transform: rotate(38deg) scaleX(-1);
+  z-index: -10;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+// Состояния загрузки и ошибок
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.spinner {
+  font-size: 18px;
+  color: #666;
+}
+
+.error-container {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.error-message {
+  font-size: 18px;
+  color: #721c24;
+  margin-bottom: 30px;
+}
+
+.back-button {
+  padding: 12px 32px;
+  background-color: #FC7D47;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #FF9B65;
+  }
+}
+
+// Адаптивность
+@media (max-width: 1024px) {
+  .workout-detail-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .workout-card {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .workout-card img {
+    width: 100%;
+    height: auto;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .submit-workout {
+    align-self: center;
+    width: 100%;
+  }
+
+  .time-workout {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .title-section h1 {
+    font-size: 32px;
+  }
+
+  .bg-reverse {
+    display: none;
+  }
+}

@@ -81,7 +81,7 @@ const TrainingLevel = () => {
       <main className='pers_param_main'>
         <section className="hero-pers-param">
           <button
-          className='back-button'
+          className='back_button'
             onClick={() => navigate('/training-personal-param')}
             disabled={loading}
           >

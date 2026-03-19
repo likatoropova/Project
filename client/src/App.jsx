@@ -25,6 +25,7 @@ import ConsentPage from './pages/ConsentPage';
 import PrivacyPage from './pages/PrivacyPage';
 import OfferPage from './pages/OfferPage';
 import TrainingsPage from './pages/TrainingsPage';
+import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
 
 
 function App() {
@@ -126,6 +127,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/offer" element={<OfferPage />} />
             <Route path="/trainings" element={<TrainingsPage />} />
+            <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
           </Routes>
           </GuestTestProvider>
         </FirstTestProvider>

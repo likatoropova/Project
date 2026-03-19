@@ -27,7 +27,7 @@
     fill: #89C8C8;
 }
 
-.back-button {
+.back_button {
     display: flex;
     justify-content: center;
     width: 2.08vw;
@@ -39,7 +39,7 @@
     align-items: center;
 }
 
-.back-button:hover {
+.back_button:hover {
     border: 1px solid #3BA3A4;
 }
 
@@ -47,7 +47,7 @@
     stroke: #3BA3A4;
 }
 
-.back-button:active {
+.back_button:active {
     border: 1px solid #89C8C8;
 }
 

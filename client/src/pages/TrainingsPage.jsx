@@ -45,9 +45,7 @@ const TrainingsPage = () => {
 
   const handleStartWorkout = (workoutId, userWorkoutId, e) => {
     e.stopPropagation();
-    console.log('Starting workout:', { workoutId, userWorkoutId });
-    // Здесь будет логика начала тренировки
-    // navigate(`/workouts/${workoutId}`);
+    navigate(`/workout-details/${userWorkoutId}`);
   };
 
   const handleWorkoutClick = (workoutId) => {
@@ -114,7 +112,7 @@ const TrainingsPage = () => {
       <main className="main">
         <section className="head">
           <div className="title-work">
-            <button className="back-button" onClick={() => navigate(-1)}>
+            <button className="back_button" onClick={() => navigate(-1)}>
               <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>

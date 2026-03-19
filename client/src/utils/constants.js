@@ -24,4 +24,5 @@ export const API_ENDPOINTS = {
   SUBSCRIPTION_DETAILS: (id) => `/subscriptions/${id}`,
   PAYMENT_SUBSCRIPTION: '/payment/subscription',
   WORKOUTS: '/workouts',
+  WORKOUT_EXECUTION: (userWorkoutId) => `/workout-execution/${userWorkoutId}`,
 };
