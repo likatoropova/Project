@@ -51,16 +51,14 @@
     font-family: "Montserrat-SemiBold";
     font-size: 40px;
   }
+}
 
-  p {
-    font-family: "Montserrat-Medium", sans-serif;
-    font-size: 18px;
-    line-height: 27px;
-    max-width: 657px;
-    text-align: center;
-    color: #4A4A4A;
-    margin-bottom: 40px;
-  }
+.head p {
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 0.94vw;
+  line-height: 1.41vw;
+  width: 34.22vw;
+  text-align: center;
 }
 
 .search_training {

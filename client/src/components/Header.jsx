@@ -39,7 +39,6 @@ const Header = () => {
         {isAuthenticated && (
           <>
             <Link to="/trainings">Тренировки</Link>
-
           </>
         )}
       </div>
