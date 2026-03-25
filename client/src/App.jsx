@@ -26,6 +26,8 @@ import PrivacyPage from './pages/PrivacyPage';
 import OfferPage from './pages/OfferPage';
 import TrainingsPage from './pages/TrainingsPage';
 import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
+import MaximumDefinitionPage from './pages/MaximumDefinitionPage';
+import WorkoutExercisePage from './pages/WorkoutExercisePage';
 
 
 function App() {
@@ -128,6 +130,8 @@ function App() {
             <Route path="/offer" element={<OfferPage />} />
             <Route path="/trainings" element={<TrainingsPage />} />
             <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
+            <Route path="/maximum-definition/:userWorkoutId/:exerciseId" element={<MaximumDefinitionPage />} />
+            <Route path="/workout-exercise/:userWorkoutId/:exerciseId" element={<WorkoutExercisePage />} />
           </Routes>
           </GuestTestProvider>
         </FirstTestProvider>

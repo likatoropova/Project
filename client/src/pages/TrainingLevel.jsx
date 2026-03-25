@@ -21,6 +21,7 @@ const TrainingLevel = () => {
   const [touched, setTouched] = useState(false);
 
   useEffect(() => {
+    document.title = 'Уровень подготовки';
     const loadLevels = async () => {
       const result = await getLevels();
       if (result.success) {

@@ -21,6 +21,7 @@ const RestorePassword = () => {
   const { execute: executeResend, loading: resendLoading } = useApi(forgotPassword);
 
   useEffect(() => {
+    document.title = 'Подтверждение почты';
     const savedEmail = localStorage.getItem('resetEmail');
     if (!savedEmail) {
       navigate('/forgot-password');

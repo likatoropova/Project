@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,6 +12,10 @@ import { Link } from 'react-router-dom';
 const Subscriptions = () => {
   const navigate = useNavigate();
   const { subscriptions, loading, error, formatPrice, formatDuration } = useSubscriptions();
+
+  useEffect(() => {
+    document.title = 'Подписки';
+  }, []);
 
   const getDurationText = (days) => {
     if (days === 30) return 'месяц';

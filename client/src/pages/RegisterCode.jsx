@@ -32,6 +32,7 @@ const RegisterCode = () => {
   }, [navigate]);
 
   useEffect(() => {
+    document.title = 'Подтвердите email';
     if (verifyError) {
       if (verifyError.errors?.code) {
         setFieldError(verifyError.errors.code[0]);

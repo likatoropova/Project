@@ -26,6 +26,7 @@ const Login = () => {
   const [fieldErrors, setFieldErrors] = useState({});
 
   useEffect(() => {
+    document.title = 'Авторизация';
     if (apiError) {
       console.log('API Error:', apiError);
       

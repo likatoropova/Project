@@ -25,6 +25,7 @@ const ConfirmPassword = () => {
   const { execute: executeReset, loading, error } = useApi(resetPassword);
 
   useEffect(() => {
+    document.title = 'Новый пароль';
     const savedEmail = localStorage.getItem('resetEmail');
     const savedCode = localStorage.getItem('resetCode');
     

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useWorkoutDetails } from '../hooks/useWorkoutDetails';
+import { startWorkout } from '../api/workoutAPI';
 import '../styles/workout_details_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
@@ -10,6 +11,9 @@ import '../styles/fonts.scss';
 const WorkoutDetailsPage = () => {
   const navigate = useNavigate();
   const { userWorkoutId } = useParams();
+  const [startingWarmup, setStartingWarmup] = useState(false);
+  const [startingWorkout, setStartingWorkout] = useState(false);
+  
   const { 
     workoutData, 
     loading, 
@@ -19,25 +23,78 @@ const WorkoutDetailsPage = () => {
     getWorkoutType 
   } = useWorkoutDetails(userWorkoutId);
 
-  useEffect(() => {
-    console.log('🔍 WorkoutDetailsPage - userWorkoutId:', userWorkoutId);
-    console.log('🔍 WorkoutDetailsPage - workoutData:', workoutData);
-  }, [workoutData, userWorkoutId]);
-
   const handleBack = () => {
     navigate('/trainings');
   };
 
-  const handleStartWarmup = (warmupId) => {
-    console.log('Starting warmup:', warmupId);
-    // Здесь будет логика начала разминки
-    // navigate(`/warmup/${warmupId}`);
+  useEffect(() => {
+    document.title = 'Тренировка';
+  }, []);
+
+  // Начать разминку
+  const handleStartWarmup = async () => {
+    if (!workoutData?.workout?.id) return;
+    
+    setStartingWarmup(true);
+    try {
+      const response = await startWorkout(workoutData.workout.id, true);
+      
+      if (response?.success) {
+        const { type, warmup, exercise, needs_weight_input } = response.data;
+        
+        if (type === 'warmup' && warmup) {
+          navigate(`/workout-warmup/${userWorkoutId}`, {
+            state: { warmup }
+          });
+        } else if (type === 'exercise' && exercise) {
+          // Первое упражнение - проверяем, нужно ли определять вес
+          if (needs_weight_input) {
+            navigate(`/maximum-definition/${userWorkoutId}/${exercise.id}`, {
+              state: { exercise }
+            });
+          } else {
+            navigate(`/workout-exercise/${userWorkoutId}/${exercise.id}`, {
+              state: { exercise }
+            });
+          }
+        }
+      }
+    } catch (err) {
+      console.error('❌ Error starting warmup:', err);
+    } finally {
+      setStartingWarmup(false);
+    }
   };
 
-  const handleStartWorkout = () => {
-    console.log('Starting main workout');
-    // Здесь будет логика начала основной тренировки
-    // navigate(`/workout-execution/${userWorkoutId}`);
+  // Начать основную тренировку
+  const handleStartWorkout = async () => {
+    if (!workoutData?.workout?.id) return;
+    
+    setStartingWorkout(true);
+    try {
+      const response = await startWorkout(workoutData.workout.id, false);
+      
+      if (response?.success) {
+        const { type, exercise, needs_weight_input } = response.data;
+        
+        if (type === 'exercise' && exercise) {
+          // Первое упражнение - проверяем, нужно ли определять вес
+          if (needs_weight_input) {
+            navigate(`/maximum-definition/${userWorkoutId}/${exercise.id}`, {
+              state: { exercise }
+            });
+          } else {
+            navigate(`/workout-exercise/${userWorkoutId}/${exercise.id}`, {
+              state: { exercise }
+            });
+          }
+        }
+      }
+    } catch (err) {
+      console.error('❌ Error starting workout:', err);
+    } finally {
+      setStartingWorkout(false);
+    }
   };
 
   if (loading) {
@@ -84,8 +141,8 @@ const WorkoutDetailsPage = () => {
         <section className="workout-detail-cont">
           <div className="title-section">
             <button className="back_button" onClick={handleBack}>
-              <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg className="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
             <h1>Тренировка</h1>
@@ -110,9 +167,10 @@ const WorkoutDetailsPage = () => {
                   <button 
                     type="button" 
                     className="submit-workout"
-                    onClick={() => handleStartWarmup(warmups[0]?.id)}
+                    onClick={handleStartWarmup}
+                    disabled={startingWarmup}
                   >
-                    Начать разминку
+                    {startingWarmup ? 'Загрузка...' : 'Начать разминку'}
                   </button>
                 </div>
               </article>
@@ -140,8 +198,9 @@ const WorkoutDetailsPage = () => {
                   type="button" 
                   className="submit-workout"
                   onClick={handleStartWorkout}
+                  disabled={startingWorkout}
                 >
-                  Начать тренировку
+                  {startingWorkout ? 'Загрузка...' : 'Начать тренировку'}
                 </button>
               </div>
             </article>
