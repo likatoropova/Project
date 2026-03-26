@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -16,6 +16,10 @@ const ForgotPassword = () => {
   const [touched, setTouched] = useState(false);
 
   const { execute: executeForgot, loading, error } = useApi(forgotPassword);
+
+  useEffect(() => {
+    document.title = 'Смена пароля';
+  }, []);
 
   const validateEmail = (value) => {
     return validators.email(value);

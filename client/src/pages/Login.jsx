@@ -42,6 +42,7 @@ const Login = () => {
   }, [isAuthenticated, user, hasUserParams, navigate]);
 
   useEffect(() => {
+    document.title = 'Авторизация';
     if (apiError) {
       console.log('API Error:', apiError);
 

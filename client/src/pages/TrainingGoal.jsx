@@ -21,6 +21,7 @@ const TrainingGoal = () => {
   const [touched, setTouched] = useState(false);
 
   useEffect(() => {
+    document.title = 'Цель тренировки';
     const loadGoals = async () => {
       const result = await getGoals();
       if (result.success) {

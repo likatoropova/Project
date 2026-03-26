@@ -23,6 +23,10 @@ const TrainingsPage = () => {
   const [filteredAssigned, setFilteredAssigned] = useState([]);
   const [filteredStarted, setFilteredStarted] = useState([]);
 
+  useEffect(() => {
+    document.title = 'Тренировки';
+  }, []);
+
   // Функция фильтрации тренировок
   const filterWorkouts = (workouts, searchTerm) => {
     if (!searchTerm.trim()) return workouts;
@@ -48,8 +52,8 @@ const TrainingsPage = () => {
     navigate(`/workout-details/${userWorkoutId}`);
   };
 
-  const handleWorkoutClick = (workoutId) => {
-    navigate(`/workouts/${workoutId}`);
+  const handleWorkoutClick = (userWorkoutId) => {
+    navigate(`/workout-details/${userWorkoutId}`);
   };
 
   const handleBack = () => {
@@ -96,7 +100,7 @@ const TrainingsPage = () => {
             className={isStarted ? 'continue-btn' : 'start-btn'}
             onClick={(e) => handleStartWorkout(workout.id, user_workout_id, e)}
           >
-            {isStarted ? 'Продолжить' : 'Начать разминку'}
+            {isStarted ? 'Продолжить' : 'Перейти'}
           </button>
         </div>
       </article>

@@ -28,6 +28,7 @@ const TrainingPersonalParam = () => {
   const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
+    document.title = 'Персональные данные';
     const loadEquipment = async () => {
       const result = await getEquipment();
       if (result.success) {

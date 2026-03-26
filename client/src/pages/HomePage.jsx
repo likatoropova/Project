@@ -16,6 +16,7 @@ const HomePage = () => {
 
   // Загрузка данных
   useEffect(() => {
+    document.title = 'moveUp - Главная';
     const loadData = async () => {
       setPageLoading(true);
       try {

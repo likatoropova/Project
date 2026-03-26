@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -25,6 +25,10 @@ const SubscriptionDetails = () => {
   const handlePaymentSuccess = (paymentData) => {
     console.log('Платеж успешен:', paymentData);
   };
+
+  useEffect(() => {
+    document.title = 'Подписка';
+  }, []);
 
   if (loading) {
     return (

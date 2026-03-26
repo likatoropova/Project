@@ -1,0 +1,350 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  z-index: 0;
+}
+
+.main-exercise {
+  position: relative;
+  margin: 5.21vw 0;
+  min-height: 77vh;
+
+  @media (max-width: 768px) {
+    margin: 20px 0;
+  }
+}
+
+.workout-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head-workout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.92vw;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-bottom: 30px;
+  }
+
+  > div:not(.timer-container) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 1vw;
+
+    @media (max-width: 768px) {
+      max-width: 90%;
+    }
+  }
+
+  h1 {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 2.08vw;
+    line-height: 2.50vw;
+    margin-left: 1.56vw;
+    margin-bottom: 0.83vw;
+    flex: 1;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 28px;
+      line-height: 36px;
+      margin-bottom: 15px;
+    }
+  }
+
+  p {
+    font-family: "Montserrat-Medium", sans-serif;
+    font-size: 0.94vw;
+    line-height: 1.41vw;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+}
+
+.stop_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #4C5050;
+  border-radius: 6px;
+  padding: 7px;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s;
+
+  &:hover {
+    border: 1px solid #3BA3A4;
+  }
+
+  &:active {
+    border: 1px solid #89C8C8;
+  }
+
+  svg {
+    transition: all 0.3s;
+
+    path {
+      transition: fill 0.3s;
+    }
+  }
+
+  &:hover svg path {
+    fill: #3BA3A4;
+  }
+
+  &:active svg path {
+    fill: #89C8C8;
+  }
+}
+
+.timer-container {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  margin-top: 10px;
+  width: 18.28vw;
+}
+
+.timer-label {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.timer-value {
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 24px;
+  color: #FC7D47;
+
+  &.timer-completed {
+    display: none;
+  }
+}
+
+.workout-instruction {
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+
+  p {
+    font-family: "Montserrat-Medium", sans-serif;
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+.workout-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.73vw;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+  }
+}
+
+.workout-exercise {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 0.94vw;
+  line-height: 1.41vw;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}
+
+.description-exercise {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 0.83vw;
+  line-height: 1.25vw;
+  width: 17.92vw;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+    width: 280px;
+  }
+}
+
+.feeling-of-exercise {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.83vw;
+  margin-top: 2.08vw;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  p {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 0.73vw;
+    line-height: 1.09vw;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+.emotions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 14.17vw;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    width: auto;
+    gap: 30px;
+  }
+}
+
+.emotion-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.1);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &.active {
+    background-color: #FFF0E8;
+    box-shadow: 0 0 0 3px #FC7D47;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  img {
+    width: 48px;
+    height: 48px;
+
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.field_error {
+  color: #dc3545;
+  font-size: 0.73vw;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.bg-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.bg-right {
+  width: 37.76vw;
+  height: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: rotate(10deg);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    width: 50%;
+    display: none;
+  }
+}
+
+// Loading и Error состояния
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.spinner {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error-container {
+  text-align: center;
+  padding: 60px 20px;
+
+  p {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 1rem;
+    color: #721c24;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 24px;
+    background-color: #FC7D47;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #FF9B65;
+    }
+  }
+}

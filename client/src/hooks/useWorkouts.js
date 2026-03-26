@@ -18,8 +18,14 @@ export const useWorkouts = () => {
       console.log('✅ Workouts received:', response.data);
       
       if (response.data?.success && response.data?.data) {
+        // Проверяем, что data содержит нужные поля
         setAllAssigned(response.data.data.assigned || []);
         setAllStarted(response.data.data.started || []);
+      } else if (response.data?.success && !response.data?.data) {
+        // Если data пустой, устанавливаем пустые массивы
+        console.log('ℹ️ No workouts data, setting empty arrays');
+        setAllAssigned([]);
+        setAllStarted([]);
       } else {
         console.warn('Unexpected response format:', response.data);
         setAllAssigned([]);
@@ -68,3 +74,5 @@ export const useWorkouts = () => {
     getWorkoutType
   };
 };
+
+export default useWorkouts;

@@ -25,4 +25,8 @@ export const API_ENDPOINTS = {
   PAYMENT_SUBSCRIPTION: '/payment/subscription',
   WORKOUTS: '/workouts',
   WORKOUT_EXECUTION: (userWorkoutId) => `/workout-execution/${userWorkoutId}`,
+  START_WORKOUT: '/workouts/start',
+  NEXT_EXERCISE: (userWorkoutId) => `/workout-execution/${userWorkoutId}/next-exercise`,
+  SAVE_EXERCISE_RESULT: (userWorkoutId) => `/workout-execution/${userWorkoutId}/save-exercise-result`,
+  COMPLETE_WORKOUT: (userWorkoutId) => `/workout-execution/${userWorkoutId}/complete`,
 };
