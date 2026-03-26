@@ -1,0 +1,206 @@
+// src/styles/admin/testing_exercise_form.scss
+
+.exercise-form-container {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  margin-top: 24px;
+  padding: 32px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+
+  .back-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+
+  h1 {
+    font-size: 24px;
+    font-family: "Montserrat-Medium", sans-serif;
+    margin: 0;
+  }
+}
+
+.exercise-form {
+  max-width: 800px;
+
+  .form-group {
+    margin-bottom: 32px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Montserrat-Medium", sans-serif;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #FF9B65;
+      border-radius: 10px;
+      font-family: "Montserrat-Regular", sans-serif;
+      font-size: 14px;
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: #E06F3F;
+        box-shadow: 0 0 0 2px rgba(224, 111, 63, 0.1);
+      }
+
+      &.error {
+        border-color: #c33;
+      }
+    }
+  }
+
+  .image-upload {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+
+    .image-preview {
+      width: 200px;
+      height: 200px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #f5f5f5;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #999;
+        font-family: "Montserrat-Regular", sans-serif;
+        font-size: 14px;
+      }
+    }
+
+    .upload-controls {
+      p {
+        margin: 0 0 8px 0;
+        font-family: "Montserrat-Medium", sans-serif;
+        color: #4C5050;
+        font-size: 14px;
+      }
+
+      .upload-btn {
+        background: #ff7849;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+          background: #E06F3F;
+        }
+      }
+
+      .format-hint {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #999;
+        font-family: "Montserrat-Regular", sans-serif;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+
+    button {
+      padding: 12px 32px;
+      border-radius: 12px;
+      font-family: "Montserrat-Medium", sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+
+    .btn-cancel {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      color: #666;
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    .btn-submit {
+      background-color: #E06F3F;
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: #d45f2c;
+        box-shadow: 0 2px 8px rgba(224, 111, 63, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .field-error {
+    color: #c33;
+    font-size: 12px;
+    margin-top: 4px;
+    font-family: "Montserrat-Regular", sans-serif;
+  }
+
+  .error-message {
+    background-color: #fee;
+    color: #c33;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 14px;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 60px;
+  color: #999;
+}

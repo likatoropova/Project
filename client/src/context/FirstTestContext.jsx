@@ -1,3 +1,5 @@
+// src/context/FirstTestContext.jsx
+
 import React, {
   createContext,
   useState,
@@ -27,7 +29,7 @@ export const useFirstTest = () => {
 // Провайдер контекста
 export const FirstTestProvider = ({ children }) => {
   const navigate = useNavigate();
-  const { isAuthenticated, loading, registerGuestCleanup } = useAuth();
+  const { isAuthenticated, loading, registerGuestCleanup, user } = useAuth();
   const [guestId, setGuestId] = useState(null);
   const [hasGuestParams, setHasGuestParams] = useState(false);
   const [initialCheckDone, setInitialCheckDone] = useState(false);
@@ -46,6 +48,14 @@ export const FirstTestProvider = ({ children }) => {
   }, []);
 
   const checkParams = async () => {
+    // Если пользователь админ - пропускаем проверку параметров
+    const isAdmin = user?.role_id === 1;
+    if (isAdmin) {
+      console.log("Admin user detected, skipping test params check");
+      setInitialCheckDone(true);
+      return;
+    }
+
     if (isAuthenticated) {
       try {
         const response = await axiosInstance.get(API_ENDPOINTS.GET_USER_PARAMS);
@@ -110,7 +120,7 @@ export const FirstTestProvider = ({ children }) => {
     if (initialCheckDone) return;
 
     checkParams();
-  }, [isAuthenticated, loading, hasGuestParams, initialCheckDone]);
+  }, [isAuthenticated, loading, hasGuestParams, initialCheckDone, user]);
 
   // Register resetGuest with AuthContext so it is called automatically on login/logout
   useEffect(() => {
@@ -148,9 +158,9 @@ export const FirstTestProvider = ({ children }) => {
   };
 
   return (
-    <FirstTestContext.Provider value={value}>
-      {children}
-    </FirstTestContext.Provider>
+      <FirstTestContext.Provider value={value}>
+        {children}
+      </FirstTestContext.Provider>
   );
 };
 

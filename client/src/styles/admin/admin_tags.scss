@@ -1,0 +1,285 @@
+.tags_container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  margin-top: 24px;
+  margin-left: 54px;
+  gap: 16px;
+  padding-bottom: 24px;
+  width: 1512px;
+}
+
+.search_group {
+  position: relative;
+  margin-bottom: 24px;
+
+  input {
+    width: 100%;
+    max-width: 552px;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid rgba(184, 182, 182, 1);
+    border-radius: 20px;
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 14px;
+    outline: none;
+
+    &:focus {
+      border-color: #E06F3F;
+      box-shadow: 0 0 0 2px rgba(224, 111, 63, 0.1);
+    }
+  }
+
+  .search_icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tags_grid {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.first-clmn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 712px;
+}
+
+.second_clmn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 712px;
+}
+
+.tags_row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.tag_item {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(59, 163, 164, 0.6);
+  border-radius: 10px;
+  padding: 12px 20px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.tag_info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.tag_badge {
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(114, 114, 114, 1);
+  color: rgba(42, 42, 42, 1);
+  font-family: "Montserrat Alternates-Regular", sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.tag_actions {
+  display: flex;
+  gap: 12px;
+
+  button {
+    //padding: 8px 20px;
+    border-radius: 8px;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    cursor: pointer;
+  }
+
+  .edit_btn {
+    background-color: #E06F3F;
+    color: white;
+    border: none;
+    width: 194px;
+    height: 48px;
+
+    &:hover {
+      background-color: #d45f2c;
+      box-shadow: 0 2px 8px rgba(224, 111, 63, 0.3);
+    }
+  }
+
+  .delete_btn {
+    background-color: rgba(252, 125, 71, 0.1);
+    color: rgba(252, 125, 71, 0.8);
+    border: 1px solid rgba(252, 125, 71, 0.8);
+    width: 135px;
+    height: 48px;
+
+    &:hover {
+      background-color: rgba(252, 125, 71, 0.2);
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-family: "Montserrat-Regular", sans-serif;
+
+  p {
+    margin-top: 16px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+
+  button {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "Montserrat-Regular", sans-serif;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background-color: #f5f5f5;
+      border-color: #E06F3F;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.active {
+      background-color: #E06F3F;
+      color: white;
+      border-color: #E06F3F;
+    }
+  }
+
+  .page_info {
+    margin: 0 16px;
+    color: #666;
+    font-size: 14px;
+  }
+}
+
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal_content {
+  background-color: white;
+  border-radius: 16px;
+  padding: 64px ;
+  width: 90%;
+  height: 362px;
+  max-width: 614px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+
+  h2 {
+    margin-bottom: 56px;
+    font-family: "Montserrat-Medium", sans-serif;
+    font-size: 32px;
+    color: rgba(42, 42, 42, 1);
+  }
+
+  .form_group {
+    margin-bottom: 44px;
+    justify-content: center;
+    width: 486px;
+
+    input {
+      padding: 16px 24px;
+      border: 1px solid #E06F3F;
+      border-radius: 8px;
+      font-family: "Montserrat-Regular", sans-serif;
+
+      &:focus {
+        outline: none;
+        border-color: #E06F3F;
+      }
+    }
+  }
+
+  .modal_actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+
+    button {
+     width: 236px;
+      height: 48px;
+      border-radius: 8px;
+      font-family: "Montserrat-Medium", sans-serif;
+      cursor: pointer;
+
+      &.cancel_btn {
+        background-color: rgba(252, 125, 71, 0.1);
+        border: 1px solid rgba(252, 125, 71, 0.8);
+        color: rgba(252, 125, 71, 0.8);
+
+        &:hover {
+          background-color: #eee;
+        }
+      }
+
+      &.submit_btn {
+        background-color: #E06F3F;
+        border: none;
+        color: white;
+
+        &:hover {
+          background-color: #d45f2c;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 14px;
+}

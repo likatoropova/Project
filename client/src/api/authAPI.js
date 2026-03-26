@@ -8,10 +8,17 @@ export const login = async (email, password) => {
       email,
       password,
     });
-
+    console.log('Login API response:', response.data);
     const { access_token, user } = response.data;
+
+    if (!user) {
+      console.error('No user object in response:', response.data);
+    }
+
     localStorage.setItem("accessToken", access_token);
     localStorage.setItem("user", JSON.stringify(user));
+    console.log('User saved to localStorage:', user);
+    console.log('User role_id:', user?.role_id);
 
     return response.data;
   } catch (error) {

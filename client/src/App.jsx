@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { requestForToken, onMessageListener } from './firebase';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { FirstTestProvider } from './context/FirstTestContext';
 import { GuestTestProvider } from './context/GuestTestContext';
@@ -26,6 +26,21 @@ import PrivacyPage from './pages/PrivacyPage';
 import OfferPage from './pages/OfferPage';
 import TrainingsPage from './pages/TrainingsPage';
 import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
+
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
+import AdminLayout from './pages/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminTags from './pages/admin/AdminTags';
+import AdminTests from './pages/admin/AdminTests';
+import TestForm from './pages/admin/TestForm';
+import TestExercises from './pages/admin/TestExercises';
+import TestingExerciseForm from './pages/admin/TestingExerciseForm';
+import AdminSubscriptions from './pages/admin/AdminSubscriptions';
+import SubscriptionForm from './pages/admin/SubscriptionForm';
+import AdminExercises from './pages/admin/AdminExercises';
+import ExerciseForm from './pages/admin/ExerciseForm';
+import AdminWarmups from './pages/admin/AdminWarmups';
+import WarmupForm from './pages/admin/WarmupForm';
 
 
 function App() {
@@ -128,6 +143,32 @@ function App() {
             <Route path="/offer" element={<OfferPage />} />
             <Route path="/trainings" element={<TrainingsPage />} />
             <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
+
+            <Route element={<ProtectedAdminRoute />}>
+              <Route path="/admin/tests/create" element={<TestForm />} />
+              <Route path="/admin/tests/edit/:id" element={<TestForm />} />
+              <Route path="/admin/tests/:id/exercises" element={<TestExercises />} />
+              <Route path="/admin/testing-exercises/create" element={<TestingExerciseForm />} />
+              <Route path="/admin/testing-exercises/edit/:id" element={<TestingExerciseForm />} />
+              <Route path="/admin/subscriptions/create" element={<SubscriptionForm />} />
+              <Route path="/admin/subscriptions/edit/:id" element={<SubscriptionForm />} />
+              <Route path="/admin/exercises/create" element={<ExerciseForm />} />
+              <Route path="/admin/exercises/edit/:id" element={<ExerciseForm />} />
+              <Route path="/admin/warmups/create" element={<WarmupForm />} />
+              <Route path="/admin/warmups/edit/:id" element={<WarmupForm />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="dashboard" element={<AdminDashboard />} />
+                {/*<Route path="workouts" element={<AdminWorkouts />} />*/}
+                <Route path="tests" element={<AdminTests />} />
+                <Route path="tests/:id/exercises" element={<TestExercises />} />
+                <Route path="subscriptions" element={<AdminSubscriptions />} />
+                <Route path="tags" element={<AdminTags />} />
+                <Route path="exercises" element={<AdminExercises />} />
+                <Route path="warmups" element={<AdminWarmups />} />
+              </Route>
+            </Route>
+
           </Routes>
           </GuestTestProvider>
         </FirstTestProvider>
