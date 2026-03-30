@@ -224,12 +224,11 @@ const ExerciseForm = () => {
                 <section className="hero">
                     <div className="flex_for_btn">
                         <button className="back_btn" onClick={handleCancel}>←</button>
-                        <h1>{isEditMode ? 'Редактирование упражнения' : 'Создание упражнения'}</h1>
+                        <h1>Упражнения</h1>
                     </div>
                 </section>
 
                 <section className="exrs_form_container">
-                    {/* Левая колонка - изображение */}
                     <div className="img_for_sub">
                         <div className="upload_container">
                             <div id="imagePreview" className="image_preview_container">

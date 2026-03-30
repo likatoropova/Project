@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
 import { useTests } from '../../hooks/admin/useTests';
 import '../../styles/admin/admin_tests.scss';
+import '../../styles/admin/admin_buttons.scss';
 
 const AdminTests = () => {
     const navigate = useNavigate();
@@ -85,8 +86,8 @@ const AdminTests = () => {
         }
 
         return (
-            <div className="pagination">
-                <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+            <div className="pagination_admin">
+                <button className="arrows" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
                     ←
                 </button>
 
@@ -119,13 +120,10 @@ const AdminTests = () => {
                 <button
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === meta.last_page}
+                    className="arrows"
                 >
                     →
                 </button>
-
-                <span className="page-info">
-          Всего: {meta.total} тестов
-        </span>
             </div>
         );
     };

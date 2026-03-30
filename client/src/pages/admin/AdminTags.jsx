@@ -3,6 +3,7 @@ import AdminPageHeader from '../../components/admin/AdminPageHeader';
 import TagModal from '../../components/admin/TagModal';
 import { useTags } from '../../hooks/admin/useTags';
 import '../../styles/admin/admin_tags.scss';
+import '../../styles/admin/admin_buttons.scss';
 
 const AdminTags = () => {
     const {
@@ -72,7 +73,7 @@ const AdminTags = () => {
         return (
             <div className="tags_grid">
                 <div className="tags_row">
-                    <div className="first-clmn">
+                    <div className="first_clmn">
                         {leftColumnTags.map(tag => renderTagItem(tag))}
                     </div>
                     <div className="second_clmn">
@@ -118,10 +119,11 @@ const AdminTags = () => {
         }
 
         return (
-            <div className="pagination">
+            <div className="pagination_admin">
                 <button
                     onClick={() => goToPage(currentPage - 1)}
                     disabled={currentPage === 1}
+                    className="arrows"
                 >
                     ←
                 </button>
@@ -155,6 +157,7 @@ const AdminTags = () => {
                 <button
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === meta.last_page}
+                    className="arrows"
                 >
                     →
                 </button>
@@ -171,11 +174,11 @@ const AdminTags = () => {
             />
 
             <div className="tags_container">
-                <div className="search_group">
+                <div className="search_group_admin">
                     <img src="/img/search.png" alt="search" className="search_icon" />
                     <input
                         type="text"
-                        placeholder="Поиск по названию тега..."
+                        placeholder="Поиск"
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
                     />

@@ -124,11 +124,6 @@ const AdminLayout = () => {
         }
     ];
 
-    const externalLinks = [
-        { path: '/tests', label: 'К тестам' },
-        { path: '/trainings', label: 'К тренировкам' },
-        { path: '/subscriptions', label: 'К подпискам' }
-    ];
 
     // Показываем загрузку пока проверяем авторизацию
     if (!isAuthenticated || !user) {
@@ -159,14 +154,6 @@ const AdminLayout = () => {
                                     <img src={item.icon} alt={item.label} />
                                     <span>{item.label}</span>
                                 </Link>
-                            </li>
-                        ))}
-                    </ul>
-
-                    <ul className="to_pages">
-                        {externalLinks.map((link, index) => (
-                            <li key={index}>
-                                <Link to={link.path}>{link.label}</Link>
                             </li>
                         ))}
                     </ul>

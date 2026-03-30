@@ -1,4 +1,4 @@
-.subs_container {
+.trainings_container_admin {
   display: flex;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 1);
@@ -10,7 +10,7 @@
   width: 1512px;
 }
 
-.subs_cont {
+.training_cont {
   display: flex;
   border: 1px solid rgba(59, 163, 164, 0.6);
   border-radius: 10px;
@@ -23,7 +23,7 @@
   }
 }
 
-.subs_card {
+.training_card_admin {
   display: flex;
   gap: 20px;
 
@@ -35,62 +35,70 @@
   }
 }
 
-.subs_info {
+.info {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin: 4px 0;
 }
 
-.subs_title {
+.training_title {
   font-family: "Montserrat-Medium", sans-serif;
   font-size: 18px;
   margin: 0;
 }
 
-.subs_description {
+.training_description {
   font-family: "Montserrat-Regular", sans-serif;
   margin: 0;
   font-size: 14px;
   color: #666;
 }
 
-.subs_details {
+.training_details {
   display: flex;
   gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 
-  .subs_price {
-    font-family: "Montserrat-SemiBold", sans-serif;
-    font-size: 16px;
-    color: #E06F3F;
-  }
-
-  .subs_duration {
+  span {
     font-family: "Montserrat-Regular", sans-serif;
     font-size: 12px;
-    color: #666;
-  }
 
-  .subs_status {
-    font-family: "Montserrat-Regular", sans-serif;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 12px;
+    &.duration {
+      color: #E06F3F;
+    }
 
-    &.active {
-      background: #e6f7e6;
+    &.phase {
+      color: #4C5050;
+    }
+
+    &.exercises {
       color: #2e7d32;
     }
 
-    &.inactive {
-      background: #ffe6e6;
-      color: #c62828;
+    &.warmups {
+      color: #ff9800;
+    }
+
+    &.status {
+      padding: 2px 8px;
+      border-radius: 12px;
+
+      &.active {
+        background: #e6f7e6;
+        color: #2e7d32;
+      }
+
+      &.inactive {
+        background: #ffe6e6;
+        color: #c62828;
+      }
     }
   }
 }
 
-.subs_created_at {
+.training_created_at {
   font-family: "Montserrat-Regular", sans-serif;
   font-size: 12px;
   margin: 0;

@@ -43,6 +43,7 @@ import AdminExercises from './pages/admin/AdminExercises';
 import ExerciseForm from './pages/admin/ExerciseForm';
 import AdminWarmups from './pages/admin/AdminWarmups';
 import WarmupForm from './pages/admin/WarmupForm';
+import AdminWorkouts from './pages/admin/AdminWorkouts';
 
 
 function App() {
@@ -163,7 +164,7 @@ function App() {
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="dashboard" element={<AdminDashboard />} />
-                {/*<Route path="workouts" element={<AdminWorkouts />} />*/}
+                <Route path="workouts" element={<AdminWorkouts />} />
                 <Route path="tests" element={<AdminTests />} />
                 <Route path="tests/:id/exercises" element={<TestExercises />} />
                 <Route path="subscriptions" element={<AdminSubscriptions />} />

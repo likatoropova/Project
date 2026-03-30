@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
 import { useExercises } from '../../hooks/admin/useExercises';
 import '../../styles/admin/admin_exercises.scss';
+import '../../styles/admin/admin_buttons.scss';
 
 const AdminExercises = () => {
     const navigate = useNavigate();
@@ -78,8 +79,8 @@ const AdminExercises = () => {
         }
 
         return (
-            <div className="pagination">
-                <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+            <div className="pagination_admin">
+                <button className="arrows" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
                     ←
                 </button>
 
@@ -112,6 +113,7 @@ const AdminExercises = () => {
                 <button
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === meta.last_page}
+                    className="arrows"
                 >
                     →
                 </button>
@@ -132,7 +134,7 @@ const AdminExercises = () => {
                     <img src="/img/search.png" alt="search" />
                     <input
                         type="text"
-                        placeholder="Поиск по названию..."
+                        placeholder="Поиск"
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
                     />

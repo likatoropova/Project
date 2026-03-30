@@ -1,61 +1,62 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
-import { useWarmups } from '../../hooks/admin/useWarmups';
-import '../../styles/admin/admin_warmups.scss';
+import { useWorkoutsAdmin } from '../../hooks/admin/useWorkoutsAdmin';
+import '../../styles/admin/admin_workouts.scss';
 import '../../styles/admin/admin_buttons.scss';
 
-const AdminWarmups = () => {
+const AdminWorkouts = () => {
     const navigate = useNavigate();
     const {
-        warmups,
+        workouts,
         loading,
         error,
         meta,
         searchQuery,
         currentPage,
-        removeWarmup,
+        removeWorkout,
         handleSearch,
         goToPage,
-        formatDate
-    } = useWarmups();
+        formatDate,
+        formatDuration
+    } = useWorkoutsAdmin();
 
-    const handleCreateWarmup = () => {
-        navigate('/admin/warmups/create');
+    const handleCreateWorkout = () => {
+        navigate('/admin/workouts/create');
     };
 
-    const handleEditWarmup = (id) => {
-        navigate(`/admin/warmups/edit/${id}`);
+    const handleEditWorkout = (id) => {
+        navigate(`/admin/workouts/edit/${id}`);
     };
 
-    const handleDeleteWarmup = async (id, name) => {
-        if (window.confirm(`Вы уверены, что хотите удалить разминку "${name}"?`)) {
-            const result = await removeWarmup(id);
+    const handleDeleteWorkout = async (id, title) => {
+        if (window.confirm(`Вы уверены, что хотите удалить тренировку "${title}"?`)) {
+            const result = await removeWorkout(id);
             if (!result.success) {
-                alert(result.error || 'Ошибка при удалении разминки');
+                alert(result.error || 'Ошибка при удалении тренировки');
             }
         }
     };
 
-    const renderWarmupItem = (warmup) => (
-        <div key={warmup.id} className="warm_up_cont">
-            <div className="warm_up_card">
+    const renderWorkoutItem = (workout) => (
+        <div key={workout.id} className="training_cont">
+            <div className="training_card_admin">
                 <img
-                    src={warmup.image_url || warmup.image || '/img/IMG.png'}
-                    alt={warmup.name}
+                    src={workout.image_url || workout.image || '/img/IMG.png'}
+                    alt={workout.title}
                     onError={(e) => { e.target.src = '/img/IMG.png'; }}
                 />
-                <div className="warm_up_info">
-                    <p className="warm_up_title">{warmup.name}</p>
-                    <p className="warm_up_description">{warmup.description}</p>
-                    <p className="warm_up_created_at">{formatDate(warmup.created_at)}</p>
+                <div className="info">
+                    <p className="training_title">{workout.title}</p>
+                    <p className="training_description">{workout.description}</p>
+                    <p className="training_created_at">{formatDate(workout.created_at)}</p>
                 </div>
             </div>
             <div className="but_cont">
-                <button className="edit" onClick={() => handleEditWarmup(warmup.id)}>
+                <button className="edit" onClick={() => handleEditWorkout(workout.id)}>
                     Редактировать
                 </button>
-                <button className="delete" onClick={() => handleDeleteWarmup(warmup.id, warmup.name)}>
+                <button className="delete" onClick={() => handleDeleteWorkout(workout.id, workout.title)}>
                     Удалить
                 </button>
             </div>
@@ -124,12 +125,12 @@ const AdminWarmups = () => {
     return (
         <>
             <AdminPageHeader
-                title="Управление разминками"
-                buttonText="Создать разминку"
-                onButtonClick={handleCreateWarmup}
+                title="Управление тренировками"
+                buttonText="Создать тренировку"
+                onButtonClick={handleCreateWorkout}
             />
 
-            <div className="warm_up_container">
+            <div className="trainings_container_admin">
                 <div className="search_group_admin">
                     <img src="/img/search.png" alt="search" />
                     <input
@@ -148,16 +149,16 @@ const AdminWarmups = () => {
 
                 {loading ? (
                     <div className="empty-state" style={{ marginLeft: '32px' }}>
-                        <p>Загрузка разминок...</p>
+                        <p>Загрузка тренировок...</p>
                     </div>
-                ) : warmups.length === 0 ? (
+                ) : workouts.length === 0 ? (
                     <div className="empty-state" style={{ marginLeft: '32px' }}>
-                        <p>Разминки не найдены</p>
+                        <p>Тренировки не найдены</p>
                         {searchQuery && <p>Попробуйте изменить поисковый запрос</p>}
                     </div>
                 ) : (
                     <>
-                        {warmups.map(renderWarmupItem)}
+                        {workouts.map(renderWorkoutItem)}
                         {renderPagination()}
                     </>
                 )}
@@ -166,4 +167,4 @@ const AdminWarmups = () => {
     );
 };
 
-export default AdminWarmups;
+export default AdminWorkouts;

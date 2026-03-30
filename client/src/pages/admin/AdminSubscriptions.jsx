@@ -1,10 +1,9 @@
-// src/pages/admin/AdminSubscriptions.jsx
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
 import { useSubscriptions } from '../../hooks/admin/useSubscriptions';
 import '../../styles/admin/admin_subscriptions.scss';
+import '../../styles/admin/admin_buttons.scss';
 
 const AdminSubscriptions = () => {
     const navigate = useNavigate();
@@ -81,8 +80,8 @@ const AdminSubscriptions = () => {
         }
 
         return (
-            <div className="pagination">
-                <button onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
+            <div className="pagination_admin">
+                <button className="arrows" onClick={() => goToPage(currentPage - 1)} disabled={currentPage === 1}>
                     ←
                 </button>
 
@@ -115,13 +114,10 @@ const AdminSubscriptions = () => {
                 <button
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === meta.last_page}
+                    className="arrows"
                 >
                     →
                 </button>
-
-                <span className="page-info">
-          Всего: {meta.total} подписок
-        </span>
             </div>
         );
     };
@@ -139,7 +135,7 @@ const AdminSubscriptions = () => {
                     <img src="/img/search.png" alt="search" />
                     <input
                         type="text"
-                        placeholder="Поиск по названию..."
+                        placeholder="Поиск"
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
                     />

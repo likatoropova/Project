@@ -76,20 +76,6 @@
   flex-shrink: 0;
 }
 
-.to_pages {
-  margin-top: 41px;
-  margin-bottom: 20px;
-}
-
-.to_pages li a {
-  font-size: 14px;
-  color: rgba(114, 114, 114, 0.8);
-}
-
-.to_pages li a:hover {
-  color: rgba(252, 125, 71, 0.8);
-}
-
 .logout_from_admin {
   color: rgba(252, 125, 71, 0.8);
   background-color: rgba(252, 125, 71, 0.1);
@@ -107,8 +93,9 @@
 }
 
 .logout_from_admin:hover {
-  background-color: rgba(252, 125, 71, 0.2);
-  transform: translateY(-2px);
+  color: rgba(252, 125, 71, 0.6);
+  background-color: rgba(252, 125, 71, 0.3);
+  border-color: rgba(252, 125, 71, 1);
 }
 
 .main_content {
@@ -137,9 +124,9 @@
   text-decoration: none;
   font-family: "Montserrat-SemiBold", sans-serif;
   color: white;
-  border: 1px solid #E06F3F;
+  border: none;
   border-radius: 12px;
-  background-color: #E06F3F;
+  background-color: rgba(252, 125, 71, 1);
   padding: 12px 32px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -147,9 +134,7 @@
 }
 
 .content_header button:hover {
-  background-color: #d45f2c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(224, 111, 63, 0.3);
+  background-color: rgba(255, 155, 101, 1);
 }
 
 .content_area {

@@ -1,5 +1,3 @@
-// src/context/GuestTestContext.jsx - добавьте проверку админа
-
 import React, {
   createContext,
   useContext,
@@ -33,11 +31,9 @@ export const GuestTestProvider = ({ children }) => {
   const [allExercisesCompleted, setAllExercisesCompleted] = useState(false);
   const [validationErrors, setValidationErrors] = useState(null);
 
-  // Если пользователь админ - не инициализируем гостевые данные
   const isAdmin = user?.role_id === 1;
 
   useEffect(() => {
-    // Пропускаем инициализацию для админа
     if (isAdmin) return;
 
     const savedGuestId = storage.get("guestId");
@@ -122,7 +118,78 @@ export const GuestTestProvider = ({ children }) => {
           return { success: false, error: "Нет активной попытки" };
         }
 
-        // ... остальной код без изменений
+        setLoading(true);
+        setError(null);
+        setValidationErrors(null);
+
+        try {
+          console.log(`Saving result for attempt ${currentAttempt}:`, resultValue);
+          console.log('Current exercise:', currentExercise);
+
+          // Проверяем, есть ли текущее упражнение
+          if (!currentExercise) {
+            return { success: false, error: 'Нет активного упражнения' };
+          }
+
+          // Отправляем оба обязательных поля: testing_exercise_id и result_value
+          const requestData = {
+            testing_exercise_id: currentExercise.id, // ID текущего упражнения
+            result_value: parseInt(resultValue, 10)  // Значение результата
+          };
+
+          console.log('Request data:', requestData);
+
+          const response = await axiosInstance.post(`/guest/test-attempts/${currentAttempt}/result`, requestData);
+
+          console.log('Save result response:', response.data);
+
+          if (response.data?.success) {
+            const { next_exercise, all_exercises_completed, message } = response.data.data;
+
+            setAllExercisesCompleted(all_exercises_completed);
+
+            if (next_exercise) {
+              setCurrentExercise(next_exercise);
+            }
+
+            return {
+              success: true,
+              nextExercise: next_exercise,
+              allCompleted: all_exercises_completed,
+              message
+            };
+          } else {
+            throw new Error(response.data?.message || 'Failed to save result');
+          }
+        } catch (err) {
+          console.error('Error saving exercise result:', err);
+
+          let errorMessage = 'Ошибка при сохранении результата';
+          let validationErrors = null;
+
+          if (err.response) {
+            console.error('Error response data:', err.response.data);
+            console.error('Error response status:', err.response.status);
+
+            if (err.response.status === 422) {
+              errorMessage = 'Проверьте правильность введенных данных';
+              validationErrors = err.response.data.errors;
+              console.error('Validation errors:', err.response.data.errors);
+            } else {
+              errorMessage = err.response.data?.message || err.response.data?.error || errorMessage;
+            }
+          } else if (err.request) {
+            errorMessage = 'Сервер не отвечает. Проверьте подключение к интернету';
+          } else {
+            errorMessage = err.message;
+          }
+
+          setError(errorMessage);
+          setValidationErrors(validationErrors);
+          return { success: false, error: errorMessage, validationErrors };
+        } finally {
+          setLoading(false);
+        }
       },
       [currentAttempt, currentExercise, isAdmin],
   );
@@ -137,7 +204,56 @@ export const GuestTestProvider = ({ children }) => {
           return { success: false, error: "Нет активной попытки" };
         }
 
-        // ... остальной код без изменений
+        setLoading(true);
+        setError(null);
+        setValidationErrors(null);
+
+        try {
+          console.log(`Completing test for attempt ${currentAttempt} with pulse:`, pulse);
+
+          const requestData = {
+            pulse: parseInt(pulse, 10)
+          };
+
+          const response = await axiosInstance.post(`/guest/test-attempts/${currentAttempt}/complete`, requestData);
+
+          console.log('Complete test response:', response.data);
+
+          if (response.data?.success) {
+            setCurrentAttempt(null);
+            setCurrentExercise(null);
+            setTestInfo(null);
+            setAllExercisesCompleted(false);
+
+            return { success: true, data: response.data.data };
+          } else {
+            throw new Error(response.data?.message || 'Failed to complete test');
+          }
+        } catch (err) {
+          console.error('Error completing guest test:', err);
+
+          let errorMessage = 'Ошибка при завершении теста';
+          let validationErrors = null;
+
+          if (err.response) {
+            if (err.response.status === 422) {
+              errorMessage = 'Ошибка валидации пульса';
+              validationErrors = err.response.data.errors;
+            } else {
+              errorMessage = err.response.data?.message || err.response.data?.error || errorMessage;
+            }
+          } else if (err.request) {
+            errorMessage = 'Сервер не отвечает';
+          } else {
+            errorMessage = err.message;
+          }
+
+          setError(errorMessage);
+          setValidationErrors(validationErrors);
+          return { success: false, error: errorMessage, validationErrors };
+        } finally {
+          setLoading(false);
+        }
       },
       [currentAttempt, isAdmin],
   );
