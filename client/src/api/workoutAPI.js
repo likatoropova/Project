@@ -43,19 +43,19 @@ export const getNextExercise = async (userWorkoutId, currentExerciseId, weightUs
 
 // Получить следующую разминку
 export const nextWarmup = async (userWorkoutId, currentWarmupId) => {
-    try {
-        console.log('📤 Getting next warmup:', { userWorkoutId, currentWarmupId });
-
-        const response = await axiosInstance.post(API_ENDPOINTS.NEXT_WARMUP(userWorkoutId), {
-            current_warmup_id: currentWarmupId
-        });
-
-        console.log('✅ Next warmup response:', response.data);
-        return response.data;
-    } catch (error) {
-        console.error('❌ Error getting next warmup:', error.response?.data);
-        throw error.response?.data || { message: 'Ошибка получения следующей разминки' };
-    }
+  try {
+    console.log('📤 Getting next warmup:', { userWorkoutId, currentWarmupId });
+    
+    const response = await axiosInstance.post(API_ENDPOINTS.NEXT_WARMUP(userWorkoutId), {
+      current_warmup_id: parseInt(currentWarmupId, 10)
+    });
+    
+    console.log('✅ Next warmup response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Error getting next warmup:', error.response?.data);
+    throw error.response?.data || { message: 'Ошибка получения следующей разминки' };
+  }
 };
 
 // Сохранить результат выполнения упражнения

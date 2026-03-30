@@ -29,4 +29,5 @@ export const API_ENDPOINTS = {
   NEXT_EXERCISE: (userWorkoutId) => `/workout-execution/${userWorkoutId}/next-exercise`,
   SAVE_EXERCISE_RESULT: (userWorkoutId) => `/workout-execution/${userWorkoutId}/save-exercise-result`,
   COMPLETE_WORKOUT: (userWorkoutId) => `/workout-execution/${userWorkoutId}/complete`,
+  NEXT_WARMUP: (userWorkoutId) => `/workout-execution/${userWorkoutId}/next-warmup`,
 };

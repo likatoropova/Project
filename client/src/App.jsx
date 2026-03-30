@@ -28,6 +28,7 @@ import TrainingsPage from './pages/TrainingsPage';
 import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
 import MaximumDefinitionPage from './pages/MaximumDefinitionPage';
 import WorkoutExercisePage from './pages/WorkoutExercisePage';
+import WorkoutWarmupPage from './pages/WorkoutWarmupPage';
 
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -148,6 +149,7 @@ function App() {
             <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
             <Route path="/maximum-definition/:userWorkoutId/:exerciseId" element={<MaximumDefinitionPage />} />
             <Route path="/workout-exercise/:userWorkoutId/:exerciseId" element={<WorkoutExercisePage />} />
+            <Route path="/workout-warmup/:userWorkoutId" element={<WorkoutWarmupPage />} />
 
             <Route element={<ProtectedAdminRoute />}>
               <Route path="/admin/tests/create" element={<TestForm />} />

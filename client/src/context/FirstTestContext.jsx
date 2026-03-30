@@ -79,6 +79,7 @@ export const FirstTestProvider = ({ children }) => {
         "/training-goal",
         "/training-personal-param",
         "/training-level",
+        "/test-plan",
         "/login",
         "/register",
         "/register-code",
@@ -101,6 +102,7 @@ export const FirstTestProvider = ({ children }) => {
         "/training-goal",
         "/training-personal-param",
         "/training-level",
+        "/test-plan"
       ].includes(window.location.pathname);
       if (!isOnTestPage) {
         navigationInProgress.current = true;
@@ -122,13 +124,6 @@ export const FirstTestProvider = ({ children }) => {
     checkParams();
   }, [isAuthenticated, loading, hasGuestParams, initialCheckDone, user]);
 
-  // Register resetGuest with AuthContext so it is called automatically on login/logout
-  useEffect(() => {
-    if (typeof registerGuestCleanup !== "function") return;
-    const unregister = registerGuestCleanup(resetGuest);
-    return unregister;
-  }, [registerGuestCleanup]);
-
   const setGuestIdFromApi = (id) => {
     setGuestId(id);
     storage.set("guestId", id);
@@ -148,6 +143,13 @@ export const FirstTestProvider = ({ children }) => {
     setInitialCheckDone(false);
     navigationInProgress.current = false;
   };
+
+  // Register resetGuest with AuthContext so it is called automatically on login/logout
+  useEffect(() => {
+    if (typeof registerGuestCleanup !== "function") return;
+    const unregister = registerGuestCleanup(resetGuest);
+    return unregister;
+  }, [registerGuestCleanup]);
 
   const value = {
     guestId,

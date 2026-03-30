@@ -75,7 +75,7 @@ const TrainingsPage = () => {
   }
 
   const WorkoutCard = ({ item, type }) => {
-    const { user_workout_id, workout, phase, status } = item;
+    const { user_workout_id, workout, status } = item;
     const isStarted = status === 'started' || item.is_started;
     
     return (
@@ -94,7 +94,6 @@ const TrainingsPage = () => {
           <h2>{getWorkoutType(workout.type)}</h2>
           <p className="time">{formatDuration(workout.duration_minutes)}</p>
           <p className="description-training">{workout.description}</p>
-          {phase && <p className="phase">Фаза: {phase.name}</p>}
           <button 
             type="button"
             className={isStarted ? 'continue-btn' : 'start-btn'}
