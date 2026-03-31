@@ -1,38 +1,150 @@
-import React, { useEffect } from 'react';
-import AdminPageHeader from '../../components/admin/AdminPageHeader';
-import { useAuth } from '../../hooks/useAuth';
+// src/pages/admin/AdminDashboard.jsx
+
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDashboard } from '../../hooks/admin/useDashboard';
+import StatCard from '../../components/admin/StatCard.jsx';
+import RevenueChart from '../../components/admin/RevenueChart';
+import RecentItems from '../../components/admin/RecentItems';
+import '../../styles/admin/admin_dashboard.scss';
+import AdminPageHeader from "../../components/admin/AdminPageHeader.jsx";
 
 const AdminDashboard = () => {
-    const { user } = useAuth();
+    const navigate = useNavigate();
+    const {
+        overview,
+        latestTests,
+        latestWorkouts,
+        loading,
+        error,
+        chartType,
+        selectedYear,
+        selectedPeriod,
+        getCurrentChartData,
+        getChartTitle,
+        handleChartTypeChange,
+        handleYearChange,
+        handlePeriodChange,
+        formatCurrency,
+        formatDate
+    } = useDashboard();
 
-    useEffect(() => {
-        console.log('AdminDashboard mounted, user:', user);
+    const handleViewAllTests = () => {
+        navigate('/admin/tests');
+    };
 
-        // Проверяем каждые 2 секунды, не изменился ли user
-        const interval = setInterval(() => {
-            console.log('AdminDashboard - current user:', user);
-        }, 2000);
+    const handleViewAllWorkouts = () => {
+        navigate('/admin/workouts');
+    };
 
-        return () => clearInterval(interval);
-    }, [user]);
+    if (loading) {
+        return (
+            <div className="dashboard-container">
+                <div className="loading">Загрузка данных...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="dashboard-container">
+                <div className="error-message">{error}</div>
+            </div>
+        );
+    }
+
+    // Доступные годы для выбора (текущий и предыдущий)
+    const currentYear = new Date().getFullYear();
+    const availableYears = [currentYear, currentYear - 1];
+
+    // Доступные периоды
+    const availablePeriods = [1, 3, 6, 12];
 
     return (
         <>
-            <AdminPageHeader title="Панель управления" />
-            <div className="content_area">
-                <div style={{
-                    background: 'white',
-                    borderRadius: '16px',
-                    padding: '40px',
-                    textAlign: 'center',
-                    color: '#999'
-                }}>
-                    <p>Статистика и последние добавленные элементы появятся здесь позже</p>
-                    <p style={{ marginTop: '20px', fontSize: '12px' }}>
-                        User ID: {user?.id}, Role ID: {user?.role_id}
-                    </p>
-                </div>
+            <AdminPageHeader
+                title="Панель управления"
+
+            />
+
+        <div className="dashboard-container">
+            <div className="dashboard_header">
             </div>
+            <div className="chart-section">
+                <RevenueChart
+                    data={getCurrentChartData()}
+                    title={getChartTitle()}
+                />
+                <div className="chart-controls">
+                    {chartType !== 'period' ? (
+                        <div className="year-selector">
+                            <label>Год:</label>
+                            <select
+                                value={selectedYear}
+                                onChange={(e) => handleYearChange(parseInt(e.target.value))}
+                            >
+                                {availableYears.map(year => (
+                                    <option key={year} value={year}>{year}</option>
+                                ))}
+                            </select>
+                        </div>
+                    ) : (
+                        <div className="period-selector">
+                            <label>Период (мес):</label>
+                            <div className="period-buttons">
+                                {availablePeriods.map(period => (
+                                    <button
+                                        key={period}
+                                        className={selectedPeriod === period ? 'active' : ''}
+                                        onClick={() => handlePeriodChange(period)}
+                                    >
+                                        {period}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="chart-type-buttons">
+                        <button
+                            className={chartType === 'revenue' ? 'active' : ''}
+                            onClick={() => handleChartTypeChange('revenue')}
+                        >
+                            Выручка
+                        </button>
+                        <button
+                            className={chartType === 'count' ? 'active' : ''}
+                            onClick={() => handleChartTypeChange('count')}
+                        >
+                            Количество подписок
+                        </button>
+                        <button
+                            className={chartType === 'period' ? 'active' : ''}
+                            onClick={() => handleChartTypeChange('period')}
+                        >
+                            По периодам
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div className="recent-section">
+                <RecentItems
+                    title="Последние добавленные тесты"
+                    items={latestTests}
+                    type="test"
+                    onViewAll={handleViewAllTests}
+                />
+                <RecentItems
+                    title="Последние добавленные тренировки"
+                    items={latestWorkouts}
+                    type="workout"
+                    onViewAll={handleViewAllWorkouts}
+                />
+            </div>
+        </div>
         </>
     );
 };

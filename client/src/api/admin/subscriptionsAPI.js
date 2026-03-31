@@ -1,5 +1,3 @@
-// src/api/admin/subscriptionsAPI.js
-
 import axiosInstance from '../axiosConfig';
 
 const ADMIN_SUBSCRIPTIONS_URL = '/admin/subscriptions';
@@ -40,7 +38,10 @@ export const createSubscription = async (data) => {
 // Обновить подписку
 export const updateSubscription = async (id, data) => {
     try {
-        const response = await axiosInstance.put(`${ADMIN_SUBSCRIPTIONS_URL}/${id}`, data);
+        const response = data instanceof FormData
+            ? await axiosInstance.post(`${ADMIN_SUBSCRIPTIONS_URL}/${id}?_method=PUT`, data)
+            : await axiosInstance.put(`${ADMIN_SUBSCRIPTIONS_URL}/${id}`, data);
+
         return response.data;
     } catch (error) {
         console.error('Error updating subscription:', error);
@@ -65,11 +66,10 @@ export const uploadSubscriptionImage = async (id, file) => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axiosInstance.post(`${ADMIN_SUBSCRIPTIONS_URL}/${id}/image`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const response = await axiosInstance.post(
+            `${ADMIN_SUBSCRIPTIONS_URL}/${id}/image`,
+            formData
+        );
         return response.data;
     } catch (error) {
         console.error('Error uploading subscription image:', error);

@@ -1,0 +1,54 @@
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  border-top: 4px solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    .stat-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    h3 {
+      font-size: 18px;
+      font-family: "Montserrat-Regular", sans-serif;
+      color: rgba(42, 42, 42, 1);
+      margin: 0;
+    }
+  }
+
+  .stat-card-value {
+    font-size: 32px;
+    font-family: "Montserrat-Bold", sans-serif;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .stat-card-subtitle {
+    font-size: 12px;
+    font-family: "Montserrat-Regular", sans-serif;
+    color: #999;
+  }
+}

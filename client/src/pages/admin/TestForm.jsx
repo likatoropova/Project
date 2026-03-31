@@ -130,34 +130,49 @@ const TestForm = () => {
         setValidationErrors({});
 
         try {
-            const submitData = {
-                title: formData.title,
-                description: formData.description,
-                duration_minutes: formData.duration_minutes || null,
-                is_active: Boolean(formData.is_active),
-                categories: selectedCategories
-            };
-
             let response;
+
             if (isEditMode) {
-                response = await executeUpdateTest(id, submitData);
+
+                if (imageFile) {
+                    const formDataToSend = new FormData();
+                    formDataToSend.append('title', formData.title);
+                    formDataToSend.append('description', formData.description);
+                    formDataToSend.append('duration_minutes', formData.duration_minutes || null);
+                    formDataToSend.append('is_active', formData.is_active ? 1 : 0);
+                    formDataToSend.append('categories', JSON.stringify(selectedCategories));
+                    formDataToSend.append('image', imageFile);
+
+                    response = await executeUpdateTest(id, formDataToSend);
+                } else {
+                    // Без картинки — обычный JSON
+                    const updateData = {
+                        title: formData.title,
+                        description: formData.description,
+                        duration_minutes: formData.duration_minutes || null,
+                        is_active: Boolean(formData.is_active),
+                        categories: selectedCategories
+                    };
+                    response = await executeUpdateTest(id, updateData);
+                }
             } else {
-                response = await executeCreateTest(submitData);
+
+                const createData = new FormData();
+                createData.append('title', formData.title);
+                createData.append('description', formData.description);
+                createData.append('duration_minutes', formData.duration_minutes || null);
+                createData.append('is_active', formData.is_active ? 1 : 0);
+                createData.append('categories', JSON.stringify(selectedCategories));
+
+
+                if (imageFile) {
+                    createData.append('image', imageFile);
+                }
+
+                response = await executeCreateTest(createData);
             }
 
             if (response.success) {
-                const testId = isEditMode ? id : response.data?.id;
-
-                if (imageFile && testId) {
-                    setUploadingImage(true);
-                    const uploadResponse = await executeUploadImage(testId, imageFile);
-                    setUploadingImage(false);
-
-                    if (!uploadResponse.success) {
-                        console.warn('Image upload failed:', uploadResponse.error);
-                    }
-                }
-
                 navigate('/admin/tests');
             } else {
                 if (response.originalError?.response?.data?.errors) {

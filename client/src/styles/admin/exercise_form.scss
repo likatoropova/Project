@@ -158,26 +158,39 @@
     }
   }
 
-  .exercise_select {
-    padding: 16px 24px;
-    width: 502px;
-    height: 48px;
-    border: 1px solid #FF9B65;
-    border-radius: 10px;
-    font-family: "Montserrat-Regular", sans-serif;
-    background-color: white;
-    cursor: pointer;
+  .equipment-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+  }
 
-    &:focus {
-      outline: none;
-      border-color: #E06F3F;
+  .equipment-btn {
+    padding: 12px 24px;
+    border: 2px solid #d8eded;
+    border-radius: 12px;
+    background: white;
+    color: #595959;
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: #3ba3a4;
+      background: rgba(59, 163, 164, 0.05);
     }
 
-    &.error {
-      border-color: #c33;
+    &.active {
+      background: #3ba3a4;
+      border-color: #3ba3a4;
+      color: white;
+      font-family: "Montserrat-SemiBold", sans-serif;
     }
   }
 }
+
 
 .par_input_big {
   display: flex;

@@ -1,5 +1,3 @@
-// src/hooks/admin/useWarmups.js
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getWarmups, deleteWarmup } from '../../api/admin/warmupsAPI';
 import { useApi } from '../useApi';

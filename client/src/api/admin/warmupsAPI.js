@@ -29,18 +29,10 @@ export const getWarmupById = async (id) => {
 // Создать разминку
 export const createWarmup = async (data) => {
     try {
-        let response;
 
-        if (data instanceof FormData) {
-            response = await axiosInstance.post(ADMIN_WARMUPS_URL, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            response = await axiosInstance.post(ADMIN_WARMUPS_URL, data);
-        }
+        console.log('createWarmup called with:', data instanceof FormData ? 'FormData' : typeof data);
 
+        const response = await axiosInstance.post(ADMIN_WARMUPS_URL, data);
         return response.data;
     } catch (error) {
         console.error('Error creating warmup:', error);
@@ -51,17 +43,12 @@ export const createWarmup = async (data) => {
 // Обновить разминку
 export const updateWarmup = async (id, data) => {
     try {
-        let response;
+        const config =  {}
 
-        if (data instanceof FormData) {
-            response = await axiosInstance.post(`${ADMIN_WARMUPS_URL}/${id}?_method=PUT`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            response = await axiosInstance.put(`${ADMIN_WARMUPS_URL}/${id}`, data);
-        }
+        // Для PUT с FormData используем POST + _method, как у вас уже реализовано
+        const response = data instanceof FormData
+            ? await axiosInstance.post(`${ADMIN_WARMUPS_URL}/${id}?_method=PUT`, data, config)
+            : await axiosInstance.put(`${ADMIN_WARMUPS_URL}/${id}`, data, config);
 
         return response.data;
     } catch (error) {
@@ -87,11 +74,10 @@ export const uploadWarmupImage = async (id, file) => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axiosInstance.post(`${ADMIN_WARMUPS_URL}/${id}/image`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const response = await axiosInstance.post(
+            `${ADMIN_WARMUPS_URL}/${id}/image`,
+            formData
+        );
         return response.data;
     } catch (error) {
         console.error('Error uploading warmup image:', error);

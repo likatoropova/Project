@@ -1,0 +1,45 @@
+.chart-container {
+  width: 1080px;
+  border: 1px solid rgba(59, 163, 164, 0.5);
+  border-radius: 14px;
+  padding: 32px;
+  margin: 32px 0 32px 32px;
+  h3 {
+    font-size: 18px;
+    font-family: "Montserrat-Regular", sans-serif;
+    color: rgba(42, 42, 42, 1);
+    margin: 0 0 20px 0;
+  }
+
+  .chart-empty {
+    text-align: center;
+    padding: 80px;
+    color: #999;
+    font-family: "Montserrat-Regular", sans-serif;
+    background: #f8f9fa;
+    border-radius: 12px;
+  }
+}
+
+.custom-tooltip {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid #eee;
+  margin: 10px 0 4px 0;
+
+  .tooltip-label {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 14px;
+    margin: 10px 0 4px 0;
+    color: #333;
+  }
+
+  .tooltip-value {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 12px;
+    margin: 0;
+    color: #E06F3F;
+  }
+}

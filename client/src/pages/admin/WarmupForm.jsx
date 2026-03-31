@@ -69,7 +69,10 @@ const WarmupForm = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        console.log('File selected:', file);
         if (file) {
+            console.log('File type:', file.type);
+            console.log('File size:', file.size);
             setImageFile(file);
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -97,6 +100,7 @@ const WarmupForm = () => {
     };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         if (!validateForm()) {
@@ -128,11 +132,28 @@ const WarmupForm = () => {
                     }
                 }
             } else {
+
                 const createData = new FormData();
                 createData.append('name', formData.name);
                 createData.append('description', formData.description);
+
+                console.log('imageFile:', imageFile);
+                console.log('Has file?', !!imageFile);
+
+                console.log('FormData contents:');
+                for (let [key, value] of createData.entries()) {
+                    console.log(`${key}:`, value instanceof File ? `File: ${value.name}` : value);
+                }
+
                 if (imageFile) {
                     createData.append('image', imageFile);
+
+                    console.log('FormData entries:');
+                    for (let [key, value] of createData.entries()) {
+                        console.log(`${key}:`, value instanceof File ? `File: ${value.name}` : value);
+                    }
+                } else {
+                    console.warn('⚠️ imageFile is null/undefined!');
                 }
 
                 response = await executeCreateWarmup(createData);

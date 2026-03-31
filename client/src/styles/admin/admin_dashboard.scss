@@ -1,0 +1,152 @@
+.dashboard-container {
+  padding: 24px;
+
+  .dashboard-header {
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: 28px;
+      font-family: "Montserrat-Medium", sans-serif;
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+
+    p {
+      font-size: 14px;
+      font-family: "Montserrat-Regular", sans-serif;
+      color: #666;
+      margin: 0;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .chart-section {
+    display: flex;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 16px;
+    margin-top: 24px;
+    margin-left: 54px;
+    gap: 16px;
+    padding-bottom: 24px;
+    width: 1512px;
+
+    .chart-controls {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 294px;
+
+      .chart-type-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        button {
+          width: 344px;
+          height: 48px;
+          border: 1px solid rgba(252, 125, 71, 1);
+          border-radius: 12px;
+          background: rgba(252, 125, 71, 1);
+          color: white;
+          font-family: "Montserrat-SemiBold", sans-serif;
+          font-size: 16px;
+          cursor: pointer;
+
+          &:hover {
+            border-color: #E06F3F;
+            color: #E06F3F;
+          }
+
+          &.active {
+            background: rgba(252, 125, 71, 0.1);
+            border-color: rgba(252, 125, 71, 0.8);
+            color: rgba(252, 125, 71, 0.8);
+          }
+        }
+      }
+
+      .year-selector, .period-selector {
+        margin-top: 32px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        label {
+          font-family: "Montserrat-Medium", sans-serif;
+          font-size: 14px;
+          color: #333;
+        }
+
+        select {
+          padding: 8px 16px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-family: "Montserrat-Regular", sans-serif;
+          font-size: 14px;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+            border-color: #E06F3F;
+          }
+        }
+
+        .period-buttons {
+          display: flex;
+          gap: 8px;
+
+          button {
+            padding: 6px 16px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            font-family: "Montserrat-Medium", sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              border-color: #E06F3F;
+              color: #E06F3F;
+            }
+
+            &.active {
+              background: #E06F3F;
+              border-color: #E06F3F;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .recent-section {
+    width: 1512px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 60px;
+    color: #999;
+    font-family: "Montserrat-Regular", sans-serif;
+  }
+
+  .error-message {
+    background-color: #fee;
+    color: #c33;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: "Montserrat-Regular", sans-serif;
+  }
+}

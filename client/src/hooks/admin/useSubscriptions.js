@@ -1,5 +1,3 @@
-// src/hooks/admin/useSubscriptions.js
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getSubscriptions, deleteSubscription } from '../../api/admin/subscriptionsAPI';
 import { useApi } from '../useApi';

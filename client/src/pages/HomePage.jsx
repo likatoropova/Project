@@ -100,7 +100,6 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Подписки */}
           <div className="subscriptions">
             <div className="about_subs">
               <h3>Подписки</h3>
@@ -116,7 +115,6 @@ const HomePage = () => {
                 </div>
             ) : (
                 <div className="cards_sub_container">
-                  {/* Левая колонка */}
                   <div className="card_sub_container">
                     {subscriptions.slice(0, Math.ceil(subscriptions.length / 2)).map(sub => (
                         <div key={sub.id} className="subscription_card">
@@ -141,7 +139,6 @@ const HomePage = () => {
                     ))}
                   </div>
 
-                  {/* Правая колонка */}
                   <div className="card_sub_container">
                     {subscriptions.slice(Math.ceil(subscriptions.length / 2)).map(sub => (
                         <div key={sub.id} className="subscription_card">

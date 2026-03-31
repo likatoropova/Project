@@ -1,5 +1,3 @@
-// src/pages/admin/SubscriptionForm.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi';
@@ -126,34 +124,48 @@ const SubscriptionForm = () => {
         setValidationErrors({});
 
         try {
-            const submitData = {
-                name: formData.name,
-                description: formData.description,
-                price: parseFloat(formData.price),
-                duration_days: parseInt(formData.duration_days),
-                is_active: Boolean(formData.is_active)
-            };
-
             let response;
+
             if (isEditMode) {
-                response = await executeUpdateSubscription(id, submitData);
+                // Для редактирования: используем FormData, если есть картинка
+                if (imageFile) {
+                    const formData = new FormData();
+                    formData.append('name', formData.name);
+                    formData.append('description', formData.description);
+                    formData.append('price', parseFloat(formData.price));
+                    formData.append('duration_days', parseInt(formData.duration_days));
+                    // ✅ ИСПРАВЛЕНИЕ: преобразуем в 1 или 0 вместо true/false
+                    formData.append('is_active', formData.is_active ? 1 : 0);
+                    formData.append('image', imageFile);
+
+                    response = await executeUpdateSubscription(id, formData);
+                } else {
+                    // Без картинки — отправляем как JSON
+                    const updateData = {
+                        name: formData.name,
+                        description: formData.description,
+                        price: parseFloat(formData.price),
+                        duration_days: parseInt(formData.duration_days),
+                        is_active: Boolean(formData.is_active)
+                    };
+                    response = await executeUpdateSubscription(id, updateData);
+                }
             } else {
-                response = await executeCreateSubscription(submitData);
+                const createData = new FormData();
+                createData.append('name', formData.name);
+                createData.append('description', formData.description);
+                createData.append('price', parseFloat(formData.price));
+                createData.append('duration_days', parseInt(formData.duration_days));
+                createData.append('is_active', formData.is_active ? 1 : 0);
+
+                if (imageFile) {
+                    createData.append('image', imageFile);
+                }
+
+                response = await executeCreateSubscription(createData);
             }
 
             if (response.success) {
-                const subscriptionId = isEditMode ? id : response.data?.id;
-
-                if (imageFile && subscriptionId) {
-                    setUploadingImage(true);
-                    const uploadResponse = await executeUploadImage(subscriptionId, imageFile);
-                    setUploadingImage(false);
-
-                    if (!uploadResponse.success) {
-                        console.warn('Image upload failed:', uploadResponse.error);
-                    }
-                }
-
                 navigate('/admin/subscriptions');
             } else {
                 if (response.originalError?.response?.data?.errors) {

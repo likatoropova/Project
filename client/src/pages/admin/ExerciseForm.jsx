@@ -1,5 +1,3 @@
-// src/pages/admin/ExerciseForm.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi';
@@ -62,7 +60,7 @@ const ExerciseForm = () => {
                         title: exerciseData.title || '',
                         description: exerciseData.description || '',
                         muscle_group: exerciseData.muscle_group || '',
-                        equipment_id: exerciseData.equipment?.id || ''
+                        equipment_id: exerciseData.equipment?.id?.toString() || ''
                     });
                     if (exerciseData.image_url) {
                         setImagePreview(exerciseData.image_url);
@@ -84,17 +82,6 @@ const ExerciseForm = () => {
         }));
         if (validationErrors[name]) {
             setValidationErrors(prev => ({ ...prev, [name]: '' }));
-        }
-    };
-
-    const handleEquipmentChange = (e) => {
-        const value = e.target.value;
-        setFormData(prev => ({
-            ...prev,
-            equipment_id: value
-        }));
-        if (validationErrors.equipment_id) {
-            setValidationErrors(prev => ({ ...prev, equipment_id: '' }));
         }
     };
 
@@ -284,19 +271,29 @@ const ExerciseForm = () => {
                                 </div>
                                 <div className="par_input_exrs">
                                     <p>Оборудование</p>
-                                    <select
-                                        name="equipment_id"
-                                        value={formData.equipment_id}
-                                        onChange={handleEquipmentChange}
-                                        className="exercise_select"
-                                    >
-                                        <option value="">Без оборудования</option>
+                                    <div className="equipment-buttons">
                                         {equipmentList.map(equipment => (
-                                            <option key={equipment.id} value={equipment.id}>
+                                            <button
+                                                key={equipment.id}
+                                                type="button"
+                                                className={`equipment-btn ${formData.equipment_id == equipment.id ? 'active' : ''}`}
+                                                onClick={() => {
+                                                    setFormData(prev => ({
+                                                        ...prev,
+                                                        equipment_id: equipment.id.toString()
+                                                    }));
+                                                    if (validationErrors.equipment_id) {
+                                                        setValidationErrors(prev => ({...prev, equipment_id: ''}));
+                                                    }
+                                                }}
+                                            >
                                                 {equipment.name}
-                                            </option>
+                                            </button>
                                         ))}
-                                    </select>
+                                    </div>
+                                    {validationErrors.equipment_id && (
+                                        <div className="field-error">{validationErrors.equipment_id}</div>
+                                    )}
                                 </div>
 
                             </div>
@@ -323,7 +320,7 @@ const ExerciseForm = () => {
                                 onClick={handleSubmit}
                                 disabled={loading || uploadingImage}
                             >
-                                {loading ? 'Сохранение...' : (uploadingImage ? 'Загрузка...' : 'Сохранить')}
+                            {loading ? 'Сохранение...' : (uploadingImage ? 'Загрузка...' : 'Сохранить')}
                             </button>
                             <button
                                 type="button"

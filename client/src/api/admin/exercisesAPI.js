@@ -1,5 +1,3 @@
-// src/api/admin/exercisesAPI.js
-
 import axiosInstance from '../axiosConfig';
 
 const ADMIN_EXERCISES_URL = '/admin/exercises';
@@ -15,7 +13,6 @@ export const getExercises = async (params = {}) => {
     }
 };
 
-// Получить упражнение по ID
 export const getExerciseById = async (id) => {
     try {
         const response = await axiosInstance.get(`${ADMIN_EXERCISES_URL}/${id}`);
@@ -26,21 +23,9 @@ export const getExerciseById = async (id) => {
     }
 };
 
-// Создать упражнение
 export const createExercise = async (data) => {
     try {
-        let response;
-
-        if (data instanceof FormData) {
-            response = await axiosInstance.post(ADMIN_EXERCISES_URL, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            response = await axiosInstance.post(ADMIN_EXERCISES_URL, data);
-        }
-
+        const response = await axiosInstance.post(ADMIN_EXERCISES_URL, data);
         return response.data;
     } catch (error) {
         console.error('Error creating exercise:', error);
@@ -48,20 +33,11 @@ export const createExercise = async (data) => {
     }
 };
 
-// Обновить упражнение
 export const updateExercise = async (id, data) => {
     try {
-        let response;
-
-        if (data instanceof FormData) {
-            response = await axiosInstance.post(`${ADMIN_EXERCISES_URL}/${id}?_method=PUT`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            response = await axiosInstance.put(`${ADMIN_EXERCISES_URL}/${id}`, data);
-        }
+        const response = data instanceof FormData
+            ? await axiosInstance.post(`${ADMIN_EXERCISES_URL}/${id}?_method=PUT`, data)
+            : await axiosInstance.put(`${ADMIN_EXERCISES_URL}/${id}`, data);
 
         return response.data;
     } catch (error) {
@@ -70,7 +46,6 @@ export const updateExercise = async (id, data) => {
     }
 };
 
-// Удалить упражнение
 export const deleteExercise = async (id) => {
     try {
         const response = await axiosInstance.delete(`${ADMIN_EXERCISES_URL}/${id}`);
@@ -81,17 +56,15 @@ export const deleteExercise = async (id) => {
     }
 };
 
-// Загрузить изображение упражнения
 export const uploadExerciseImage = async (id, file) => {
     try {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axiosInstance.post(`${ADMIN_EXERCISES_URL}/${id}/image`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const response = await axiosInstance.post(
+            `${ADMIN_EXERCISES_URL}/${id}/image`,
+            formData
+        );
         return response.data;
     } catch (error) {
         console.error('Error uploading exercise image:', error);
@@ -99,10 +72,9 @@ export const uploadExerciseImage = async (id, file) => {
     }
 };
 
-// Получить список оборудования
 export const getEquipment = async () => {
     try {
-        const response = await axiosInstance.get('/admin/equipment');
+        const response = await axiosInstance.get('/admin/equipments');
         return response.data;
     } catch (error) {
         console.error('Error fetching equipment:', error);

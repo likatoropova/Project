@@ -30,48 +30,10 @@ export const getTestById = async (id) => {
 // Создать тест
 export const createTest = async (data) => {
     try {
-        let response;
-
-        // Проверяем, является ли data FormData
-        if (data instanceof FormData) {
-            console.log('Sending as FormData');
-
-            // Логируем все поля FormData
-            console.log('FormData contents:');
-            for (let pair of data.entries()) {
-                if (pair[0] === 'image') {
-                    console.log(pair[0], 'File:', pair[1]?.name, pair[1]?.size, pair[1]?.type);
-                } else {
-                    console.log(pair[0], pair[1]);
-                }
-            }
-
-            response = await axiosInstance.post(ADMIN_TESTS_URL, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            console.log('Sending as JSON');
-            response = await axiosInstance.post(ADMIN_TESTS_URL, data);
-        }
-
-        console.log('Create test response:', response.data);
+        const response = await axiosInstance.post(ADMIN_TESTS_URL, data);
         return response.data;
     } catch (error) {
         console.error('Error creating test:', error);
-        console.error('Error response data:', error.response?.data);
-        console.error('Error response status:', error.response?.status);
-        console.error('Error response headers:', error.response?.headers);
-
-        // Выводим детальную информацию об ошибке валидации
-        if (error.response?.data?.errors) {
-            console.error('Validation errors details:');
-            Object.keys(error.response.data.errors).forEach(key => {
-                console.error(`  ${key}:`, error.response.data.errors[key]);
-            });
-        }
-
         throw error.response?.data || { message: 'Ошибка создания теста' };
     }
 };
@@ -81,11 +43,10 @@ export const uploadTestImage = async (id, file) => {
         const formData = new FormData();
         formData.append('image', file);
 
-        const response = await axiosInstance.post(`/admin/testings/${id}/image`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        const response = await axiosInstance.post(
+            `${ADMIN_TESTS_URL}/${id}/image`,
+            formData
+        );
         return response.data;
     } catch (error) {
         console.error('Error uploading test image:', error);
@@ -96,23 +57,13 @@ export const uploadTestImage = async (id, file) => {
 // Обновить тест
 export const updateTest = async (id, data) => {
     try {
-        let response;
-
-        // Проверяем, является ли data FormData
-        if (data instanceof FormData) {
-            response = await axiosInstance.post(`${ADMIN_TESTS_URL}/${id}?_method=PUT`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-        } else {
-            response = await axiosInstance.put(`${ADMIN_TESTS_URL}/${id}`, data);
-        }
+        const response = data instanceof FormData
+            ? await axiosInstance.post(`${ADMIN_TESTS_URL}/${id}?_method=PUT`, data)
+            : await axiosInstance.put(`${ADMIN_TESTS_URL}/${id}`, data);
 
         return response.data;
     } catch (error) {
         console.error('Error updating test:', error);
-        console.error('Error response data:', error.response?.data);
         throw error.response?.data || { message: 'Ошибка обновления теста' };
     }
 };

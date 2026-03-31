@@ -51,15 +51,14 @@ function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
 
   useEffect(() => {
-    // Настраиваем FCM только если пользователь авторизован
+
     const setupFCM = async () => {
       const token = localStorage.getItem('token');
-      if (!token) return; // Не отправляем токен, если пользователь не авторизован
+      if (!token) return;
 
       try {
         const fcmToken = await requestForToken();
         if (fcmToken) {
-          // Отправляем токен на Laravel API
           await axios.post('/api/save-token', {
             fcm_token: fcmToken,
             device_type: 'web',
@@ -75,7 +74,6 @@ function App() {
 
     setupFCM();
 
-    // Слушаем уведомления, когда приложение активно
     const messageListener = onMessageListener();
 
     messageListener.then((payload) => {
@@ -83,18 +81,14 @@ function App() {
         title: payload.notification.title,
         body: payload.notification.body
       });
-      console.log('Foreground message received:', payload);
 
-      // Автоматически скрываем уведомление через 5 секунд
       setTimeout(() => {
         setNotification({ title: '', body: '' });
       }, 5000);
     }).catch(err => console.log('FCM listening failed: ', err));
 
-    // Очищаем слушатель при размонтировании компонента
     return () => {
-      // Здесь можно добавить логику для отписки, если это необходимо
-      // В текущей реализации onMessageListener не возвращает функцию отписки
+
     };
   }, []);
 

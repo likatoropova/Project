@@ -1,8 +1,5 @@
 * {
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*text-decoration: none;*/
-    /*box-sizing: border-box;*/
+
 }
 
 .main_home {
@@ -229,7 +226,6 @@
     font-size: 10px;
 }
 
-/* Кнопка перехода к подпискам */
 .btn_to_sub {
     display: block;
     text-decoration: none;
