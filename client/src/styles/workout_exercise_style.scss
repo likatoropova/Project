@@ -76,6 +76,20 @@ body {
   }
 }
 
+.stop-spinner {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #4C5050;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .stop_btn {
   display: flex;
   justify-content: center;
@@ -308,7 +322,6 @@ body {
   }
 }
 
-// Loading и Error состояния
 .loading-container {
   display: flex;
   justify-content: center;

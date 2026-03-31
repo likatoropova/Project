@@ -74,14 +74,14 @@ const TrainingsPage = () => {
     );
   }
 
-  const WorkoutCard = ({ item, type }) => {
+   const WorkoutCard = ({ item, type }) => {
     const { user_workout_id, workout, status } = item;
     const isStarted = status === 'started' || item.is_started;
     
     return (
       <article 
         className="training_card" 
-        onClick={() => handleWorkoutClick(workout.id)}
+        onClick={() => handleWorkoutClick(user_workout_id)}
       >
         <img 
           src={workout.image || "/img/training-image.png"} 
@@ -156,7 +156,17 @@ const TrainingsPage = () => {
           </section>
         )}
 
-        {allAssigned.length > 0 && !hasFilteredWorkouts && (
+        {filteredStarted.length > 0 && (
+          <section className="trainings-section">
+            <div className="trainings_container">
+              {filteredStarted.map((item) => (
+                <WorkoutCard key={item.user_workout_id} item={item} type="started" />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {(allAssigned.length > 0 || allStarted.length > 0) && !hasFilteredWorkouts && (
           <div className="no-results">
             <p>По вашему запросу "{searchInput}" ничего не найдено</p>
             <button 

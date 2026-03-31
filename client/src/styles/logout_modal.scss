@@ -75,6 +75,28 @@
   }
 }
 
+.modal-error {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 14px;
+  color: #f44336;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.btn-confirm--full {
+  width: 100%;
+  min-width: unset;
+  padding: 1.85vh 0;
+}
+
+.modal-subtitle {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 14px;
+  color: #888;
+  margin-top: 8px;
+  margin-bottom: 3.70vh;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
