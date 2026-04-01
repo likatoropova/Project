@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WorkoutStopModal from "../components/WorkoutStopModal";
 import WorkoutSuccessModal from "../components/WorkoutSuccessModal";
+import WarmupNotification from "../components/WarmupNotification";
 import {
   saveExerciseResult,
   completeWorkout,
@@ -23,6 +24,9 @@ const WorkoutExercisePage = () => {
   const [error, setError] = useState("");
   const [showStopModal, setShowStopModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showWarmupNotification, setShowWarmupNotification] = useState(
+    () => location.state?.skipped_warmup === true
+  );
   const [completing, setCompleting] = useState(false);
   const [abandoning, setAbandoning] = useState(false);
   const [stopError, setStopError] = useState("");
@@ -34,6 +38,7 @@ const WorkoutExercisePage = () => {
     document.title = "Упражнение тренировки";
   }, []);
 
+  // Таймер
   useEffect(() => {
     let interval = null;
 
@@ -61,47 +66,46 @@ const WorkoutExercisePage = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const handleStopWorkout = async () => {
-    if (completing || abandoning || saving) return;
-
-    setCompleting(true);
-    setStopError("");
-
-    try {
-      console.log("📤 Completing workout via stop button:", { userWorkoutId });
-      await completeWorkout(userWorkoutId);
-      console.log("✅ Workout completed successfully");
-      setShowSuccessModal(true);
-    } catch (err) {
-      console.error("❌ Error completing workout:", err);
-      setStopError(err.message || "Не удалось завершить тренировку");
-      setShowStopModal(true);
-    } finally {
-      setCompleting(false);
-    }
+  // Исправлено: нажатие на кнопку остановки - открываем модальное окно подтверждения
+  const handleStopWorkout = () => {
+    setShowStopModal(true);
   };
 
+  // Подтверждение остановки - сбрасываем тренировку (abandon)
   const handleConfirmStop = async () => {
     if (abandoning) return;
 
     setAbandoning(true);
+    setStopError("");
 
     try {
       console.log("📤 Abandoning workout:", { userWorkoutId });
       await abandonWorkout(userWorkoutId);
       console.log("✅ Workout abandoned");
-    } catch (err) {
-      console.error("❌ Error abandoning workout:", err);
-    } finally {
-      setAbandoning(false);
       setShowStopModal(false);
       navigate("/trainings");
+    } catch (err) {
+      console.error("❌ Error abandoning workout:", err);
+      setStopError(err.message || "Не удалось сбросить тренировку");
+    } finally {
+      setAbandoning(false);
     }
   };
 
   const handleCancelStop = () => {
     setShowStopModal(false);
     setStopError("");
+  };
+
+  // Завершение тренировки после последнего упражнения
+  const handleCompleteWorkout = async () => {
+    try {
+      await completeWorkout(userWorkoutId);
+      setShowSuccessModal(true);
+    } catch (err) {
+      console.error("❌ Error completing workout:", err);
+      setError(err.message || "Ошибка при завершении тренировки");
+    }
   };
 
   const handleSuccessClose = () => {
@@ -141,15 +145,8 @@ const WorkoutExercisePage = () => {
         const needsWeightInput = next_exercise?.needs_weight_input;
 
         if (all_exercises_completed) {
-          try {
-            await completeWorkout(userWorkoutId);
-          } catch (err) {
-            console.error(
-              "❌ Error completing workout after last exercise:",
-              err,
-            );
-          }
-          setShowSuccessModal(true);
+          // Все упражнения выполнены - завершаем тренировку
+          await handleCompleteWorkout();
         } else if (next_exercise) {
           if (needsWeightInput) {
             navigate(
@@ -210,7 +207,6 @@ const WorkoutExercisePage = () => {
   };
 
   const timerInfo = getTimerInfo();
-
   const isStopDisabled = saving || completing || abandoning;
 
   return (
@@ -329,6 +325,12 @@ const WorkoutExercisePage = () => {
         isOpen={showSuccessModal}
         onClose={handleSuccessClose}
       />
+      {showWarmupNotification && (
+        <WarmupNotification
+          userWorkoutId={userWorkoutId}
+          onClose={() => setShowWarmupNotification(false)}
+        />
+      )}
     </>
   );
 };

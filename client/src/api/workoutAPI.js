@@ -165,3 +165,20 @@ export const abandonWorkout = async (userWorkoutId) => {
     throw error.response?.data || { message: "Ошибка сброса тренировки" };
   }
 };
+
+// Начать разминку отдельным эндпоинтом (используется из уведомления внутри тренировки)
+export const startWarmup = async (userWorkoutId) => {
+  try {
+    console.log("📤 Starting warmup:", { userWorkoutId });
+
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.START_WARMUP(userWorkoutId),
+    );
+
+    console.log("✅ Warmup started:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("❌ Error starting warmup:", error.response?.data);
+    throw error.response?.data || { message: "Ошибка начала разминки" };
+  }
+};

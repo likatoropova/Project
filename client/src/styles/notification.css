@@ -58,3 +58,9 @@
     opacity: 0;
   }
 }
+
+.modal-content > p {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 0.94vw;
+  line-height: 1.41vw;
+}

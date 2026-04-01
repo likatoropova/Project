@@ -61,9 +61,10 @@ const MaximumDefinitionPage = () => {
                 const { type, exercise: nextExercise, needs_weight_input } = response.data;
 
                 if (type === 'exercise') {
+                    const skippedWarmup = location.state?.skipped_warmup || false;
                     // Переходим к выполнению упражнения, для которого только что определили вес
                     navigate(`/workout-exercise/${userWorkoutId}/${exerciseId}`, {
-                        state: { exercise: { ...exercise, weight_used: parseInt(weight) } }
+                        state: { exercise: { ...exercise, weight_used: parseInt(weight) }, skipped_warmup: skippedWarmup }
                     });
                 } else if (type === 'completed') {
                     // Тренировка завершена

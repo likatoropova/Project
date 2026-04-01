@@ -37,4 +37,5 @@ export const API_ENDPOINTS = {
   COMPLETE_WARMUP: (userWorkoutId) =>
     `/workout-execution/${userWorkoutId}/complete-warmup`,
   ABANDON_WORKOUT: (userWorkoutId) => `/workouts/${userWorkoutId}/abandon`,
+  START_WARMUP: (userWorkoutId) => `/workout-execution/${userWorkoutId}/start-warmup`,
 };

@@ -66,7 +66,7 @@ const WorkoutDetailsPage = () => {
   };
 
   // Начать основную тренировку
-  const handleStartWorkout = async () => {
+   const handleStartWorkout = async () => {
     if (!workoutData?.workout?.id) return;
 
     setStartingWorkout(true);
@@ -77,14 +77,15 @@ const WorkoutDetailsPage = () => {
         const { type, exercise, needs_weight_input } = response.data;
 
         if (type === 'exercise' && exercise) {
-          // Первое упражнение - проверяем, нужно ли определять вес
+          const skippedWarmup = hasWarmup ? true : false;
+
           if (needs_weight_input) {
             navigate(`/maximum-definition/${userWorkoutId}/${exercise.id}`, {
-              state: { exercise }
+              state: { exercise, skipped_warmup: skippedWarmup }
             });
           } else {
             navigate(`/workout-exercise/${userWorkoutId}/${exercise.id}`, {
-              state: { exercise }
+              state: { exercise, skipped_warmup: skippedWarmup }
             });
           }
         }
