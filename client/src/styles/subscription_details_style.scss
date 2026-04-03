@@ -11,15 +11,15 @@
 }
 
 .title {
-  @apply flex justify-evenly;
-  gap: 10vw;
+  @apply flex justify-center;
+  gap: 28.85vw;
   margin-bottom: 5.93vh;
 
   h1 {
     font-family: "Montserrat-SemiBold";
     font-size: 2.08vw;
     width: 27vw;
-    margin-right: 18vw;
+    margin-right: 15vw;
   }
 }
 

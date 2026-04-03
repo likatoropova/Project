@@ -277,15 +277,14 @@ const Register = () => {
                   type="submit"
                   name="button"
                   value={loading ? 'Регистрация...' : 'Зарегистрироваться'}
-                  className="butn"
+                  className="butn-reg"
                   disabled={loading}
               />
-            </form>
-
-            <div className="to_login">
-              <p>Уже есть аккаунт?</p>
+              <div className="to_login">
+                <p>Уже есть аккаунт?</p>
               <Link to="/login">Войти</Link>
             </div>
+            </form>
           </div>
           <img className="back" src="/img/bg-right.svg" alt="background" />
         </main>

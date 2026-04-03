@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,13 +6,12 @@ import { useWorkouts } from '../hooks/useWorkouts';
 import '../styles/trainings.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
-import '../styles/back_or_stop.css'
 
 const TrainingsPage = () => {
   const navigate = useNavigate();
   const { 
-    allAssigned,
-    allStarted,
+    allAssigned, 
+    allStarted, 
     loading, 
     error,
     formatDuration,
@@ -23,21 +22,18 @@ const TrainingsPage = () => {
   const [filteredAssigned, setFilteredAssigned] = useState([]);
   const [filteredStarted, setFilteredStarted] = useState([]);
 
-  useEffect(() => {
-    document.title = 'Тренировки';
-  }, []);
-
   // Функция фильтрации тренировок
   const filterWorkouts = (workouts, searchTerm) => {
+    if (!workouts || !Array.isArray(workouts)) return [];
     if (!searchTerm.trim()) return workouts;
     
     return workouts.filter(item => 
-      item.workout.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.workout.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      item?.workout?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item?.workout?.description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
 
-  // Обновляем отфильтрованные списки при изменении поискового запроса или исходных данных
+  // Обновляем отфильтрованные списки
   useEffect(() => {
     setFilteredAssigned(filterWorkouts(allAssigned, searchInput));
     setFilteredStarted(filterWorkouts(allStarted, searchInput));
@@ -45,11 +41,6 @@ const TrainingsPage = () => {
 
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
-  };
-
-  const handleStartWorkout = (workoutId, userWorkoutId, e) => {
-    e.stopPropagation();
-    navigate(`/workout-details/${userWorkoutId}`);
   };
 
   const handleWorkoutClick = (userWorkoutId) => {
@@ -74,8 +65,27 @@ const TrainingsPage = () => {
     );
   }
 
-   const WorkoutCard = ({ item, type }) => {
-    const { user_workout_id, workout, status } = item;
+  if (error) {
+    return (
+      <>
+        <Header />
+        <main className="main">
+          <div className="error-container">
+            <p className="error-message">{error}</p>
+            <button className="retry-button" onClick={() => window.location.reload()}>
+              Повторить попытку
+            </button>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const WorkoutCard = ({ item }) => {
+    if (!item) return null;
+    
+    const { user_workout_id, workout, phase, status } = item;
     const isStarted = status === 'started' || item.is_started;
     
     return (
@@ -84,20 +94,23 @@ const TrainingsPage = () => {
         onClick={() => handleWorkoutClick(user_workout_id)}
       >
         <img 
-          src={workout.image || "/img/training-image.png"} 
-          alt={workout.title}
+          src={workout?.image || "/img/training-image.png"} 
+          alt={workout?.title || 'Тренировка'}
           onError={(e) => {
             e.target.src = "/img/training-image.png";
           }}
         />
         <div>
-          <h2>{getWorkoutType(workout.type)}</h2>
-          <p className="time">{formatDuration(workout.duration_minutes)}</p>
-          <p className="description-training">{workout.description}</p>
+          <h2>{getWorkoutType(workout?.type)}</h2>
+          <p className="time">{formatDuration(workout?.duration_minutes)}</p>
+          <p className="description-training">{workout?.description || 'Описание тренировки'}</p>
           <button 
             type="button"
             className={isStarted ? 'continue-btn' : 'start-btn'}
-            onClick={(e) => handleStartWorkout(workout.id, user_workout_id, e)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleWorkoutClick(user_workout_id);
+            }}
           >
             {isStarted ? 'Продолжить' : 'Перейти'}
           </button>
@@ -106,8 +119,8 @@ const TrainingsPage = () => {
     );
   };
 
-  // Проверяем, есть ли отфильтрованные тренировки
-  const hasFilteredWorkouts = filteredAssigned.length > 0 || filteredStarted.length > 0;
+  const hasAnyWorkouts = (allAssigned?.length > 0) || (allStarted?.length > 0);
+  const hasFilteredWorkouts = (filteredAssigned?.length > 0) || (filteredStarted?.length > 0);
 
   return (
     <>
@@ -115,9 +128,9 @@ const TrainingsPage = () => {
       <main className="main">
         <section className="head">
           <div className="title-work">
-            <button className="back_button" onClick={() => navigate(-1)}>
-              <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button className="back_button" onClick={handleBack}>
+              <svg className="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
             <h1>Тренировки</h1>
@@ -129,44 +142,41 @@ const TrainingsPage = () => {
         </section>
 
         <div className="search_training">
-            <div>
-                <img src="/img/search.png" alt="search" />
-                <input
-                type="text"
-                placeholder="Поиск тренировок"
-                value={searchInput}
-                onChange={handleSearchChange}
-                />
-            </div>
+          <div>
+            <img src="/img/search.png" alt="search" />
+            <input
+              type="text"
+              placeholder="Поиск тренировок"
+              value={searchInput}
+              onChange={handleSearchChange}
+            />
+          </div>
         </div>
 
-        {error && (
-          <div className="error_message">
-            {error}
-          </div>
-        )}
-
+        {/* Назначенные тренировки */}
         {filteredAssigned.length > 0 && (
           <section className="trainings-section">
             <div className="trainings_container">
               {filteredAssigned.map((item) => (
-                <WorkoutCard key={item.user_workout_id} item={item} type="assigned" />
+                <WorkoutCard key={item.user_workout_id} item={item} />
               ))}
             </div>
           </section>
         )}
 
+        {/* Начатые тренировки */}
         {filteredStarted.length > 0 && (
           <section className="trainings-section">
             <div className="trainings_container">
               {filteredStarted.map((item) => (
-                <WorkoutCard key={item.user_workout_id} item={item} type="started" />
+                <WorkoutCard key={item.user_workout_id} item={item} />
               ))}
             </div>
           </section>
         )}
 
-        {(allAssigned.length > 0 || allStarted.length > 0) && !hasFilteredWorkouts && (
+        {/* Если есть тренировки, но по поиску ничего не найдено */}
+        {hasAnyWorkouts && !hasFilteredWorkouts && (
           <div className="no-results">
             <p>По вашему запросу "{searchInput}" ничего не найдено</p>
             <button 
@@ -178,7 +188,8 @@ const TrainingsPage = () => {
           </div>
         )}
 
-        {allAssigned.length === 0 && allStarted.length === 0 && !error && (
+        {/* Если нет тренировок вообще */}
+        {!hasAnyWorkouts && !error && (
           <div className="empty-state">
             <p>У вас пока нет тренировок</p>
             <button className="browse-btn" onClick={() => navigate('/subscriptions')}>

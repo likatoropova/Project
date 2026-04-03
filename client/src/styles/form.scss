@@ -1,8 +1,8 @@
 .form_container {
   @apply flex flex-col justify-center items-center;
   width: 35.42vw;
-  padding: 6.3vh 3.54vw;
-  margin-top: 12.5vh;
+  padding: 3.54vw;
+  margin-top: 6.88vw;
   margin-bottom: 11.57vh;
   border-block-start: 0.5px solid #3BA3A4;
   border-block-end: 0.5px solid #3BA3A4;
@@ -16,7 +16,7 @@
     font-size: 48px;
     font-family: "Montserrat-Regular", sans-serif;
     width: 28.75vw;
-    margin: 0 auto;
+    margin-top: 3.54vw;
     @apply text-center;
   }
 

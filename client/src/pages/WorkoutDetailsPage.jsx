@@ -46,7 +46,6 @@ const WorkoutDetailsPage = () => {
             state: { warmup }
           });
         } else if (type === 'exercise' && exercise) {
-          // Первое упражнение - проверяем, нужно ли определять вес
           if (needs_weight_input) {
             navigate(`/maximum-definition/${userWorkoutId}/${exercise.id}`, {
               state: { exercise }
@@ -66,7 +65,7 @@ const WorkoutDetailsPage = () => {
   };
 
   // Начать основную тренировку
-   const handleStartWorkout = async () => {
+  const handleStartWorkout = async () => {
     if (!workoutData?.workout?.id) return;
 
     setStartingWorkout(true);
@@ -77,13 +76,16 @@ const WorkoutDetailsPage = () => {
         const { type, exercise, needs_weight_input } = response.data;
 
         if (type === 'exercise' && exercise) {
-          const skippedWarmup = hasWarmup ? true : false;
+          // ✅ Исправлено: hasWarmup определена выше
+          const hasWarmupData = workoutData.warmups && workoutData.warmups.length > 0;
+          const skippedWarmup = hasWarmupData ? true : false;
 
           if (needs_weight_input) {
             navigate(`/maximum-definition/${userWorkoutId}/${exercise.id}`, {
               state: { exercise, skipped_warmup: skippedWarmup }
             });
           } else {
+            // ✅ Исправлено: передаем exercise в state
             navigate(`/workout-exercise/${userWorkoutId}/${exercise.id}`, {
               state: { exercise, skipped_warmup: skippedWarmup }
             });
@@ -140,20 +142,13 @@ const WorkoutDetailsPage = () => {
       <main className="main-workout">
         <section className="workout-detail-cont">
           <div className="title-section">
-            <button className="back_button" onClick={handleBack}>
-              <svg className="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" strokeWidth="2" strokeLinecap="round"
-                      strokeLinejoin="round"/>
-              </svg>
-            </button>
             <h1>Тренировка</h1>
           </div>
 
           <section className="workout-detail-group">
             {/* Разминка - только если есть */}
             {hasWarmup && (
-                <article className="workout-card">
+              <article className="workout-card">
                 <img 
                   src="/img/training-image.png" 
                   alt="warmup"

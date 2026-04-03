@@ -17,15 +17,16 @@ export const useWorkouts = () => {
       const response = await axiosInstance.get(API_ENDPOINTS.WORKOUTS);
       console.log('✅ Workouts received:', response.data);
       
-      if (response.data?.success && response.data?.data) {
-        // Проверяем, что data содержит нужные поля
-        setAllAssigned(response.data.data.assigned || []);
-        setAllStarted(response.data.data.started || []);
-      } else if (response.data?.success && !response.data?.data) {
-        // Если data пустой, устанавливаем пустые массивы
-        console.log('ℹ️ No workouts data, setting empty arrays');
-        setAllAssigned([]);
-        setAllStarted([]);
+      if (response.data?.success) {
+        // Проверяем структуру данных
+        const data = response.data.data || {};
+        
+        // Безопасно устанавливаем массивы
+        setAllAssigned(Array.isArray(data.assigned) ? data.assigned : []);
+        setAllStarted(Array.isArray(data.started) ? data.started : []);
+        
+        console.log('📊 Assigned workouts:', allAssigned.length);
+        console.log('📊 Started workouts:', allStarted.length);
       } else {
         console.warn('Unexpected response format:', response.data);
         setAllAssigned([]);

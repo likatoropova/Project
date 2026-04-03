@@ -9,9 +9,9 @@
   height: 77vh;
 }
 
-#email,
 #password,
 #name {
+  box-sizing: content-box;
   width: 26.25vw;
   height: 2.59vh;
   padding: 1.11vh 1.25vw;
@@ -22,6 +22,10 @@
 }
 
 #email-reg {
+  font-size: 16px;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: black;
+  box-sizing: content-box;
   width: 26.25vw;
   height: 2.59vh;
   padding: 1.11vh 1.25vw;
@@ -123,9 +127,10 @@
   }
 }
 
-.butn {
+.butn-reg {
   width: 100%;
   margin-top: 3.33vh;
+  margin-bottom: 1.46vw;
   padding: 1.11vh 0;
   border-radius: 12px;
   @apply border-none;
@@ -133,6 +138,7 @@
   line-height: 24px;
   background-color: #FC7D47;
   font-family: "Montserrat-SemiBold", sans-serif;
+  color: #FFF;
 
   &:hover {
     background-color: #FF9B65;
@@ -150,8 +156,9 @@
   max-width: 20.36vw;
   @apply flex flex-row justify-center;
   gap: 0.94vw;
+  margin-left: 4vw;
+  margin-bottom: 3.54vw;
   width: 20.36vw;
-  margin-top: 2.59vh;
 
   > p {
     font-size: 16px;

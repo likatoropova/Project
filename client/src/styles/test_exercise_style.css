@@ -30,11 +30,12 @@
 
 .hero_exercise {
     margin: 100px 0 56px 0;
+    width: 80vw;
 }
 
 .flex_for_btn_exercise {
     display: flex;
-    gap: 523px;
+    gap: 27.24vw;
     height: 48px;
     margin-bottom: 16px;
     align-items: center;

@@ -18,10 +18,13 @@
   @apply relative z-10 flex flex-col items-center justify-center;
 
   .head-definition {
-    @apply flex flex-col items-center mb-14;
+    @apply flex flex-row mb-14 gap-[15vw];
 
-    h1 {
-      @apply text-5xl mb-4;
+    div {
+      @apply flex flex-col items-center mr-[16vw]
+    }
+    div h1 {
+      @apply text-5xl mb-4 w-[34.58vw];
       font-family: "Montserrat-SemiBold", sans-serif;
       line-height: 2.50vw;
 
@@ -31,7 +34,7 @@
       }
     }
 
-    p {
+    div p {
       font-family: "Montserrat-Medium", sans-serif;
       font-size: 0.94vw;
       line-height: 1.41vw;

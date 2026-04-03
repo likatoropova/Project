@@ -17,7 +17,9 @@ body {
 }
 
 .title-section {
+  width: 31.25vw;
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-bottom: 56px;
 }
@@ -25,13 +27,10 @@ body {
 .workout-detail-cont {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   gap: 40px;
   margin-bottom: 80px;
-}
-
-.title-section button {
-    margin-right: 25vw;
 }
 
 .workout-detail-cont h1 {
@@ -39,7 +38,6 @@ body {
   font-size: 40px;
   line-height: 48px;
   color: #2A2A2A;
-  margin-right: 30vw;
 }
 
 .workout-detail-group {

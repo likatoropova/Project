@@ -115,8 +115,10 @@ const MaximumDefinitionPage = () => {
                         <button className="back-btn" onClick={handleBack}>
                             &lt;
                         </button>
-                        <h1>Определение максимума</h1>
-                        <p className="definition-exercise">{exerciseTitle}</p>
+                        <div>
+                            <h1>Определение максимума</h1>
+                            <p className="definition-exercise">{exerciseTitle}</p>
+                        </div>
                     </section>
 
                     <section className="definition-group">

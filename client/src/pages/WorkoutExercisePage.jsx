@@ -30,6 +30,8 @@ const WorkoutExercisePage = () => {
   const [completing, setCompleting] = useState(false);
   const [abandoning, setAbandoning] = useState(false);
   const [stopError, setStopError] = useState("");
+  
+  // Таймер
   const [timerState, setTimerState] = useState("work");
   const [timer, setTimer] = useState(420);
   const [timerActive, setTimerActive] = useState(true);
@@ -66,7 +68,25 @@ const WorkoutExercisePage = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  // Исправлено: нажатие на кнопку остановки - открываем модальное окно подтверждения
+  const getTimerInfo = () => {
+    switch (timerState) {
+      case "work":
+        return { text: "Время на подход", className: "timer-work" };
+      case "rest":
+        return { text: "Отдых после подхода", className: "timer-rest" };
+      case "completed":
+        return {
+          text: "Упражнение закончено! Оцените подход",
+          className: "timer-completed",
+        };
+      default:
+        return { text: "", className: "" };
+    }
+  };
+
+  const timerInfo = getTimerInfo();
+
+  // Нажатие на кнопку остановки - открываем модальное окно подтверждения
   const handleStopWorkout = () => {
     setShowStopModal(true);
   };
@@ -145,7 +165,6 @@ const WorkoutExercisePage = () => {
         const needsWeightInput = next_exercise?.needs_weight_input;
 
         if (all_exercises_completed) {
-          // Все упражнения выполнены - завершаем тренировку
           await handleCompleteWorkout();
         } else if (next_exercise) {
           if (needsWeightInput) {
@@ -190,23 +209,6 @@ const WorkoutExercisePage = () => {
     );
   }
 
-  const getTimerInfo = () => {
-    switch (timerState) {
-      case "work":
-        return { text: "Время на подход", className: "timer-work" };
-      case "rest":
-        return { text: "Отдых после подхода", className: "timer-rest" };
-      case "completed":
-        return {
-          text: "Упражнение закончено! Оцените подход",
-          className: "timer-completed",
-        };
-      default:
-        return { text: "", className: "" };
-    }
-  };
-
-  const timerInfo = getTimerInfo();
   const isStopDisabled = saving || completing || abandoning;
 
   return (
@@ -248,6 +250,7 @@ const WorkoutExercisePage = () => {
               <h1>Тренировка</h1>
             </div>
 
+            {/* Блок с таймером */}
             <div className="timer-container">
               <p className={`timer-label ${timerInfo.className}`}>
                 {timerInfo.text}
@@ -261,7 +264,7 @@ const WorkoutExercisePage = () => {
           <section className="workout-group">
             <p className="workout-exercise">{exercise.title}</p>
             <img
-              src={exercise.image || "/img/training-image.png"}
+              src={exercise.image ? `/storage/${exercise.image}` : "/img/training-image.png"}
               alt="workout"
               onError={(e) => {
                 e.target.src = "/img/training-image.png";
@@ -273,40 +276,33 @@ const WorkoutExercisePage = () => {
               {exercise.weight_used && ` с весом ${exercise.weight_used}кг`}
             </p>
 
+            {/* Блок с эмоциями - всегда виден */}
             <div className="feeling-of-exercise">
-              {timerState === "completed" ? (
-                <>
-                  <p>Как ощущался данный подход?</p>
-                  {error && <span className="field_error">{error}</span>}
-                  <div className="emotions">
-                    <button
-                      className={`emotion-btn ${selectedFeeling === "bad" ? "active" : ""}`}
-                      onClick={() => handleFeelingSelect("bad")}
-                      disabled={saving || completing}
-                    >
-                      <img src="/img/sad-emotion.svg" alt="плохо" />
-                    </button>
-                    <button
-                      className={`emotion-btn ${selectedFeeling === "normal" ? "active" : ""}`}
-                      onClick={() => handleFeelingSelect("normal")}
-                      disabled={saving || completing}
-                    >
-                      <img src="/img/normal-emotion.svg" alt="нормально" />
-                    </button>
-                    <button
-                      className={`emotion-btn ${selectedFeeling === "good" ? "active" : ""}`}
-                      onClick={() => handleFeelingSelect("good")}
-                      disabled={saving || completing}
-                    >
-                      <img src="/img/good-emotion.svg" alt="хорошо" />
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <div className="workout-instruction">
-                  <p>Выполняйте упражнение в течение отведенного времени</p>
-                </div>
-              )}
+              <p>Как ощущался данный подход?</p>
+              {error && <span className="field_error">{error}</span>}
+              <div className="emotions">
+                <button
+                  className={`emotion-btn ${selectedFeeling === "bad" ? "active" : ""}`}
+                  onClick={() => handleFeelingSelect("bad")}
+                  disabled={saving || completing}
+                >
+                  <img src="/img/sad-emotion.svg" alt="плохо" />
+                </button>
+                <button
+                  className={`emotion-btn ${selectedFeeling === "normal" ? "active" : ""}`}
+                  onClick={() => handleFeelingSelect("normal")}
+                  disabled={saving || completing}
+                >
+                  <img src="/img/normal-emotion.svg" alt="нормально" />
+                </button>
+                <button
+                  className={`emotion-btn ${selectedFeeling === "good" ? "active" : ""}`}
+                  onClick={() => handleFeelingSelect("good")}
+                  disabled={saving || completing}
+                >
+                  <img src="/img/good-emotion.svg" alt="хорошо" />
+                </button>
+              </div>
             </div>
           </section>
         </section>
