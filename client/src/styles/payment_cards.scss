@@ -1,0 +1,220 @@
+// src/styles/payment_cards.scss
+
+.user_cards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1448px;
+}
+
+.my_cards {
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(59, 163, 164, 0.6);
+  border-radius: 16px;
+  padding: 32px;
+  background: white;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.card_img_info {
+  display: flex;
+  width: 338px;
+  gap: 40px;
+  align-items: center;
+}
+
+.card_img {
+  height: 103px;
+  width: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card_info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.number_date_end {
+  display: flex;
+  gap: 12px;
+}
+
+.number_card {
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 18px;
+  color: rgba(42, 42, 42, 1);
+  margin: 0;
+}
+
+.card_date_end {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 18px;
+  color: rgba(114, 114, 114, 1);
+  margin: 0;
+}
+
+.card_user_name {
+  font-family: "Montserrat-Regular", sans-serif;
+  font-size: 16px;
+  color: rgba(42, 42, 42, 1);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.delete_select {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-end;
+}
+
+.delete_card {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: 1px solid rgba(76, 80, 80, 1);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(252, 125, 71, 0.1);
+    border-color: rgba(252, 125, 71, 0.8);
+    color: rgba(252, 125, 71, 0.8);
+  }
+}
+
+.select_card {
+  height: 48px;
+  width: 201px;
+  color: rgba(194, 194, 194, 0.6);
+  background-color: rgba(194, 194, 194, 0.1);
+  border: 1px solid rgba(194, 194, 194, 1);
+  border-radius: 12px;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(252, 125, 71, 0.1);
+    border-color: rgba(252, 125, 71, 0.8);
+    color: rgba(252, 125, 71, 0.8);
+  }
+
+  &.active {
+    color: white;
+    background-color: #E06F3F;
+    border-color: #E06F3F;
+
+    &:hover {
+      background-color: #d45f2c;
+    }
+  }
+}
+
+.add_card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid rgba(59, 163, 164, 0.6);
+  border-radius: 16px;
+  padding: 24px 0;
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 18px;
+  color: rgba(114, 114, 114, 1);
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #E06F3F;
+    background-color: rgba(252, 125, 71, 0.05);
+    color: #E06F3F;
+
+    img {
+      filter: brightness(0) saturate(100%) invert(54%) sepia(72%) saturate(2000%) hue-rotate(340deg);
+    }
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+// Адаптивность для мобильных устройств
+@media (max-width: 768px) {
+  .user_cards {
+    width: 100%;
+  }
+
+  .user_card {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .card_img_info {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .delete_select {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+
+    .select_card {
+      width: 180px;
+    }
+  }
+
+  .my_cards {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card_img_info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .number_date_end {
+    justify-content: center;
+  }
+
+  .delete_select {
+    flex-direction: column;
+    align-items: center;
+  }
+}

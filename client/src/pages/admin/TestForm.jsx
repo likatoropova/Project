@@ -145,7 +145,6 @@ const TestForm = () => {
 
                     response = await executeUpdateTest(id, formDataToSend);
                 } else {
-                    // Без картинки — обычный JSON
                     const updateData = {
                         title: formData.title,
                         description: formData.description,

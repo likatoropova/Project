@@ -1,0 +1,132 @@
+.profile-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.profile-container {
+  max-width: 1448px;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.profile_hello {
+  margin-bottom: 32px;
+
+  .hello {
+    font-size: 32px;
+    color: rgba(42, 42, 42, 1);
+    font-family: "Montserrat-Medium", sans-serif;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+.stats_user_info {
+  display: flex;
+  gap: 24px;
+}
+
+.profile_main {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.statistics_section {
+  width: 1080px;
+  height: 431px;
+  background: white;
+  border: 1px solid rgba(59, 163, 164, 0.5);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.stat-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+
+  button {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid #d8eded;
+    border-radius: 12px;
+    color: #595959;
+    font-family: "Montserrat-Regular", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover, &.active {
+      background: #d8eded;
+      color: #3ba3a4;
+      border-color: #3ba3a4;
+    }
+  }
+
+  .history_btn {
+    margin-left: auto;
+    background-color: rgba(252, 125, 71, 0.1);
+    color: rgba(252, 125, 71, 0.8);
+    border: 1px solid rgba(252, 125, 71, 0.8);
+
+    &:hover {
+      color: rgba(252, 125, 71, 0.6);
+      background-color: rgba(252, 125, 71, 0.3);
+      border-color: rgba(252, 125, 71, 1);
+    }
+  }
+}
+
+.profile-loading,
+.profile-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+
+  p {
+    font-size: 18px;
+    color: #595959;
+    font-family: "Montserrat-Regular", sans-serif;
+  }
+
+  button {
+    padding: 12px 32px;
+    background: #E06F3F;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: "Montserrat-SemiBold", sans-serif;
+
+    &:hover {
+      background: #c95d2f;
+    }
+  }
+}
+
+.profile-danger-zone {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+
+  .btn-delete-profile {
+    padding: 12px 32px;
+    background: transparent;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #dc3545;
+      color: white;
+    }
+  }
+}

@@ -68,7 +68,7 @@ const RevenueChart = ({ data, title }) => {
     const xAxisDataKey = getXAxisDataKey();
 
     return (
-        <div className="chart-container">
+        <div className="chart_container_admin">
             <h3>{title}</h3>
             <ResponsiveContainer width="100%" height={400}>
                 <BarChart

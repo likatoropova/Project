@@ -1,0 +1,354 @@
+.phase_user_parameters_delete_profile {
+  margin-top: 100px;
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  max-width: 1448px;
+}
+
+.phase_delete_profile {
+  display: flex;
+  flex-direction: column;
+  width: 264px;
+}
+
+.phase {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.current_phase {
+  margin: 0 0 8px 0;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: rgba(42, 42, 42, 1);
+}
+
+.phase_name {
+  margin: 0;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: rgba(42, 42, 42, 1);
+  border: 1px solid rgba(184, 182, 182, 1);
+  border-radius: 12px;
+  padding: 12px 24px;
+  text-align: center;
+}
+
+.recommendation {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 182px;
+}
+
+.training_per_week {
+  width: 209px;
+  margin: 0;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: rgba(42, 42, 42, 1);
+}
+
+.recommendation_training_per_week {
+  margin: 0;
+  font-family: "Montserrat-Regular", sans-serif;
+  color: rgba(42, 42, 42, 1);
+  border: 1px solid rgba(184, 182, 182, 1);
+  border-radius: 12px;
+  height: 24px;
+  text-align: center;
+  padding: 20px 15px;
+  width: fit-content;
+}
+
+.delete_profile {
+  border-radius: 8px;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: rgba(252, 125, 71, 0.1);
+  color: rgba(252, 125, 71, 0.8);
+  border: 1px solid rgba(252, 125, 71, 0.8);
+  width: 216px;
+  height: 48px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(252, 125, 71, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.user_parameters_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 44px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 0 3px rgba(59, 163, 164, 0.6);
+  padding: 28px 48px;
+  border: 1px solid #eaeaea;
+  flex: 1;
+}
+
+.user_parameters {
+  display: flex;
+  gap: 24px;
+}
+
+.goal_sex_age_weight_height {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 520px;
+}
+
+.user_goal {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+
+  select {
+    font-family: "Montserrat-Regular", sans-serif;
+    border: 1px solid rgba(194, 194, 194, 0.6);
+    border-radius: 10px;
+    color: rgba(114, 114, 114, 1);
+    padding: 12px 24px;
+    background: white;
+    cursor: pointer;
+
+    &:disabled {
+      background: #f5f5f5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.user_sex {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+}
+
+.radio_group {
+  display: flex;
+  width: 520px;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.radio_label {
+  font-family: "Montserrat-Regular", sans-serif;
+  border: 1px solid rgba(194, 194, 194, 0.6);
+  border-radius: 10px;
+  color: rgba(114, 114, 114, 1);
+  padding: 12px 0;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  input {
+    margin: 0;
+    cursor: pointer;
+  }
+
+  &:has(input:checked) {
+    background-color: rgba(252, 125, 71, 0.1);
+    border-color: rgba(252, 125, 71, 0.8);
+    color: rgba(252, 125, 71, 0.8);
+  }
+
+  &:has(input:disabled) {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.age_weight_height {
+  display: flex;
+  gap: 12px;
+}
+
+.user_age,
+.user_weight,
+.user_height {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+
+  input {
+    font-family: "Montserrat-Regular", sans-serif;
+    border: 1px solid rgba(194, 194, 194, 0.6);
+    border-radius: 10px;
+    color: rgba(114, 114, 114, 1);
+    padding: 12px 0;
+    width: 100%;
+    text-align: center;
+
+    &:disabled {
+      background: #f5f5f5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.equipment_level_training_count {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.equipment {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+
+  .radio_group {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+
+  select {
+    font-family: "Montserrat-Regular", sans-serif;
+    border: 1px solid rgba(194, 194, 194, 0.6);
+    border-radius: 10px;
+    color: rgba(114, 114, 114, 1);
+    padding: 12px 24px;
+    background: white;
+    cursor: pointer;
+
+    &:disabled {
+      background: #f5f5f5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.training_count {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-family: "Montserrat-Medium", sans-serif;
+    color: rgba(114, 114, 114, 1);
+    margin-bottom: 4px;
+  }
+
+  input {
+    font-family: "Montserrat-Regular", sans-serif;
+    border: 1px solid rgba(194, 194, 194, 0.6);
+    border-radius: 10px;
+    color: rgba(114, 114, 114, 1);
+    padding: 12px 0;
+    text-align: center;
+
+    &:disabled {
+      background: #f5f5f5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.confirm_params {
+  width: 287px;
+  height: 48px;
+  color: white;
+  background-color: rgba(252, 125, 71, 1);
+  border: none;
+  border-radius: 12px;
+  font-family: "Montserrat-SemiBold", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #d45f2c;
+    transform: translateY(-1px);
+  }
+}
+
+// Адаптивность
+@media (max-width: 1200px) {
+  .phase_user_parameters_delete_profile {
+    flex-direction: column;
+  }
+
+  .phase_delete_profile {
+    width: 100%;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .recommendation {
+    margin-bottom: 0;
+    flex: 1;
+  }
+
+  .user_parameters {
+    flex-direction: column;
+  }
+
+  .goal_sex_age_weight_height {
+    width: 100%;
+  }
+
+  .radio_group {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .user_parameters_form {
+    padding: 20px;
+  }
+
+  .age_weight_height {
+    flex-direction: column;
+  }
+
+  .equipment .radio_group {
+    flex-direction: column;
+  }
+
+  .confirm_params {
+    width: 100%;
+  }
+}

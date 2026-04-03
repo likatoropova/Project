@@ -134,7 +134,6 @@ const SubscriptionForm = () => {
                     formData.append('description', formData.description);
                     formData.append('price', parseFloat(formData.price));
                     formData.append('duration_days', parseInt(formData.duration_days));
-                    // ✅ ИСПРАВЛЕНИЕ: преобразуем в 1 или 0 вместо true/false
                     formData.append('is_active', formData.is_active ? 1 : 0);
                     formData.append('image', imageFile);
 

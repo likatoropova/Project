@@ -29,6 +29,7 @@ import WorkoutDetailsPage from './pages/WorkoutDetailsPage';
 import MaximumDefinitionPage from './pages/MaximumDefinitionPage';
 import WorkoutExercisePage from './pages/WorkoutExercisePage';
 import WorkoutWarmupPage from './pages/WorkoutWarmupPage';
+import Profile from './pages/Profile';
 
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import AdminLayout from './pages/admin/AdminLayout';
@@ -127,6 +128,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/restore-password" element={<RestorePassword />} />
             <Route path="/confirm-password" element={<ConfirmPassword />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/tests" element={<TestsPage />} />
             <Route path="/test/:id" element={<TestChoice />} />
             <Route path="/test-plan" element={<TestPlan />} />

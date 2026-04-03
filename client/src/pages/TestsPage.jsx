@@ -271,7 +271,7 @@ const TestsPage = () => {
             <Header />
             <main className="main_container">
                 <section className="hero">
-                    <h1>Тесты</h1>
+                    <h1 className="naming">Тесты</h1>
                     <p>
                         Всего несколько быстрых тестов помогут подобрать безопасные
                         и эффективные упражнения для Вашего уровня подготовки.

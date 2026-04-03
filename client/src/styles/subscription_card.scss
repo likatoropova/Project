@@ -1,0 +1,166 @@
+.subscription_profile {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  max-width: 1448px;
+  margin-bottom: 100px;
+  margin-top: 118px;
+}
+
+.card_sub_container_profile {
+  display: flex;
+  flex-direction: column;
+  gap: 84px;
+}
+
+.subscription_card_profile {
+  display: flex;
+  border-radius: 10px;
+  background-color: white;
+  padding: 0 20px 36px 20px;
+  height: 340px;
+  width: 672px;
+  box-shadow: 0 0 3px rgba(59, 163, 164, 0.6);
+  position: relative;
+
+  > img {
+    width: 300px;
+    height: 375px;
+    margin-top: -39px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+.description_sub_profile {
+  display: flex;
+  flex-direction: column;
+  max-width: 370px;
+  margin-top: -100px;
+
+  .count_profile {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 32px;
+    margin-left: 28px;
+    margin-bottom: 16px;
+    color: #E06F3F;
+  }
+
+  .month_profile {
+    font-family: "Montserrat-Thin", sans-serif;
+    font-size: 214px;
+    margin: 0;
+    line-height: 0.9;
+    color: #333;
+
+    span {
+      font-family: "Montserrat-Light", sans-serif;
+      font-size: 36px;
+      margin-left: 8px;
+    }
+  }
+
+  ul {
+    font-family: "Montserrat-Regular", sans-serif;
+    margin: 0;
+    padding: 0 28px;
+    line-height: 24px;
+    list-style: disc;
+
+    li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.4;
+      color: #666;
+    }
+
+    li::marker {
+      font-size: 10px;
+      color: #E06F3F;
+    }
+  }
+}
+
+.subscription_validity {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .date_of_end {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 32px;
+    color: rgba(42, 42, 42, 1);
+    margin: 0 0 8px 0;
+
+    span {
+      color: rgba(59, 163, 164, 1);
+    }
+  }
+
+  .end_date {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 24px;
+    color: rgba(42, 42, 42, 1);
+    margin: 0 0 8px 0;
+  }
+
+  .days-left {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 16px;
+    color: #E06F3F;
+    margin-bottom: 16px;
+  }
+
+  .price_sub {
+    margin: 24px 0;
+
+    .price_price {
+      font-family: "Montserrat-SemiBold", sans-serif;
+      font-size: 32px;
+      color: #E06F3F;
+      margin: 0;
+    }
+  }
+
+  .subscription_actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    button {
+      width: 100%;
+      max-width: 712px;
+      height: 48px;
+      border-radius: 12px;
+      font-family: "Montserrat-Medium", sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    .btn_renew {
+      background-color: rgba(252, 125, 71, 1);
+      color: white;
+      border: none;
+
+      &:hover {
+        background-color: #d45f2c;
+        box-shadow: 0 4px 12px rgba(224, 111, 63, 0.3);
+      }
+    }
+
+    .btn_cancel {
+      background-color: rgba(252, 125, 71, 0.1);
+      color: rgba(252, 125, 71, 0.8);
+      border: 1px solid rgba(252, 125, 71, 0.8);
+
+      &:hover {
+        background-color: rgba(252, 125, 71, 0.2);
+      }
+    }
+  }
+}

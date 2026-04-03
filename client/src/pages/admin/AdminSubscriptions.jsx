@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AdminPageHeader from '../../components/admin/AdminPageHeader';
 import { useSubscriptions } from '../../hooks/admin/useSubscriptions';
@@ -20,6 +20,16 @@ const AdminSubscriptions = () => {
         formatDate,
         formatPrice
     } = useSubscriptions();
+
+    useEffect(() => {
+        console.log('loading:', loading);
+        console.log('error:', error);
+        console.log('subscriptions array:', subscriptions);
+        console.log('subscriptions length:', subscriptions?.length);
+        console.log('meta:', meta);
+        console.log('searchQuery:', searchQuery);
+        console.log('currentPage:', currentPage);
+    }, []);
 
     const handleCreateSubscription = () => {
         navigate('/admin/subscriptions/create');
@@ -51,6 +61,7 @@ const AdminSubscriptions = () => {
                     <p className="subs_description">{subscription.description}</p>
                     <p className="subs_created_at">{formatDate(subscription.created_at)}</p>
                 </div>
+
             </div>
             <div className="but_cont">
                 <button className="edit" onClick={() => handleEditSubscription(subscription.id)}>
@@ -61,7 +72,15 @@ const AdminSubscriptions = () => {
                 </button>
             </div>
         </div>
-    );
+
+    )
+    console.log('loading:', loading);
+    console.log('error:', error);
+    console.log('subscriptions array:', subscriptions);
+    console.log('subscriptions length:', subscriptions?.length);
+    console.log('meta:', meta);
+    console.log('searchQuery:', searchQuery);
+    console.log('currentPage:', currentPage);
 
     const renderPagination = () => {
         if (meta.last_page <= 1) return null;

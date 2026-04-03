@@ -1,0 +1,70 @@
+modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal_content_delet {
+  background-color: white;
+  border-radius: 16px;
+  padding: 64px ;
+  width: 90%;
+  height: 308px;
+  max-width: 614px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+
+  h3 {
+    margin-bottom: 56px;
+    font-family: "Montserrat-Medium", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: rgba(42, 42, 42, 1);
+  }
+
+  .modal_actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+
+    button {
+      width: 236px;
+      height: 48px;
+      border-radius: 8px;
+      font-family: "Montserrat-Medium", sans-serif;
+      cursor: pointer;
+
+      &.cancel_btn {
+        background-color: rgba(252, 125, 71, 0.1);
+        border: 1px solid rgba(252, 125, 71, 0.8);
+        color: rgba(252, 125, 71, 0.8);
+
+        &:hover {
+          background-color: #eee;
+        }
+      }
+
+      &.submit_btn {
+        background-color: #E06F3F;
+        border: none;
+        color: white;
+
+        &:hover {
+          background-color: #d45f2c;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

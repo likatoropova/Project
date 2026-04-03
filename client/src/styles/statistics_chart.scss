@@ -1,0 +1,128 @@
+.statistics-chart {
+  .chart-wrapper {
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      h3 {
+        font-size: 20px;
+        color: #000;
+        font-family: "Montserrat-SemiBold", sans-serif;
+        margin: 0;
+      }
+
+      .chart-info, .period-label, .workout-date {
+        color: #898989;
+        font-size: 14px;
+        font-family: "Montserrat-Regular", sans-serif;
+      }
+
+      .average-score {
+        background: #d8eded;
+        padding: 4px 12px;
+        border-radius: 20px;
+        color: #3ba3a4;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .chart-empty {
+    text-align: center;
+    padding: 40px;
+    color: #898989;
+    font-family: "Montserrat-Regular", sans-serif;
+    background: #f9f9f9;
+    border-radius: 12px;
+  }
+
+  .chart-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #eaeaea;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .label {
+        font-size: 12px;
+        color: #898989;
+        font-family: "Montserrat-Regular", sans-serif;
+      }
+
+      .value {
+        font-size: 20px;
+        color: #000;
+        font-family: "Montserrat-SemiBold", sans-serif;
+      }
+    }
+  }
+
+  .trend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .trend-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: #f9f9f9;
+      border-radius: 12px;
+
+      .trend-exercise-info {
+        h4 {
+          font-size: 16px;
+          color: #000;
+          margin: 0 0 4px 0;
+          font-family: "Montserrat-SemiBold", sans-serif;
+        }
+
+        .exercise-details {
+          font-size: 14px;
+          color: #898989;
+          margin: 0;
+          font-family: "Montserrat-Regular", sans-serif;
+        }
+      }
+
+      .trend-score {
+        text-align: right;
+
+        .score-badge {
+          display: inline-block;
+          padding: 6px 16px;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 14px;
+          margin-bottom: 4px;
+
+          &.excellent { background: #28a745; color: white; }
+          &.good { background: #17a2b8; color: white; }
+          &.normal { background: #ffc107; color: #000; }
+          &.poor { background: #dc3545; color: white; }
+        }
+
+        .score-label {
+          font-size: 12px;
+          color: #898989;
+          font-family: "Montserrat-Regular", sans-serif;
+        }
+      }
+    }
+  }
+}

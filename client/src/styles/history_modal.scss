@@ -1,0 +1,98 @@
+.history_modal {
+  max-width: 469px;
+  width: 90%;
+  min-height: 206px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px ;
+
+  .history_tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 23px;
+
+    button {
+      border: 1px solid rgba(194, 194, 194, 0.6);
+      border-radius: 12px;
+      background-color: white;
+      padding: 12px 24px;
+      color: rgba(42, 42, 42, 1);
+      cursor: pointer;
+      font-family: "Montserrat-Regular", sans-serif;
+
+      &:hover, &.active {
+        border-color: rgba(252, 125, 71, 0.8);
+      }
+    }
+  }
+
+  .history-content {
+    flex: 1;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d8eded;
+      border-radius: 4px;
+    }
+  }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .history-item {
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+
+      .workout_name {
+        font-size: 16px;
+        color: #000;
+        margin: 0;
+        font-family: "Montserrat-Regular", sans-serif;
+      }
+
+      .duration, .pulse {
+        font-size: 14px;
+        color: #3ba3a4;
+        font-weight: 500;
+      }
+    }
+
+    .item-details {
+      p {
+        font-size: 14px;
+        font-family: "Montserrat-Regular", sans-serif;
+        color: #000;
+        margin: 4px 0;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #898989;
+    font-family: "Montserrat-Regular", sans-serif;
+  }
+}
