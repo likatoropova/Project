@@ -1,56 +1,54 @@
 .stop_btn {
-    display: flex;
-    justify-content: center;
-    background-color: #FFFFFF;
-    border: 1px solid #4C5050;
-    border-radius: 6px;
-    padding: 7px;
-    cursor: pointer;
-    z-index: 1;
+  display: flex;
+  justify-content: center;
+  background-color: #FFFFFF;
+  border: 1px solid #4C5050;
+  border-radius: 6px;
+  padding: 7px;
+  cursor: pointer;
+  z-index: 1;
 }
 
 .stop_btn:hover {
-    border: 1px solid #3BA3A4;
+  border: 1px solid #3BA3A4;
 }
 
-.stop-img:hover path{
-    fill: #3BA3A4;
+.stop-img:hover path {
+  fill: #3BA3A4;
 }
 
 .stop_btn:active {
-    border: 1px solid #89C8C8;
+  border: 1px solid #89C8C8;
 }
 
-
-.stop-img:active path{
-    fill: #89C8C8;
+.stop-img:active path {
+  fill: #89C8C8;
 }
 
 .back_button {
-    display: flex;
-    justify-content: center;
-    width: 2.08vw;
-    height: 2.08vw;
-    border: 1px solid #4C5050;
-    border-radius: 6px;
-    padding: 7px;
-    background: #FFFFFF;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 2.08vw;
+  height: 2.08vw;
+  border: 1px solid #4C5050;
+  border-radius: 6px;
+  padding: 7px;
+  background: #FFFFFF;
+  align-items: center;
 }
 
 .back_button:hover {
-    border: 1px solid #3BA3A4;
+  border: 1px solid #3BA3A4;
 }
 
-.back-img:hover path{
-    stroke: #3BA3A4;
+.back-img:hover path {
+  stroke: #3BA3A4;
 }
 
 .back_button:active {
-    border: 1px solid #89C8C8;
+  border: 1px solid #89C8C8;
 }
 
-
-.back-img:active path{
-    stroke: #89C8C8;
+.back-img:active path {
+  stroke: #89C8C8;
 }

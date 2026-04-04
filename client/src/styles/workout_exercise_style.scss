@@ -1,6 +1,9 @@
+@use '../styles/globals.scss';
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -17,15 +20,11 @@ body {
 }
 
 .workout-cont {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
 }
 
 .head-workout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
   margin-bottom: 2.92vw;
   width: 100%;
 
@@ -34,9 +33,7 @@ body {
   }
 
   > div:not(.timer-container) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @apply flex items-center justify-center;
     width: 100%;
     max-width: 800px;
     margin-bottom: 1vw;
@@ -49,7 +46,7 @@ body {
   }
 
   h1 {
-    font-family: "Montserrat-SemiBold", sans-serif;
+    font-family: 'Montserrat-SemiBold', sans-serif;
     font-size: 2.08vw;
     line-height: 2.50vw;
     margin-bottom: 0.83vw;
@@ -60,17 +57,6 @@ body {
       font-size: 28px;
       line-height: 36px;
       margin-bottom: 15px;
-    }
-  }
-
-  p {
-    font-family: "Montserrat-Medium", sans-serif;
-    font-size: 0.94vw;
-    line-height: 1.41vw;
-
-    @media (max-width: 768px) {
-      font-size: 16px;
-      line-height: 24px;
     }
   }
 }
@@ -85,28 +71,20 @@ body {
   animation: spin 0.7s linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
 .stop_btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFFFFF;
+  @apply flex justify-center items-center bg-white cursor-pointer;
   border: 1px solid #4C5050;
   border-radius: 6px;
   padding: 7px;
-  cursor: pointer;
   z-index: 1;
   transition: all 0.3s;
 
   &:hover {
-    border: 1px solid #3BA3A4;
+    border-color: #3BA3A4;
   }
 
   &:active {
-    border: 1px solid #89C8C8;
+    border-color: #89C8C8;
   }
 
   svg {
@@ -127,22 +105,20 @@ body {
 }
 
 .timer-container {
-  display: flex;
-  justify-content: space-evenly;
-  text-align: center;
+  @apply flex justify-evenly text-center;
   margin-top: 10px;
   width: 18.28vw;
 }
 
 .timer-label {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-size: 20px;
   color: #666;
   margin-bottom: 5px;
 }
 
 .timer-value {
-  font-family: "Montserrat-Medium", sans-serif;
+  font-family: 'Montserrat-Medium', sans-serif;
   font-size: 24px;
   color: #FC7D47;
 
@@ -158,16 +134,14 @@ body {
   border-radius: 12px;
 
   p {
-    font-family: "Montserrat-Medium", sans-serif;
+    font-family: 'Montserrat-Medium', sans-serif;
     font-size: 16px;
     color: #666;
   }
 }
 
 .workout-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
   gap: 0.73vw;
 
   @media (max-width: 768px) {
@@ -182,7 +156,7 @@ body {
 }
 
 .workout-exercise {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-size: 0.94vw;
   line-height: 1.41vw;
 
@@ -193,7 +167,7 @@ body {
 }
 
 .description-exercise {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-size: 0.83vw;
   line-height: 1.25vw;
   width: 17.92vw;
@@ -207,9 +181,7 @@ body {
 }
 
 .feeling-of-exercise {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
   gap: 0.83vw;
   margin-top: 2.08vw;
 
@@ -219,7 +191,7 @@ body {
   }
 
   p {
-    font-family: "Montserrat-Regular", sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     font-size: 0.73vw;
     line-height: 1.09vw;
 
@@ -231,9 +203,7 @@ body {
 }
 
 .emotions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  @apply flex flex-row justify-between;
   width: 14.17vw;
   gap: 20px;
 
@@ -280,16 +250,6 @@ body {
   }
 }
 
-.field_error {
-  color: #dc3545;
-  font-size: 0.73vw;
-  text-align: center;
-
-  @media (max-width: 768px) {
-    font-size: 12px;
-  }
-}
-
 .bg-left {
   position: absolute;
   top: auto;
@@ -318,45 +278,5 @@ body {
   @media (max-width: 768px) {
     width: 50%;
     display: none;
-  }
-}
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
-.spinner {
-  font-family: "Montserrat-Regular", sans-serif;
-  font-size: 1.2rem;
-  color: #666;
-}
-
-.error-container {
-  text-align: center;
-  padding: 60px 20px;
-
-  p {
-    font-family: "Montserrat-Regular", sans-serif;
-    font-size: 1rem;
-    color: #721c24;
-    margin-bottom: 20px;
-  }
-
-  button {
-    padding: 10px 24px;
-    background-color: #FC7D47;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: "Montserrat-SemiBold", sans-serif;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #FF9B65;
-    }
   }
 }

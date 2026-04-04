@@ -1,22 +1,4 @@
-@keyframes pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    box-shadow: 0 0 0 0 rgba(212, 170, 248, 0.4);
-  }
-  70% {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 0 0 10px rgba(212, 170, 248, 0);
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    box-shadow: 0 0 0 0 rgba(212, 170, 248, 0);
-  }
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
+@use '../styles/globals.scss';
 
 .pers_param_main {
   @apply flex justify-center bg-no-repeat bg-center;
@@ -24,10 +6,6 @@
   background-size: 100vw 80vh;
   width: 85vw;
   height: 78vh;
-}
-
-.hero-pers-param img {
-  @apply block;
 }
 
 .hero-pers-goal {
@@ -47,9 +25,8 @@
   color: rgba(194, 194, 194, 0.6);
 
   &.active {
-    @apply opacity-100;
+    @apply opacity-100 animate-pulse;
     background-color: rgba(194, 194, 194, 0.6);
-    animation: pulse 1.5s infinite;
   }
 }
 
@@ -78,7 +55,7 @@
 
   h1 {
     font-size: 40px;
-    font-family: "Montserrat-Medium", sans-serif;
+    font-family: 'Montserrat-Medium', sans-serif;
     @apply text-left;
     width: 20.36vw;
   }
@@ -95,14 +72,14 @@
 
   > legend {
     font-size: 24px;
-    font-family: "Montserrat-Regular", sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     @apply text-center;
     margin-bottom: 2.22vh;
   }
 }
 
 .radio_choice {
-  @apply flex justify-center cursor-pointer;
+  @apply flex justify-center cursor-pointer mb-5;
   transition: all 0.3s ease;
   padding: 1.48vh 1.25vw;
   border: 1px solid #E4E4E4;
@@ -110,7 +87,7 @@
 
   > label {
     font-size: 16px;
-    font-family: "Montserrat-Regular", sans-serif;
+    font-family: 'Montserrat-Regular', sans-serif;
     line-height: 24px;
   }
 
@@ -125,18 +102,4 @@
   > input {
     appearance: none;
   }
-}
-
-.butn-param {
-  width: 40vw;
-  margin-top: 3.33vh;
-  margin-bottom: 6.3vh;
-  padding: 1.11vh 0;
-  border-radius: 12px;
-  @apply border-none;
-  font-size: 16px;
-  line-height: 24px;
-  @apply text-white;
-  background-color: #FC7D47;
-  font-family: "Montserrat-SemiBold", sans-serif;
 }

@@ -1,8 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@use '../styles/globals.scss';
 
 .main {
   position: relative;
@@ -11,33 +7,7 @@
 }
 
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.back-btn {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 8px 16px;
-  background: #FFFFFF;
-  cursor: pointer;
-  font-size: 18px;
-  transition: all 0.3s;
-  text-decoration: none;
-  color: #333;
-  margin-right: 40px;
-  width: 50px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12vw;
-}
-
-.back-btn:hover {
-  background: #f5f5f5;
-  border-color: #999;
+  @apply flex flex-col items-center;
 }
 
 .title-work {
@@ -48,13 +18,13 @@
   h1 {
     width: 13.80vw;
     margin-right: 27vw;
-    font-family: "Montserrat-SemiBold";
+    font-family: 'Montserrat-SemiBold', sans-serif;
     font-size: 40px;
   }
 }
 
 .head p {
-  font-family: "Montserrat-Medium", sans-serif;
+  font-family: 'Montserrat-Medium', sans-serif;
   font-size: 0.94vw;
   line-height: 1.41vw;
   width: 34.22vw;
@@ -62,48 +32,46 @@
 }
 
 .search_training {
-    margin-top: 2.92vw;
-    margin-bottom: 1.25vw;
-    margin-left: 13.02vw;
-    width: 27.50vw;
-}
+  margin-top: 2.92vw;
+  margin-bottom: 1.25vw;
+  margin-left: 13.02vw;
+  width: 27.50vw;
 
-.search_training > div {
-  position: relative;
+  > div {
+    position: relative;
     padding: 0.42vw 0.63vw;
-}
 
-.search_training > div img {
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    z-index: 10;
-    cursor: pointer;
-}
+    img {
+      position: absolute;
+      top: 20px;
+      left: 25px;
+      z-index: 10;
+      cursor: pointer;
+    }
 
-.search_training div input {
-  width: 100%;
-  padding: 12px 20px 12px 55px;
-  border: 1px solid #B8B6B6;
-  border-radius: 30px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.3s;
-  
-  &:focus {
-    border-color: #FC7D47;
-  }
-  
-  &::placeholder {
-    color: #999;
-    font-size: 14px;
+    input {
+      width: 100%;
+      padding: 12px 20px 12px 55px;
+      border: 1px solid #B8B6B6;
+      border-radius: 30px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #FC7D47;
+      }
+
+      &::placeholder {
+        color: #999;
+        font-size: 14px;
+      }
+    }
   }
 }
 
 .trainings_container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  @apply flex flex-wrap justify-center;
   gap: 20px;
   max-width: 75.42vw;
   width: 100%;
@@ -112,42 +80,38 @@
 }
 
 .training_card {
-  display: flex;
+  @apply flex relative bg-white cursor-pointer;
   width: calc(50% - 10px);
   max-width: 37.08vw;
-  background: #FFFFFF;
   border-radius: 16px;
   box-shadow: 0 0 4px 0 #3BA3A466;
   padding: 1.46vw 1.25vw;
-  position: relative;
   margin-bottom: 24px;
-  cursor: pointer;
-}
 
-.training_card img {
-  width: 13.33vw;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-right: 28px;
-}
+  img {
+    width: 13.33vw;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 28px;
+  }
 
-.training_card > div {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
+  > div {
+    flex: 1;
+    @apply flex flex-col;
 
-.training_card > div > h2 {
-  font-family: "Montserrat-Medium", sans-serif;
-  font-size: 24px;
-  line-height: 28px;
-  font-weight: 500;
-  margin-bottom: 4px;
-  color: #2A2A2A;
+    > h2 {
+      font-family: 'Montserrat-Medium', sans-serif;
+      font-size: 24px;
+      line-height: 28px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #2A2A2A;
+    }
+  }
 }
 
 .time {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;
   line-height: 24px;
   text-align: right;
@@ -155,15 +119,8 @@
   color: #666;
 }
 
-.phase {
-  font-family: "Montserrat-Medium", sans-serif;
-  font-size: 14px;
-  color: #FC7D47;
-  margin-bottom: 8px;
-}
-
 .description-training {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -175,27 +132,17 @@
   overflow: hidden;
 }
 
-.training_card > div button {
-  align-self: flex-end;
-  padding: 12px 32px;
-  border: none;
-  border-radius: 12px;
-  font-family: "Montserrat-SemiBold", sans-serif;
-  font-size: 14px;
-  line-height: 21px;
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: all 0.3s;
-  margin-top: auto;
-}
-
 .start-btn {
+  @apply w-36 px-8 py-3 text-white font-montserrat-semi-bold ml-[13.96vw] mt-16;
+  font-size: 0.83vw;
+  line-height: 1.25vw;
+  border-radius: 12px;
   background-color: #FC7D47;
-  
+
   &:hover {
     background-color: #FF9B65;
   }
-  
+
   &:active {
     background-color: #E86A36;
   }
@@ -203,93 +150,12 @@
 
 .continue-btn {
   background-color: #3BA3A4;
-  
+
   &:hover {
     background-color: #4FB5B6;
   }
-  
+
   &:active {
     background-color: #2A8A8B;
   }
-}
-
-.no-results {
-  text-align: center;
-  padding: 60px 20px;
-  
-  p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .clear-search-btn {
-    background: none;
-    border: 1px solid #FC7D47;
-    color: #FC7D47;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s;
-    
-    &:hover {
-      background: #FC7D47;
-      color: white;
-    }
-  }
-}
-
-.empty-state {
-  text-align: center;
-  padding: 80px 20px;
-  
-  p {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  .browse-btn {
-    padding: 15px 40px;
-    background-color: #FC7D47;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    
-    &:hover {
-      background-color: #FF9B65;
-    }
-  }
-}
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
-.spinner {
-  font-size: 18px;
-  color: #666;
-}
-
-.back {
-  position: absolute;
-  right: 0;
-  bottom: -150px;
-  z-index: -1;
-  opacity: 0.6;
-  pointer-events: none;
-  width: 300px;
-}
-
-.error_message {
-  margin: 20px auto;
-  max-width: 600px;
 }

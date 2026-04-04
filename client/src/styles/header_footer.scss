@@ -1,6 +1,4 @@
-a {
-  @apply no-underline;
-}
+@use '../styles/globals.scss';
 
 header {
   @apply flex items-center justify-between;
@@ -36,15 +34,15 @@ header {
     color: #484646;
     @apply no-underline;
     font-size: 16px;
-    font-family: "Montserrat-Bold", sans-serif;
-  }
+    font-family: 'Montserrat-Bold', sans-serif;
 
-  a:hover {
-    color: #FC7D47;
-  }
+    &:hover {
+      color: #FC7D47;
+    }
 
-  a:active {
-    color: #FF9B65;
+    &:active {
+      color: #FF9B65;
+    }
   }
 }
 
@@ -61,7 +59,7 @@ header {
     font-size: 16px;
     @apply border-none;
     border-radius: 12px;
-    font-family: "Montserrat-SemiBold", sans-serif;
+    font-family: 'Montserrat-SemiBold', sans-serif;
 
     &:hover {
       background-color: #FF9B65;
@@ -76,17 +74,6 @@ header {
   }
 }
 
-.back-to-admin {
-  background-color: rgba(252, 125, 71, 1);
-  line-height: 24px;
-  padding: 10px 24px;
-  color: #FEFEFE;
-  font-size: 16px;
-  border: none;
-  border-radius: 12px;
-  font-family: "Montserrat Alternates-SemiBold", sans-serif;
-}
-
 .second_button {
   line-height: 24px;
   padding: 1.11vh 1.67vw;
@@ -94,7 +81,7 @@ header {
   border: 1px solid #FC7D47CC;
   color: #FC7D47CC;
   border-radius: 12px;
-  font-family: "Montserrat-SemiBold", sans-serif;
+  font-family: 'Montserrat-SemiBold', sans-serif;
 
   &:hover {
     background-color: #FC7D474D;
@@ -121,7 +108,7 @@ footer {
   @apply flex flex-col;
   gap: 1rem;
   width: 16vw;
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
 
   a {
     @apply no-underline text-black;
@@ -145,7 +132,7 @@ footer {
     gap: 0.42vw;
 
     > p {
-      font-family: "Montserrat-Regular", sans-serif;
+      font-family: 'Montserrat-Regular', sans-serif;
       font-size: 18px;
     }
   }

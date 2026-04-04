@@ -1,39 +1,26 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@use '../styles/globals.scss';
 
 .main-subbscriptions {
   @apply relative;
 }
 
 .title-sub {
-  @apply flex justify-center;
-  gap: 28.85vw;
-  margin-top: 9.26vh;
-  margin-bottom: 4.79vw;
-  align-items: center;
+  @apply flex justify-center items-center gap-[28.85vw] mt-[9.26vh] mb-[4.79vw];
 
   h1 {
-    width: 27vw;
-    margin-right: 15vw;
-    font-family: "Montserrat-SemiBold";
+    @apply w-[27vw] mr-[15vw] font-montserrat-semi-bold;
     font-size: 40px;
   }
 }
 
 .subscriptions-catalog {
-  @apply flex flex-wrap justify-center;
-  gap: 1.25vw;
+  @apply flex flex-wrap justify-center gap-[1.25vw];
 
   > article {
-    @apply flex relative bg-white;
-    width: 35vw;
-    height: 39.72vh;
+    @apply flex relative bg-white w-[35vw] h-[39.72vh] mb-[2.22vh];
     border-radius: 16px;
     box-shadow: 0 0 4px 0 rgba(59, 163, 164, 0.6);
     padding: 0 1.04vw 3.33vh;
-    margin-bottom: 2.22vh;
   }
 }
 
@@ -50,57 +37,52 @@
 }
 
 .info {
-  margin-left: 1.04vw;
-  @apply flex flex-col justify-evenly relative;
-  width: 50vw;
+  @apply flex flex-col justify-evenly relative w-[50vw] ml-[1.04vw];
 
   div {
     @apply absolute;
-    top: -7.41vh;
+    top: -10vh;
 
     h2 {
-      font-family: "Montserrat-Thin", sans-serif;
+      @apply font-montserrat-thin w-[9.9vw] h-[15.83vh];
       font-size: 160pt;
       font-weight: 250;
-      width: 9.9vw;
-      height: 15.83vh;
 
       span {
-        font-family: "Montserrat-Light", sans-serif;
+        @apply font-montserrat-light;
         font-size: 36px;
       }
     }
   }
 
   p {
-    margin-top: 14.81vh;
-    font-family: "Montserrat-SemiBold", sans-serif;
+    @apply font-montserrat-semi-bold mt-[14.81vh];
     font-size: 32px;
   }
 
   ul {
-    width: 17.66vw;
-  }
+    width: 23.44vw;
 
-  ul li {
-    font-family: "Montserrat-Regular", sans-serif;
-    font-size: 0.83vw;
+    li {
+      @apply font-montserrat-regular;
+      font-size: 0.83vw;
+    }
   }
 }
 
 .image-wrapper {
-  width: 15.57vw;
+  width: 20.83vw;
 
   > img {
-    width: 15.57vw;
+    width: 20.83vw;
     height: 34.72vh;
   }
 }
 
 .subscription-card > div:nth-of-type(2) {
   @apply absolute;
-  top: -30px;
-  right: 20px;
+  top: -60px;
+  right: -100px;
 }
 
 .bg-l,

@@ -1,24 +1,24 @@
-* {
-  margin: 0;
-  padding: 0;
-}
+@use '../styles/globals.scss';
 
 .pers_param_main {
   @apply flex justify-center bg-no-repeat bg-center;
   background-image: url(../img/bg-pers-param.png);
-  background-size: 100% 80%;
+  background-size: 100vw 80vh;
   width: 85vw;
   height: 78vh;
 }
 
 .hero-pers-param {
+  @apply flex;
+  margin-right: 10vw;
+  margin-bottom: 2vh;
+
   button {
     @apply flex items-center justify-center bg-white cursor-pointer;
     border: 1px solid #4C5050;
     width: 2.08vw;
     height: 3.7vh;
     border-radius: 6px;
-    margin-top: 5.19vh;
   }
 
   img {
@@ -27,9 +27,12 @@
 }
 
 .content-section {
+  @apply flex flex-col justify-center;
+  width: 35vw;
+
   h1 {
     font-size: 40px;
-    font-family: "Montserrat-Medium", sans-serif;
+    font-family: 'Montserrat-Medium', sans-serif;
     @apply text-left;
     width: 20.36vw;
   }
@@ -37,57 +40,18 @@
 
 .form_container_level {
   padding: 6.3vh 2.5vw 3.7vh;
-  width: 45vw;
-  margin-top: 5.19vh;
-  margin-left: 5.21vw;
   box-shadow: 0 0 3px 0px #3BA3A499;
   border-radius: 20px;
-  @apply bg-white;
+  @apply bg-white mt-[5.19vh] ml-[5.21vw] w-[45vw];
 
   > h2 {
     font-size: 24px;
-    font-family: "Montserrat-Regular", sans-serif;
-    @apply text-center;
+    font-family: 'Montserrat-Regular', sans-serif;
+    @apply text-center mb-6;
     font-weight: 400;
   }
-}
 
-.radio_choice {
-  @apply flex justify-center cursor-pointer;
-  transition: all 0.3s ease;
-  padding: 1.48vh 1.25vw;
-  margin-top: 1.85vh;
-  border: 1px solid #E4E4E4;
-  border-radius: 12px;
-
-  &:hover {
-    border: 1px solid rgba(252, 125, 71, 0.4);
+  >div {
+    @apply mb-5;
   }
-
-  &.active {
-    border: 1px solid rgba(252, 125, 71, 0.8);
-  }
-
-  > input {
-    appearance: none;
-  }
-
-  > label {
-    font-size: 16px;
-    font-family: "Montserrat-Regular", sans-serif;
-  }
-}
-
-.butn-param {
-  width: 40vw;
-  margin-top: 3.33vh;
-  margin-bottom: 6.3vh;
-  padding: 1.11vh 0;
-  border-radius: 12px;
-  @apply border-none;
-  font-size: 16px;
-  line-height: 24px;
-  @apply text-white;
-  background-color: #FC7D47;
-  font-family: "Montserrat-SemiBold", sans-serif;
 }

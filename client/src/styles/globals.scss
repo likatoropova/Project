@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Montserrat-Regular';
+  src: url('../../public/fonts/Montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Medium';
+  src: url('../../public/fonts/Montserrat/Montserrat-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-SemiBold';
+  src: url('../../public/fonts/Montserrat/Montserrat-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Bold';
+  src: url('../../public/fonts/Montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-ExtraBold';
+  src: url('../../public/fonts/Montserrat/Montserrat-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Thin';
+  src: url('../../public/fonts/Montserrat/Montserrat-Thin.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-Light';
+  src: url('../../public/fonts/Montserrat/Montserrat-Light.ttf');
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat-Regular', sans-serif;
+    z-index: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    -webkit-text-fill-color: black;
+  }
+}
+
+@layer components {
+  // Общие компоненты
+  .main_auth {
+    @apply flex justify-center;
+    height: 74vh;
+  }
+
+  .back {
+    @apply absolute;
+    right: 0;
+    bottom: 4.63vh;
+    z-index: -1;
+  }
+
+  .back_button {
+    @apply flex items-center justify-center bg-white cursor-pointer;
+    border: 1px solid #4C5050;
+    width: 2.08vw;
+    height: 3.7vh;
+    border-radius: 6px;
+    transition: all 0.3s;
+
+    &:hover {
+      border-color: #3BA3A4;
+    }
+
+    &:active {
+      border-color: #89C8C8;
+    }
+  }
+
+  .error_message {
+    @apply text-center;
+    color: #721c24;
+    padding: 1.11vh 0.63vw;
+    margin-bottom: 1.85vh;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+  }
+
+  .field_error {
+    @apply block;
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 0.46vh;
+  }
+
+  input.error,
+  .password_group > input.error {
+    border-color: #dc3545 !important;
+  }
+
+  // Кнопки
+  .btn-primary {
+    @apply border-none rounded-xl text-white cursor-pointer transition-all duration-300;
+    background-color: #FC7D47;
+    font-family: 'Montserrat-SemiBold', sans-serif;
+
+    &:hover {
+      background-color: #FF9B65;
+    }
+
+    &:active {
+      border: 1px solid #FC7D47CC;
+      color: #FC7D47;
+      background-color: #FC7D4766;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .btn-secondary {
+    background-color: #FC7D471A;
+    color: #FC7D47CC;
+    border: 1px solid #FC7D47CC;
+
+    &:hover {
+      background-color: #FC7D474D;
+      color: #FC7D4799;
+      border-color: #FC7D47;
+    }
+
+    &:active {
+      background-color: #FC7D4714;
+      color: #FC7D4799;
+      border-color: #FC7D4799;
+    }
+  }
+
+  // Модальные окна
+  .modal-overlay {
+    @apply fixed flex justify-center items-center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-content {
+    @apply bg-white text-center;
+    padding: 5.93vh 3.33vw;
+    border-radius: 16px;
+    max-width: 31.98vw;
+    width: 100vw;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+    h3 {
+      color: black;
+      font-family: 'Montserrat-Medium', sans-serif;
+      font-weight: 500;
+      font-size: 32px;
+      margin-bottom: 4.81vh;
+    }
+  }
+
+  .modal-buttons {
+    @apply flex justify-center;
+    gap: 0.78vw;
+
+    button {
+      padding: 1.11vh 1.67vw;
+      border-radius: 12px;
+      font-family: 'Montserrat-SemiBold', sans-serif;
+      font-size: 16px;
+      @apply cursor-pointer transition-all duration-300;
+      min-width: 12.29vw;
+    }
+  }
+
+  .btn-confirm {
+    @apply border-none text-white;
+    background-color: #FC7D47;
+
+    &:hover {
+      background-color: #FF9B65;
+    }
+
+    &:active {
+      border: 1px solid rgba(252, 125, 71, 0.8);
+      color: #FC7D47;
+      background-color: rgba(252, 125, 71, 0.4);
+    }
+  }
+
+  .btn-cancel {
+    background-color: rgba(252, 125, 71, 0.1);
+    color: rgba(252, 125, 71, 0.8);
+    border: 1px solid rgba(252, 125, 71, 0.8);
+
+    &:hover {
+      background-color: #FC7D474D;
+      color: #FC7D4799;
+      border-color: #FC7D47;
+    }
+
+    &:active {
+      background-color: #FC7D4714;
+      color: #FC7D4799;
+      border-color: #FC7D4799;
+    }
+  }
+}

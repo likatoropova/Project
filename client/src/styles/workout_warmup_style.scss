@@ -1,6 +1,9 @@
+@use '../styles/globals.scss';
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -10,33 +13,29 @@ body {
 .main-exercise-warm {
   margin: 100px auto;
   max-width: 800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @apply flex justify-center items-center;
 }
 
 .warmup-cont {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
   gap: 20px;
   border-radius: 32px;
   padding: 48px 40px;
   width: 100%;
   position: relative;
   z-index: 1;
-}
 
-.warmup-cont h1 {
-  font-family: "Montserrat-SemiBold", sans-serif;
-  font-size: 32px;
-  line-height: 40px;
-  margin-bottom: 8px;
-  color: #2A2A2A;
+  h1 {
+    font-family: 'Montserrat-SemiBold', sans-serif;
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 8px;
+    color: #2A2A2A;
+  }
 }
 
 .warmup-exercise {
-  font-family: "Montserrat-Medium", sans-serif;
+  font-family: 'Montserrat-Medium', sans-serif;
   font-size: 20px;
   line-height: 28px;
   color: #FC7D47;
@@ -51,7 +50,7 @@ body {
 }
 
 .description-exercise-warm {
-  font-family: "Montserrat-Regular", sans-serif;
+  font-family: 'Montserrat-Regular', sans-serif;
   font-size: 16px;
   line-height: 24px;
   max-width: 344px;
@@ -60,7 +59,7 @@ body {
 }
 
 .next-warm {
-  font-family: "Montserrat-SemiBold", sans-serif;
+  font-family: 'Montserrat-SemiBold', sans-serif;
   font-size: 14px;
   line-height: 21px;
   color: #FFFFFF;
@@ -91,7 +90,7 @@ body {
 }
 
 .stop-warm {
-  font-family: "Montserrat-SemiBold", sans-serif;
+  font-family: 'Montserrat-SemiBold', sans-serif;
   font-size: 14px;
   line-height: 21px;
   color: #FC7D47CC;
@@ -106,13 +105,13 @@ body {
 
   &:hover:not(:disabled) {
     background-color: #FC7D474D;
-    border: 1px solid #FC7D47;
+    border-color: #FC7D47;
     color: #FC7D4799;
   }
 
   &:active:not(:disabled) {
     background-color: #FC7D4714;
-    border: 1px solid #FC7D4799;
+    border-color: #FC7D4799;
     color: #FC7D4799;
   }
 
@@ -120,13 +119,6 @@ body {
     opacity: 0.6;
     cursor: not-allowed;
   }
-}
-
-.field_error {
-  color: #dc3545;
-  font-size: 14px;
-  text-align: center;
-  margin-top: -8px;
 }
 
 .bg-left {
@@ -149,34 +141,4 @@ body {
   opacity: 0.6;
   pointer-events: none;
   z-index: 0;
-}
-
-.error-container {
-  text-align: center;
-  padding: 60px 20px;
-  background: white;
-  border-radius: 32px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-.error-message {
-  font-family: "Montserrat-Regular", sans-serif;
-  font-size: 16px;
-  color: #721c24;
-  margin-bottom: 20px;
-}
-
-.back-button {
-  padding: 10px 24px;
-  background-color: #FC7D47;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: "Montserrat-SemiBold", sans-serif;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #FF9B65;
-  }
 }
