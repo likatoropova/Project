@@ -82,11 +82,6 @@ const TestsPage = () => {
         return `${duration} минут`;
     }, []);
 
-    // обработчик кнопки на главную
-    const handleBack = useCallback(() => {
-        navigate('/');
-    }, [navigate]);
-
     // генерируем номера страниц для пагинации
     const pageNumbers = useMemo(() => {
         const delta = 2; // сколько страниц показывать слева и справа от текущей
@@ -133,7 +128,7 @@ const TestsPage = () => {
                         >
                             <div className="card">
                                 <img
-                                    src={test.image || '/img/IMG.png'}
+                                    src={test.image ? `http://localhost:8000/storage/${test.image}` : '/img/IMG.png'}
                                     alt={test.title}
                                     className="card_image"
                                     onError={(e) => {
@@ -146,7 +141,7 @@ const TestsPage = () => {
                                         {formatDuration(test.duration_minutes)} минут
                                     </p>
                                     <div className="card_tags">
-                                        {test.categories?.map(category => (
+                                    {test.categories?.map(category => (
                                             <span key={category.id}>{category.name}</span>
                                         ))}
                                     </div>
@@ -167,11 +162,11 @@ const TestsPage = () => {
                         >
                             <div className="card">
                                 <img
-                                    src={test.image || '/img/IMG.png'}
+                                    src={test.image || '/img/Just run.jpg'}
                                     alt={test.title}
                                     className="card_image"
                                     onError={(e) => {
-                                        e.target.src = '/img/IMG.png';
+                                        e.target.src = '/img/Just run.jpg';
                                     }}
                                 />
                                 <div className="flex">

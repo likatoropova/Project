@@ -41,9 +41,9 @@ const AdminExercises = () => {
         <div key={exercise.id} className="exrs_cont">
             <div className="exrs_card">
                 <img
-                    src={exercise.image_url || exercise.image || '/img/exrs.png'}
+                    src={exercise.image_url || exercise.image || '/img/training_frame4_card2.png'}
                     alt={exercise.title}
-                    onError={(e) => { e.target.src = '/img/exrs.png'; }}
+                    onError={(e) => { e.target.src = '/img/training_frame4_card2.png'; }}
                 />
                 <div className="exrs_info">
                     <p className="exrs_title">{exercise.title}</p>

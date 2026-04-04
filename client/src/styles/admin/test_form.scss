@@ -214,11 +214,15 @@
   margin-top: 16px;
 }
 
-.card_tags span {
+.card_tags_admin span {
   color: #2A2A2A;
   padding: 8px 24px;
   border-radius: 20px;
   border: 1px solid #727272;
   white-space: nowrap;
   font-family: "Montserrat-Regular", sans-serif;
+
+  &:hover {
+    background: rgba(120, 120, 120, 0.1);
+  }
 }

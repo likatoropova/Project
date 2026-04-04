@@ -41,9 +41,9 @@ const AdminWarmups = () => {
         <div key={warmup.id} className="warm_up_cont">
             <div className="warm_up_card">
                 <img
-                    src={warmup.image_url || warmup.image || '/img/IMG.png'}
+                    src={warmup.image_url || warmup.image || '/img/warm-ups.png'}
                     alt={warmup.name}
-                    onError={(e) => { e.target.src = '/img/IMG.png'; }}
+                    onError={(e) => { e.target.src = '/img/warm-ups.png'; }}
                 />
                 <div className="warm_up_info">
                     <p className="warm_up_title">{warmup.name}</p>

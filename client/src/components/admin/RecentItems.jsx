@@ -72,7 +72,7 @@ const RecentItems = ({ title, items, type }) => {
                                         alt={item.title}
                                         className="card_image"
                                         onError={(e) => {
-                                            e.target.src = '/img/default.png';
+                                            e.target.src = '/img/trainings_card1.png';
                                             e.target.onerror = null;
                                         }}
                                     />

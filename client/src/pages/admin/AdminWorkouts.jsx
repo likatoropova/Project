@@ -42,11 +42,11 @@ const AdminWorkouts = () => {
         <div key={workout.id} className="training_cont">
             <div className="training_card_admin">
                 <img
-                    src={workout.image_url || workout.image || '/img/IMG.png'}
+                    src={workout.image_url || workout.image || '/img/training_frame2_card2.png'}
                     alt={workout.title}
-                    onError={(e) => { e.target.src = '/img/IMG.png'; }}
+                    onError={(e) => { e.target.src = '/img/training_frame2_card2.png'; }}
                 />
-                <div className="info">
+                <div className="info_workout">
                     <p className="training_title">{workout.title}</p>
                     <p className="training_description">{workout.description}</p>
                     <p className="training_created_at">{formatDate(workout.created_at)}</p>

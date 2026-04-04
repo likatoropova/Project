@@ -36,7 +36,7 @@ const AdminHeader = () => {
                 <button className="back-to-admin" onClick={handleBackToAdmin}>
                     Вернуться в админ-панель
                 </button>
-                <button className="second_button" onClick={handleLogoutClick}>
+                <button className="second_button_admin " onClick={handleLogoutClick}>
                     Выход
                 </button>
             </div>
