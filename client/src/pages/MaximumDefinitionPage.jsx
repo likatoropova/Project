@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getNextExercise } from '../api/workoutAPI';
+import WorkoutSuccessModal from '../components/WorkoutSuccessModal';
+import { getNextExercise, completeWorkout } from '../api/workoutAPI';
 import '../styles/maximum_definition_style.scss';
 import '../styles/header_footer.scss';
 import '../styles/fonts.scss';
@@ -14,16 +15,33 @@ const MaximumDefinitionPage = () => {
     const [weight, setWeight] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const exercise = location.state?.exercise || null;
 
     useEffect(() => {
         document.title = 'Определение максимума';
     }, []);
+
     const handleWeightChange = (e) => {
         const value = e.target.value.replace(/[^0-9]/g, '');
         setWeight(value);
         setError('');
+    };
+
+    const handleCompleteWorkout = async () => {
+        try {
+            await completeWorkout(userWorkoutId);
+            setShowSuccessModal(true);
+        } catch (err) {
+            console.error('❌ Error completing workout:', err);
+            setError(err.message || 'Ошибка при завершении тренировки');
+        }
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessModal(false);
+        navigate('/trainings');
     };
 
     const handleSubmit = async (e) => {
@@ -48,7 +66,6 @@ const MaximumDefinitionPage = () => {
                 weight_used: parseInt(weight)
             });
 
-            // Получаем следующее упражнение (это будет текущее упражнение с определенным весом)
             const response = await getNextExercise(
                 userWorkoutId,
                 parseInt(exerciseId),
@@ -59,16 +76,24 @@ const MaximumDefinitionPage = () => {
 
             if (response?.success) {
                 const { type, exercise: nextExercise, needs_weight_input } = response.data;
-
+                
+                console.log('🔍 Next exercise data:', nextExercise);
+                console.log('🔍 Type:', type);
+                console.log('🔍 Needs weight input:', needs_weight_input);
+                
                 if (type === 'exercise') {
-                    const skippedWarmup = location.state?.skipped_warmup || false;
-                    // Переходим к выполнению упражнения, для которого только что определили вес
-                    navigate(`/workout-exercise/${userWorkoutId}/${exerciseId}`, {
-                        state: { exercise: { ...exercise, weight_used: parseInt(weight) }, skipped_warmup: skippedWarmup }
+                    // Переходим к выполнению этого же упражнения с введенным весом
+                    navigate(`/workout-exercise/${userWorkoutId}/${exercise.id}`, {
+                        state: { 
+                            exercise: exercise, 
+                            weight_used: parseInt(weight) 
+                        }
                     });
                 } else if (type === 'completed') {
-                    // Тренировка завершена
-                    navigate(`/workout-complete/${userWorkoutId}`);
+                    // Тренировка завершена - завершаем и показываем модальное окно
+                    await handleCompleteWorkout();
+                } else {
+                    setError('Не удалось получить следующее упражнение');
                 }
             } else {
                 setError(response?.message || 'Ошибка при сохранении веса');
@@ -112,9 +137,9 @@ const MaximumDefinitionPage = () => {
 
                 <section className="definition-cont">
                     <section className="head-definition">
-                        <button className="back_button" onClick={() => navigate(-1)}>
-                            <svg class="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <button className="back_button" onClick={handleBack}>
+                            <svg className="back-img" width="10" height="23" viewBox="0 0 10 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 1L1 11.5L9 22" stroke="#2A2A2A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
                         </button>
                         <div>
@@ -153,6 +178,12 @@ const MaximumDefinitionPage = () => {
                 <img src="/img/bg-right.svg" className="bg-right" alt="bg" />
             </main>
             <Footer />
+
+            {/* Используем существующий компонент модального окна */}
+            <WorkoutSuccessModal
+                isOpen={showSuccessModal}
+                onClose={handleSuccessClose}
+            />
         </>
     );
 };

@@ -19,11 +19,14 @@ const WorkoutExercisePage = () => {
   const location = useLocation();
   const { userWorkoutId, exerciseId } = useParams();
   const [exercise] = useState(location.state?.exercise || null);
+  const [weightUsed, setWeightUsed] = useState(location.state?.weight_used || null);
   const [selectedFeeling, setSelectedFeeling] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [showStopModal, setShowStopModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(
+    () => location.state?.showSuccessModal === true
+  );
   const [showWarmupNotification, setShowWarmupNotification] = useState(
     () => location.state?.skipped_warmup === true
   );
@@ -119,18 +122,22 @@ const WorkoutExercisePage = () => {
 
   // Завершение тренировки после последнего упражнения
   const handleCompleteWorkout = async () => {
+    if (completing) return;
+    
+    setCompleting(true);
     try {
       await completeWorkout(userWorkoutId);
-      setShowSuccessModal(true);
     } catch (err) {
       console.error("❌ Error completing workout:", err);
       setError(err.message || "Ошибка при завершении тренировки");
+    } finally {
+      setCompleting(false);
     }
   };
 
   const handleSuccessClose = () => {
     setShowSuccessModal(false);
-    navigate("/trainings");
+    navigate('/trainings');
   };
 
   const handleFeelingSelect = async (feeling) => {
@@ -140,19 +147,22 @@ const WorkoutExercisePage = () => {
     setSaving(true);
     setError("");
 
+    // Используем вес, который был передан из MaximumDefinitionPage
+    const weight = weightUsed || exercise?.weight_used || exercise?.weight || 50;
+
     try {
       console.log("📤 Saving exercise result:", {
         userWorkoutId,
         exerciseId,
         feeling,
-        weightUsed: exercise?.weight_used || exercise?.weight || 50,
+        weightUsed: weight,
       });
 
       const result = await saveExerciseResult(
         userWorkoutId,
         parseInt(exerciseId),
         feeling,
-        exercise?.weight_used || exercise?.weight || 50,
+        weight,
         exercise?.sets || 1,
         exercise?.reps || 10,
       );
@@ -160,27 +170,31 @@ const WorkoutExercisePage = () => {
       console.log("✅ Exercise result saved:", result);
 
       if (result?.success) {
-        const { next_exercise, all_exercises_completed } = result.data;
-        const nextExerciseData = next_exercise?.exercise;
-        const needsWeightInput = next_exercise?.needs_weight_input;
-
-        if (all_exercises_completed) {
-          await handleCompleteWorkout();
-        } else if (next_exercise) {
-          if (needsWeightInput) {
-            navigate(
-              `/maximum-definition/${userWorkoutId}/${nextExerciseData.id}`,
-              { state: { exercise: nextExerciseData } },
-            );
-          } else {
-            navigate(
-              `/workout-exercise/${userWorkoutId}/${nextExerciseData.id}`,
-              { state: { exercise: nextExerciseData } },
-            );
+          const { next_exercise, all_exercises_completed } = result.data;
+          
+          if (all_exercises_completed) {
+              setShowSuccessModal(true);
+              return;
           }
-        }
-      } else {
-        setError(result?.message || "Ошибка при сохранении результата");
+          
+          if (next_exercise) {
+              const nextExerciseData = next_exercise?.exercise;
+              const needsWeightInput = next_exercise?.needs_weight_input;
+              
+              if (needsWeightInput) {
+                  // ✅ Следующему упражнению нужно определить вес
+                  navigate(`/maximum-definition/${userWorkoutId}/${nextExerciseData.id}`, {
+                      state: { exercise: nextExerciseData }
+                  });
+              } else {
+                  // ✅ Следующее упражнение можно выполнять сразу
+                  navigate(`/workout-exercise/${userWorkoutId}/${nextExerciseData.id}`, {
+                      state: { exercise: nextExerciseData }
+                  });
+              }
+          } else {
+              setShowSuccessModal(true);
+          }
       }
     } catch (err) {
       console.error("❌ Error:", err);
@@ -273,7 +287,7 @@ const WorkoutExercisePage = () => {
             <p className="description-exercise">
               {exercise.description ||
                 `Выполняйте данное упражнение ${exercise.reps || 10} раз`}
-              {exercise.weight_used && ` с весом ${exercise.weight_used}кг`}
+              {weightUsed && ` с весом ${weightUsed}кг`}
             </p>
 
             {/* Блок с эмоциями - всегда виден */}
