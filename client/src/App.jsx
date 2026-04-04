@@ -4,7 +4,7 @@ import { requestForToken, onMessageListener } from './firebase';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { FirstTestProvider } from './context/FirstTestContext';
-import { GuestTestProvider } from './context/GuestTestContext';
+import { TestFlowProvider } from './context/TestFlowContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import RegisterCode from './pages/RegisterCode';
@@ -12,9 +12,11 @@ import ForgotPassword from './pages/ForgotPassword';
 import RestorePassword from './pages/RestorePassword';
 import ConfirmPassword from './pages/ConfirmPassword';
 import TestsPage from './pages/TestsPage';
-import TestChoice from './pages/TestChoicePage';
-import TestPlan from './pages/TestPlanPage';
-import TestExercisePage from './pages/TestExercisePage';
+import TestPlanPage from './pages/TestPlanPage';
+import TestChoicePage from './pages/TestChoicePage';
+import TestStarter from './pages/TestStarter';
+import TestDoer from './pages/TestDoer';
+import TestPulse from './pages/TestPulse';
 import TrainingGoal from './pages/TrainingGoal';
 import TrainingPersonalParam from './pages/TrainingPersonalParam';
 import TrainingLevel from './pages/TrainingLevel';
@@ -47,12 +49,10 @@ import AdminWarmups from './pages/admin/AdminWarmups';
 import WarmupForm from './pages/admin/WarmupForm';
 import AdminWorkouts from './pages/admin/AdminWorkouts';
 
-
 function App() {
   const [notification, setNotification] = useState({ title: '', body: '' });
 
   useEffect(() => {
-
     const setupFCM = async () => {
       const token = localStorage.getItem('token');
       if (!token) return;
@@ -89,7 +89,7 @@ function App() {
     }).catch(err => console.log('FCM listening failed: ', err));
 
     return () => {
-
+      // Cleanup if needed
     };
   }, []);
 
@@ -115,68 +115,71 @@ function App() {
   };
 
   return (
-    <Router>
-      <AuthProvider>
-        <FirstTestProvider>
-          <GuestTestProvider>
-          <NotificationPopup title={notification.title} body={notification.body} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/register-code" element={<RegisterCode />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/restore-password" element={<RestorePassword />} />
-            <Route path="/confirm-password" element={<ConfirmPassword />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/tests" element={<TestsPage />} />
-            <Route path="/test/:id" element={<TestChoice />} />
-            <Route path="/test-plan" element={<TestPlan />} />
-            <Route path="/test-exercise/:testId/:exerciseId" element={<TestExercisePage />} />
-            <Route path="/subscriptions" element={<Subscriptions />} />
-            <Route path="/subscriptions/:id" element={<SubscriptionDetails />} />
-            <Route path="/training-goal" element={<TrainingGoal />} />
-            <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
-            <Route path="/training-level" element={<TrainingLevel />} />
-            <Route path="/consent" element={<ConsentPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/offer" element={<OfferPage />} />
-            <Route path="/trainings" element={<TrainingsPage />} />
-            <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
-            <Route path="/maximum-definition/:userWorkoutId/:exerciseId" element={<MaximumDefinitionPage />} />
-            <Route path="/workout-exercise/:userWorkoutId/:exerciseId" element={<WorkoutExercisePage />} />
-            <Route path="/workout-warmup/:userWorkoutId" element={<WorkoutWarmupPage />} />
+      <Router>
+        <AuthProvider>
+          <FirstTestProvider>
+              <TestFlowProvider>
+                <NotificationPopup title={notification.title} body={notification.body} />
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/register-code" element={<RegisterCode />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/restore-password" element={<RestorePassword />} />
+                  <Route path="/confirm-password" element={<ConfirmPassword />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/tests" element={<TestsPage />} />
 
-            <Route element={<ProtectedAdminRoute />}>
-              <Route path="/admin/tests/create" element={<TestForm />} />
-              <Route path="/admin/tests/edit/:id" element={<TestForm />} />
-              <Route path="/admin/tests/:id/exercises" element={<TestExercises />} />
-              <Route path="/admin/testing-exercises/create" element={<TestingExerciseForm />} />
-              <Route path="/admin/testing-exercises/edit/:id" element={<TestingExerciseForm />} />
-              <Route path="/admin/subscriptions/create" element={<SubscriptionForm />} />
-              <Route path="/admin/subscriptions/edit/:id" element={<SubscriptionForm />} />
-              <Route path="/admin/exercises/create" element={<ExerciseForm />} />
-              <Route path="/admin/exercises/edit/:id" element={<ExerciseForm />} />
-              <Route path="/admin/warmups/create" element={<WarmupForm />} />
-              <Route path="/admin/warmups/edit/:id" element={<WarmupForm />} />
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="dashboard" element={<AdminDashboard />} />
-                <Route path="workouts" element={<AdminWorkouts />} />
-                <Route path="tests" element={<AdminTests />} />
-                <Route path="tests/:id/exercises" element={<TestExercises />} />
-                <Route path="subscriptions" element={<AdminSubscriptions />} />
-                <Route path="tags" element={<AdminTags />} />
-                <Route path="exercises" element={<AdminExercises />} />
-                <Route path="warmups" element={<AdminWarmups />} />
-              </Route>
-            </Route>
+                  <Route path="/test-plan" element={<TestPlanPage />} />
+                  <Route path="/test/:id" element={<TestChoicePage />} />
+                  <Route path="/test-start/:testId" element={<TestStarter />} />
+                  <Route path="/test-do/:attemptId" element={<TestDoer />} />
+                  <Route path="/test-pulse/:attemptId" element={<TestPulse />} />
 
-          </Routes>
-          </GuestTestProvider>
-        </FirstTestProvider>
-      </AuthProvider>
-    </Router>
+                  <Route path="/subscriptions" element={<Subscriptions />} />
+                  <Route path="/subscriptions/:id" element={<SubscriptionDetails />} />
+                  <Route path="/training-goal" element={<TrainingGoal />} />
+                  <Route path="/training-personal-param" element={<TrainingPersonalParam />} />
+                  <Route path="/training-level" element={<TrainingLevel />} />
+                  <Route path="/consent" element={<ConsentPage />} />
+                  <Route path="/privacy" element={<PrivacyPage />} />
+                  <Route path="/offer" element={<OfferPage />} />
+                  <Route path="/trainings" element={<TrainingsPage />} />
+                  <Route path="/workout-details/:userWorkoutId" element={<WorkoutDetailsPage />} />
+                  <Route path="/maximum-definition/:userWorkoutId/:exerciseId" element={<MaximumDefinitionPage />} />
+                  <Route path="/workout-exercise/:userWorkoutId/:exerciseId" element={<WorkoutExercisePage />} />
+                  <Route path="/workout-warmup/:userWorkoutId" element={<WorkoutWarmupPage />} />
+
+                  <Route element={<ProtectedAdminRoute />}>
+                    <Route path="/admin/tests/create" element={<TestForm />} />
+                    <Route path="/admin/tests/edit/:id" element={<TestForm />} />
+                    <Route path="/admin/tests/:id/exercises" element={<TestExercises />} />
+                    <Route path="/admin/testing-exercises/create" element={<TestingExerciseForm />} />
+                    <Route path="/admin/testing-exercises/edit/:id" element={<TestingExerciseForm />} />
+                    <Route path="/admin/subscriptions/create" element={<SubscriptionForm />} />
+                    <Route path="/admin/subscriptions/edit/:id" element={<SubscriptionForm />} />
+                    <Route path="/admin/exercises/create" element={<ExerciseForm />} />
+                    <Route path="/admin/exercises/edit/:id" element={<ExerciseForm />} />
+                    <Route path="/admin/warmups/create" element={<WarmupForm />} />
+                    <Route path="/admin/warmups/edit/:id" element={<WarmupForm />} />
+                    <Route path="/admin" element={<AdminLayout />}>
+                      <Route index element={<AdminDashboard />} />
+                      <Route path="dashboard" element={<AdminDashboard />} />
+                      <Route path="workouts" element={<AdminWorkouts />} />
+                      <Route path="tests" element={<AdminTests />} />
+                      <Route path="tests/:id/exercises" element={<TestExercises />} />
+                      <Route path="subscriptions" element={<AdminSubscriptions />} />
+                      <Route path="tags" element={<AdminTags />} />
+                      <Route path="exercises" element={<AdminExercises />} />
+                      <Route path="warmups" element={<AdminWarmups />} />
+                    </Route>
+                  </Route>
+                </Routes>
+              </TestFlowProvider>
+          </FirstTestProvider>
+        </AuthProvider>
+      </Router>
   );
 }
 

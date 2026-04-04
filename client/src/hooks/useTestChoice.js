@@ -1,5 +1,3 @@
-// client/src/hooks/useTestChoice.js
-
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axiosInstance from '../api/axiosConfig';
 
@@ -13,9 +11,7 @@ export const useTestChoice = (testId) => {
     // Используем ref для отслеживания загружен ли уже тест
     const loadedRef = useRef(false);
 
-    // Загрузка данных конкретного теста по ID
     const loadTest = useCallback(async () => {
-        // Если тест с таким ID уже загружен и данные есть, не загружаем снова
         if (loadedRef.current && testData && testData.id === parseInt(testId)) {
             setLoading(false);
             return;
@@ -26,8 +22,6 @@ export const useTestChoice = (testId) => {
 
         try {
             console.log(`Загрузка теста с ID: ${testId}`);
-
-            // Пытаемся получить данные с API
             const response = await axiosInstance.get(`/testings/${testId}`);
 
             if (response.data && response.data.success) {
@@ -35,44 +29,31 @@ export const useTestChoice = (testId) => {
                 setTestData(response.data.data);
                 loadedRef.current = true;
 
-                // Автоматически выбираем первый элемент, если он есть
-                if (response.data.data?.exercises?.length > 0) {
-                    setSelectedExercise(response.data.data.exercises[0].id.toString());
+                if (response.data.data?.test_exercises?.length > 0) {
+                    // Обратите внимание: может быть test_exercises, а не exercises
+                    const exercises = response.data.data.test_exercises || response.data.data.exercises || [];
+                    if (exercises.length > 0) {
+                        setSelectedExercise(exercises[0].id.toString());
+                    }
                 }
             }
         } catch (err) {
             console.error('API hook error:', err);
-
-            // В режиме разработки используем моковые данные
-            if (import.meta.env.DEV) {
-                console.log('Using mock data for development');
-                setTestData({
-                    ...MOCK_TEST_DATA.data,
-                    id: parseInt(testId) // Используем ID из URL
-                });
-                loadedRef.current = true;
-
-                if (MOCK_TEST_DATA.data?.exercises?.length > 0) {
-                    setSelectedExercise(MOCK_TEST_DATA.data.exercises[0].id.toString());
-                }
-            } else {
-                setError(err.message || 'Произошла ошибка при загрузке теста');
-            }
         } finally {
             setLoading(false);
         }
-    }, [testId]); // Убираем testData из зависимостей
+    }, [testId, testData]);
+    console.log('useTestChoice received testId:', testId, typeof testId);
 
     // Загружаем тест при монтировании или изменении testId
     useEffect(() => {
-        // Сбрасываем состояние при изменении ID
         if (testId) {
             loadedRef.current = false;
             setTestData(null);
             setSelectedExercise('');
             loadTest();
         }
-    }, [testId]); // loadTest теперь стабильная ссылка
+    }, [testId]);
 
     // Выбор упражнения
     const selectExercise = useCallback((exerciseId) => {

@@ -293,7 +293,7 @@ const TestForm = () => {
                             </div>
                             <div>
                                 <p>Категории</p>
-                                <div className="card_tags">
+                                <div className="card_tags_admin">
                                     {categories.map(category => (
                                         <span
                                             key={category.id}

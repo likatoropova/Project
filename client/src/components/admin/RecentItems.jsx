@@ -63,7 +63,7 @@ const RecentItems = ({ title, items, type }) => {
                         return (
                             <div
                                 key={item.id}
-                                className="card"
+                                className="card_recent"
                                 onClick={() => handleItemClick(item.id)}
                             >
                                 {item.image_url ? (

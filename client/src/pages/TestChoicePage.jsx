@@ -36,7 +36,7 @@ const TestChoicePage = () => {
         }
     }, [testData, id, exerciseOptions.length]);
 
-    // Обработчик отправки формы - ИСПРАВЛЕННЫЙ
+    // В TestChoicePage.jsx, измените handleSubmit:
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
 
@@ -45,9 +45,8 @@ const TestChoicePage = () => {
             return;
         }
 
-        console.log('Переход к упражнению:', { testId: id, exerciseId: selectedExercise });
-        // Исправленный путь - передаем оба параметра
-        navigate(`/test-exercise/${id}/${selectedExercise}`);
+        console.log('Переход к старту теста:', { testId: id });
+        navigate(`/test-start/${id}`);
     }, [selectedExercise, id, navigate]);
 
     // Обработчик выбора радио кнопки
